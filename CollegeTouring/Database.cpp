@@ -277,24 +277,29 @@ bool Database::getCampuses(vector<Campus>& campuses)
     //query all campuses in campuses table
     QSqlQuery query("select * from campuses");
     QSqlRecord rec = query.record();
-    while (query.next()){
-
-        std::vector<double> distancesVector;
-        std::vector<Souvenir> menuVector;
+    while (query.next())
+    {
+        vector<double> distancesVector;
+        vector<QString> endCollegeVector;
+        vector<Souvenir> menuVector;
 
         //Putting column data into variables
-        int id = query.value(0).toInt();
-        QString name = query.value(1).toString();
+        QString startCollege = query.value(0).toString();
+        QString endCollege = query.value(1).toString();
         QString distances = query.value(2).toString();
-        double saddlebackDistance = query.value(3).toDouble();
-        QString menu = query.value(4).toString();
+        QString state = query.value(3).toString();
+        int undergrads = query.value(4).toInt();
+        QString menu = query.value(5).toString();
 
         QJsonDocument json = QJsonDocument::fromJson(distances.toUtf8());
         QJsonArray jsonArray = json.array();
 
-        for (int i = 0; i < jsonArray.size(); i++){
+        for (int i = 0; i < jsonArray.size(); i++)
+           endCollegeVector.push_back(jsonArray.at(i).toString());
+
+        for (int i = 0; i < jsonArray.size(); i++)
             distancesVector.push_back(jsonArray.at(i).toDouble());
-        }
+
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(menu.toUtf8());
                 QJsonArray jsonarray = jsonDoc.array();
@@ -320,7 +325,7 @@ bool Database::getCampuses(vector<Campus>& campuses)
         Campus newCampus(id, name, menuVector, distancesVector, saddlebackDistance);
         campuses.push_back(newCampus);
     }
-    qInfo() << "yo";
+    qInfo() << "\ntest for getCampuses function\n";
     return true;
 
 }
