@@ -6,53 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1418</width>
-    <height>797</height>
+    <width>1341</width>
+    <height>767</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>0</y>
-      <width>591</width>
-      <height>631</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>State</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Starting College</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Ending College</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Distance</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Undergrads</string>
-     </property>
-    </column>
-   </widget>
    <widget class="QPushButton" name="openTheList">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>10</y>
       <width>80</width>
       <height>21</height>
@@ -62,84 +27,10 @@
      <string>Open the List</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="sortState">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>80</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Sort State</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="sortCollege">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>80</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Sort College</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>970</x>
-      <y>0</y>
-      <width>331</width>
-      <height>631</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>State</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Starting College</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Ending College</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Distance</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Undergrads</string>
-     </property>
-    </column>
-   </widget>
-   <widget class="QPushButton" name="openCA">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>80</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Open CA</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="sortStateCollege">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>130</y>
       <width>111</width>
       <height>21</height>
@@ -149,13 +40,95 @@
      <string>Sort State + College</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="adminPop">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>620</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Admin Login</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sortCollege">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort College</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openCA">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>100</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open CA</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sortState">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort State</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>10</y>
+      <width>561</width>
+      <height>611</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="customList">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>10</y>
+      <width>161</width>
+      <height>611</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="menuList">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>10</y>
+      <width>281</width>
+      <height>611</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1418</width>
+     <width>1341</width>
      <height>20</height>
     </rect>
    </property>

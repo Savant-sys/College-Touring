@@ -266,15 +266,61 @@ void Database::addCampuses(vector<Campus> campuses)
     }
 }
 
+bool Database::getCampuses(vector<Campus>& campuses)
+{
+    if (campuses.size() > 0)
+    {
+        campuses.clear();
+    }
+    //modified passed in campuses vector
 
+    //query all campuses in campuses table
+    QSqlQuery query("select * from campuses");
+    QSqlRecord rec = query.record();
+    while (query.next()){
 
+        std::vector<double> distancesVector;
+        std::vector<Souvenir> menuVector;
 
+        //Putting column data into variables
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString distances = query.value(2).toString();
+        double saddlebackDistance = query.value(3).toDouble();
+        QString menu = query.value(4).toString();
 
+        QJsonDocument json = QJsonDocument::fromJson(distances.toUtf8());
+        QJsonArray jsonArray = json.array();
 
+        for (int i = 0; i < jsonArray.size(); i++){
+            distancesVector.push_back(jsonArray.at(i).toDouble());
+        }
 
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(menu.toUtf8());
+                QJsonArray jsonarray = jsonDoc.array();
 
+                for (int i = 0; i < jsonarray.size(); i++)
+                {
+                    QJsonObject jsonObject = jsonarray.at(i).toObject();
+                    if(jsonObject.isEmpty())
+                    {
+                        qInfo() << "Json is empty";
+                    }
+                    else
+                    {
+                        Souvenir item;
+                        item.name = jsonObject.value("name").toString();
+                        item.price = jsonObject.value("price").toDouble();
+                        menuVector.push_back(item);
 
+                    }
+                }
 
+        //make our new restaurant
+        Campus newCampus(id, name, menuVector, distancesVector, saddlebackDistance);
+        campuses.push_back(newCampus);
+    }
+    qInfo() << "yo";
+    return true;
 
-
-
+}

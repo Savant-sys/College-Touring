@@ -12,6 +12,8 @@ SOURCES += \
     Campus.cpp \
     Database.cpp \
     admin.cpp \
+    campusWidget.cpp \
+    listOfCampus.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -21,6 +23,8 @@ HEADERS += \
     Campus.h \
     Database.h \
     admin.h \
+    campusWidget.h \
+    listOfCampus.h \
     login.h \
     mainwindow.h \
     trip.h

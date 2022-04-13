@@ -6,6 +6,24 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->loginPopup = nullptr;
+
+    if(db.getCampuses(this->campuses))
+        qInfo() << "Got all campuses list";
+
+    QListWidget *campusList = ui->listWidget;
+
+    for (int i =0; i < this->campuses.size(); i++)
+    {
+        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
+        QListWidgetItem *item = new QListWidgetItem(campusList);
+        campusList->addItem(item);
+        item->setSizeHint(campusItem->minimumSizeHint());
+        campusList->setItemWidget(item, campusItem);
+    }
+
+    //ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
+
 }
 
 MainWindow::~MainWindow()
@@ -13,27 +31,49 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::addToList(QString name)
+{
+    QListWidget* customList = ui->customList;
+
+    if(std::find(nameList.begin(), nameList.end(), name) == nameList.end())
+    {
+       customList->addItem(name);
+       nameList.push_back(name);
+    }
+    else
+        qInfo() << "Cannot add same Campus to the trip!";
+}
+
+void MainWindow::addMenuItem(Campus campus, Souvenir item){
+
+    if(std::find(nameList.begin(), nameList.end(), campus.getStartCollege()) != nameList.end())
+    {
+        //Restaurant this menu items belongs to has been added to trip already. Safe to add menu item.
+        selectedItems.insert(std::pair<int, Souvenir>(0, item));
+    }
+    else
+    {
+        QMessageBox popup;
+        popup.critical(0, "Error", "Cannot add menu item before adding restaurant to trip.");
+    }
+}
+
+void MainWindow::addToMenuList(QString name, QString campusName)
+{
+    QListWidget* customList = ui->menuList;
+
+    if(std::find(nameList.begin(), nameList.end(), campusName) != nameList.end())
+    {
+        customList->addItem(name);
+        menuList.push_back(name);
+    }
+    else
+        qInfo() << "Cannot add Menu Item without adding Restaurant to trip!";
+}
 
 void MainWindow::on_openTheList_clicked()
 {
-    vector<Campus> test = db.readFile();
-    //this->ui->tableWidget->setRowCount(test.size());
-    qInfo() << test.size();
-    //QTableWidgetItem* temp = new QTableWidgetItem;
 
-
-    for(int i = 0; i < test.size(); i++)
-    {
-        //qInfo() << "test: " << test[i].getStartCollege() << "\n";
-        vector <QString> testString = test[i].getEndCollege();
-        for (int k = 0; k < test[i].getEndCollege().size(); k++)
-        {
-
-           // qInfo() << "test for end: " << testString[k] << "\n";
-        //temp->setText(test[i].getStartCollege());
-        //this->ui->tableWidget->setItem(i, j, temp);
-        }
-    }
 }
 
 
@@ -59,5 +99,19 @@ void MainWindow::on_openCA_clicked()
 void MainWindow::on_sortStateCollege_clicked()
 {
 
+}
+
+
+
+
+void MainWindow::addCampus(Campus campus)
+{
+    qInfo() << campus.getStartCollege();
+}
+
+void MainWindow::on_adminPop_clicked()
+{
+    this->loginPopup = new Login();
+    loginPopup->show();
 }
 
