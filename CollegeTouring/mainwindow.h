@@ -52,5 +52,8 @@ private:
     vector<QString> nameList;
     vector<QString> menuList;
     std::multimap<int, Souvenir> selectedItems;
+    std::vector<Campus> selectedCampus; /*!< Vector of selected campuses */
+
+
 };
 #endif // MAINWINDOW_H

@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     if(db.getCampuses(this->campuses))
         qInfo() << "Got all campuses list";
 
-    QListWidget *campusList = ui->listWidget;
+    QListWidget *campusList = ui->campusList;
 
     for (int i =0; i < this->campuses.size(); i++)
     {
@@ -101,13 +101,16 @@ void MainWindow::on_sortStateCollege_clicked()
 
 }
 
-
-
-
 void MainWindow::addCampus(Campus campus)
 {
-    qInfo() << campus.getStartCollege();
-}
+    if(std::find(nameList.begin(), nameList.end(), campus.getStartCollege()) == nameList.end() )
+    {
+        //Restaurant hasn't been added yet, good to add
+        selectedCampus.push_back(campus);
+    } else {
+        QMessageBox popup;
+        popup.critical(0, "Error", "Cannot add the same restaurant twice.");
+    }}
 
 void MainWindow::on_adminPop_clicked()
 {

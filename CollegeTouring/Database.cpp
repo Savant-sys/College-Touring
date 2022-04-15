@@ -2,7 +2,7 @@
 
 Database::Database()
 {
-    filePath = "C:/Users/Michael/Desktop/Project 2/db/CollegeTouring.db";
+    filePath = "C:/Users/micha/Desktop/CS1D-Group-Project-2-main/CS1D-Group-Project-2-main/db/CollegeTouring.db";
 
     infile = "C:/Users/Michael/Desktop/Project 2/db/New Campuses.csv";
     infileS = "C:/Users/Michael/Desktop/Project 2/db/New Souvenirs.csv";
@@ -291,38 +291,39 @@ bool Database::getCampuses(vector<Campus>& campuses)
         int undergrads = query.value(4).toInt();
         QString menu = query.value(5).toString();
 
-        QJsonDocument json = QJsonDocument::fromJson(distances.toUtf8());
-        QJsonArray jsonArray = json.array();
+        QJsonDocument jsonD = QJsonDocument::fromJson(distances.toUtf8());
+        QJsonDocument jsonE = QJsonDocument::fromJson(distances.toUtf8());
 
-        for (int i = 0; i < jsonArray.size(); i++)
-           endCollegeVector.push_back(jsonArray.at(i).toString());
+        QJsonArray jsonArrayD = jsonD.array();
+        QJsonArray jsonArrayE = jsonE.array();
 
-        for (int i = 0; i < jsonArray.size(); i++)
-            distancesVector.push_back(jsonArray.at(i).toDouble());
+        for (int i = 0; i < jsonArrayE.size(); i++)
+            endCollegeVector.push_back(jsonArrayE.at(i).toString());
+
+        for (int i = 0; i < jsonArrayD.size(); i++)
+            distancesVector.push_back(jsonArrayD.at(i).toDouble());
 
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(menu.toUtf8());
-                QJsonArray jsonarray = jsonDoc.array();
-
-                for (int i = 0; i < jsonarray.size(); i++)
-                {
-                    QJsonObject jsonObject = jsonarray.at(i).toObject();
-                    if(jsonObject.isEmpty())
-                    {
-                        qInfo() << "Json is empty";
-                    }
-                    else
-                    {
-                        Souvenir item;
-                        item.name = jsonObject.value("name").toString();
-                        item.price = jsonObject.value("price").toDouble();
-                        menuVector.push_back(item);
-
-                    }
-                }
+        QJsonArray jsonarray = jsonDoc.array();
+        for (int i = 0; i < jsonarray.size(); i++)
+        {
+            QJsonObject jsonObject = jsonarray.at(i).toObject();
+            if(jsonObject.isEmpty())
+            {
+                qInfo() << "Json is empty";
+            }
+            else
+            {
+                Souvenir item;
+                item.name = jsonObject.value("name").toString();
+                item.price = jsonObject.value("price").toDouble();
+                menuVector.push_back(item);
+            }
+        }
 
         //make our new restaurant
-        Campus newCampus(id, name, menuVector, distancesVector, saddlebackDistance);
+        Campus newCampus(startCollege, endCollegeVector, distancesVector, state, undergrads, menuVector);
         campuses.push_back(newCampus);
     }
     qInfo() << "\ntest for getCampuses function\n";

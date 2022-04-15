@@ -92,7 +92,7 @@
      <string>Sort State</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="listWidget">
+   <widget class="QListWidget" name="campusList">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -129,7 +129,7 @@
      <x>0</x>
      <y>0</y>
      <width>1341</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
