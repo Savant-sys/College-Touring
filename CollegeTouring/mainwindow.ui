@@ -97,7 +97,7 @@
      <rect>
       <x>150</x>
       <y>10</y>
-      <width>561</width>
+      <width>691</width>
       <height>611</height>
      </rect>
     </property>
@@ -105,7 +105,7 @@
    <widget class="QListWidget" name="customList">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>860</x>
       <y>10</y>
       <width>161</width>
       <height>611</height>
@@ -115,7 +115,7 @@
    <widget class="QListWidget" name="menuList">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>1040</x>
       <y>10</y>
       <width>281</width>
       <height>611</height>

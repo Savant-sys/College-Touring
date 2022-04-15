@@ -2,7 +2,7 @@
 
 Database::Database()
 {
-    filePath = "C:/Users/micha/Desktop/CS1D-Group-Project-2-main/CS1D-Group-Project-2-main/db/CollegeTouring.db";
+    filePath = "C:/Users/micha/Desktop/CS1D-Group-Project-2-main/db/CollegeTouring.db";
 
     infile = "C:/Users/Michael/Desktop/Project 2/db/New Campuses.csv";
     infileS = "C:/Users/Michael/Desktop/Project 2/db/New Souvenirs.csv";
@@ -264,6 +264,17 @@ void Database::addCampuses(vector<Campus> campuses)
         else
             qInfo() << "Error, " << query.lastError();
     }
+}
+
+void Database::vectorConvertToMap(vector<Campus> campus)
+{
+//    map<QString, int> mapped =
+//    for (int i = 0; i < campus.size(); i++)
+//    {
+//        Campus currCampus = campus[i];
+
+
+//    }
 }
 
 bool Database::getCampuses(vector<Campus>& campuses)
