@@ -8,21 +8,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->loginPopup = nullptr;
 
-    if(db.getCampuses(this->campuses))
-        qInfo() << "Got all campuses list";
+    Update();
+//    if(db.getCampuses(this->campuses))
+//        qInfo() << "Got all campuses list";
 
-    QListWidget *campusList = ui->campusList;
+//    QListWidget *campusList = ui->campusList;
 
-    for (int i =0; i < this->campuses.size(); i++)
-    {
-        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
-        QListWidgetItem *item = new QListWidgetItem(campusList);
-        campusList->addItem(item);
-        item->setSizeHint(campusItem->minimumSizeHint());
-        campusList->setItemWidget(item, campusItem);
-    }
+//    for (int i =0; i < this->campuses.size(); i++)
+//    {
+//        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
+//        QListWidgetItem *item = new QListWidgetItem(campusList);
+//        campusList->addItem(item);
+//        item->setSizeHint(campusItem->minimumSizeHint());
+//        campusList->setItemWidget(item, campusItem);
+//    }
 
-    //ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
+//    //ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
 
 }
 
@@ -114,7 +115,37 @@ void MainWindow::addCampus(Campus campus)
 
 void MainWindow::on_adminPop_clicked()
 {
-    this->loginPopup = new Login();
+    this->loginPopup = new Login(this);
     loginPopup->show();
+
 }
 
+void MainWindow::Admin()
+{
+    hide();
+    this->adminWindow = new AdminWindow(this);
+    adminWindow->show();
+}
+
+void MainWindow::Update()
+{
+    //does not update mainwindow from admin changes yet
+    ui->campusList->clear();
+    if(db.getCampuses(this->campuses));
+        qInfo() << "Got all campuses list";
+
+    QListWidget *campusList = ui->campusList;
+
+    for (int i =0; i < this->campuses.size(); i++)
+    {
+        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
+        QListWidgetItem *item = new QListWidgetItem(campusList);
+        campusList->addItem(item);
+        item->setSizeHint(campusItem->minimumSizeHint());
+        campusList->setItemWidget(item, campusItem);
+    }
+
+    //ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
+
+
+}

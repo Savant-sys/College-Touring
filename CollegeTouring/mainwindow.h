@@ -8,6 +8,7 @@
 #include "login.h"
 #include <QListWidget>
 #include "campusWidget.h"
+#include "adminwindow.h"
 
 using namespace std;
 
@@ -41,12 +42,18 @@ private slots:
 
     void on_adminPop_clicked();
 
+    void Admin();
+
+    void Update();
+
+
 private:
     Ui::MainWindow *ui;
 
     Database db;
 
     Login* loginPopup;
+    AdminWindow* adminWindow;
 
     vector<Campus> campuses;
     vector<QString> nameList;

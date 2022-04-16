@@ -11,7 +11,7 @@ CONFIG += c++11
 SOURCES += \
     Campus.cpp \
     Database.cpp \
-    admin.cpp \
+    adminwindow.cpp \
     campusWidget.cpp \
     listOfCampus.cpp \
     login.cpp \
@@ -22,7 +22,7 @@ SOURCES += \
 HEADERS += \
     Campus.h \
     Database.h \
-    admin.h \
+    adminwindow.h \
     campusWidget.h \
     listOfCampus.h \
     login.h \
@@ -30,6 +30,7 @@ HEADERS += \
     trip.h
 
 FORMS += \
+    adminwindow.ui \
     login.ui \
     mainwindow.ui
 

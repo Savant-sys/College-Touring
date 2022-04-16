@@ -6,6 +6,7 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+    connect(this,SIGNAL(Admin()), parent, SLOT(Admin()));
     username = "admin";
     password = "pass";
     admin = false;
@@ -30,6 +31,9 @@ void Login::on_loginButton_clicked()
    {
         admin = true;
         QMessageBox::information(this, "Login", "Administrator login verified. Welcome!");
+        emit Admin();
+        hide();
+
    }
    else
    {

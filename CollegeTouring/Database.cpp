@@ -2,10 +2,16 @@
 
 Database::Database()
 {
-    filePath = "C:/Users/micha/Desktop/CS1D-Group-Project-2-main/db/CollegeTouring.db";
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
+    QDir tempDir = QDir::currentPath();
+    qDebug() << tempDir;
+    tempDir.cdUp();
+    tempDir.cdUp();
 
-    infile = "C:/Users/Michael/Desktop/Project 2/db/New Campuses.csv";
-    infileS = "C:/Users/Michael/Desktop/Project 2/db/New Souvenirs.csv";
+    QString s = tempDir.path() + "/db";
+
+    QDir::setCurrent(s);
+    filePath = s + "/CollegeTouring.db";
 
     //connects to "Campuses.csv" and "Souvenirs.csv"
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -339,5 +345,36 @@ bool Database::getCampuses(vector<Campus>& campuses)
     }
     qInfo() << "\ntest for getCampuses function\n";
     return true;
+
+}
+
+void Database::modifySouvenir(Campus campus, vector<Souvenir> menuVector)
+{
+    QJsonArray menuItems;
+    for (int i = 0; i < menuVector.size(); i++)
+    {
+        auto item = QJsonObject
+                ({
+                     qMakePair(QString("name"), QJsonValue(menuVector[i].name)),
+                     qMakePair(QString("price"), QJsonValue(menuVector[i].price))
+                 });
+        menuItems.push_back(QJsonValue(item));
+    }
+
+    QString startCampus = campus.getStartCollege();
+
+    QSqlQuery query;
+
+    QJsonDocument menuDoc(menuItems);
+
+    query.prepare("UPDATE campuses SET Souvenirs = :newmenu WHERE Starting College = :startcampusediting");
+    query.bindValue(":newmenu", menuDoc.toJson());
+    query.bindValue(":startcampusediting", startCampus);
+
+    if (query.exec()){
+        qInfo() << "Inserted";
+    } else {
+        qInfo() << "Error, " << query.lastError();
+    }
 
 }

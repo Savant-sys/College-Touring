@@ -9,3 +9,8 @@ Campus::Campus(QString startCollege, vector<QString> endCollege, vector<double> 
     this->undergrads = undergrads;
     this->menu = menu;
 }
+
+void Campus::setMenu(vector<Souvenir> menu)
+{
+    this->menu = menu;
+}
