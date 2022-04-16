@@ -73,7 +73,7 @@ void MainWindow::addToMenuList(QString name, QString campusName)
 
 void MainWindow::on_openTheList_clicked()
 {
-
+    db.readFile();
 }
 
 

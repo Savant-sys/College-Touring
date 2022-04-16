@@ -3,11 +3,11 @@
 
 #include <QMainWindow>
 #include <iostream>
-#include "Campus.h"
-#include "Database.h"
+#include "campus.h"
+#include "database.h"
 #include "login.h"
 #include <QListWidget>
-#include "campusWidget.h"
+#include "campus_widget.h"
 
 using namespace std;
 
