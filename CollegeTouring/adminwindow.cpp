@@ -190,3 +190,9 @@ void AdminWindow::on_Change_clicked()
 
 }
 
+
+void AdminWindow::on_PriceList_itemClicked(QListWidgetItem *item)
+{
+    ui->SouvenirList->setCurrentRow(ui->PriceList->currentRow());
+}
+

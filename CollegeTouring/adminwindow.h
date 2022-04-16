@@ -32,6 +32,8 @@ private slots:
 
     void on_Change_clicked();
 
+    void on_PriceList_itemClicked(QListWidgetItem *item);
+
 signals:
     void showMain();
 private:

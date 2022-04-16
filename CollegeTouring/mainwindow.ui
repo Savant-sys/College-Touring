@@ -7,102 +7,133 @@
     <x>0</x>
     <y>0</y>
     <width>1341</width>
-    <height>767</height>
+    <height>663</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="adminPop">
+   <widget class="QPushButton" name="openTheList">
     <property name="geometry">
      <rect>
-      <x>1220</x>
-      <y>680</y>
-      <width>111</width>
-      <height>31</height>
+      <x>20</x>
+      <y>520</y>
+      <width>80</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Admin Login</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="campusList">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>10</y>
-      <width>691</width>
-      <height>611</height>
-     </rect>
+     <string>Open the List</string>
     </property>
    </widget>
    <widget class="QListWidget" name="customList">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>10</y>
-      <width>161</width>
-      <height>611</height>
+      <x>480</x>
+      <y>460</y>
+      <width>256</width>
+      <height>192</height>
      </rect>
     </property>
    </widget>
    <widget class="QListWidget" name="menuList">
     <property name="geometry">
      <rect>
-      <x>1040</x>
-      <y>10</y>
-      <width>281</width>
-      <height>611</height>
+      <x>740</x>
+      <y>460</y>
+      <width>256</width>
+      <height>192</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QPushButton" name="sortState">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>540</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort State</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sortCollege">
+    <property name="geometry">
+     <rect>
+      <x>19</x>
+      <y>567</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort College</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openCA">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>590</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open CA</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sortStateCollege">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>620</y>
+      <width>106</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sort State + College</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="adminPop">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>620</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Admin Login</string>
+    </property>
+   </widget>
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>131</width>
-      <height>151</height>
+      <width>1271</width>
+      <height>441</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="openTheList">
-       <property name="text">
-        <string>Open the List</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sortState">
-       <property name="text">
-        <string>Sort State</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sortCollege">
-       <property name="text">
-        <string>Sort College</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="openCA">
-       <property name="text">
-        <string>Open CA</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sortStateCollege">
-       <property name="text">
-        <string>Sort State + College</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="page">
+     <widget class="QListWidget" name="campusList">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>1241</width>
+        <height>431</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -111,7 +142,7 @@
      <x>0</x>
      <y>0</y>
      <width>1341</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

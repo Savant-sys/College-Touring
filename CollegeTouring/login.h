@@ -5,8 +5,8 @@
 #include "ui_login.h"
 //#include "adminwindow.h"
 
-namespace Ui {
-class Login : public Ui_login {};
+namespace Ui{
+class Login;
 }
 
 /*!

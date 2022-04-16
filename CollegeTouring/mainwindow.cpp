@@ -74,7 +74,7 @@ void MainWindow::addToMenuList(QString name, QString campusName)
 
 void MainWindow::on_openTheList_clicked()
 {
-
+    db.readFile();
 }
 
 
@@ -131,7 +131,7 @@ void MainWindow::Update()
 {
     //does not update mainwindow from admin changes yet
     ui->campusList->clear();
-    if(db.getCampuses(this->campuses));
+    db.getCampuses(this->campuses);
         qInfo() << "Got all campuses list";
 
     QListWidget *campusList = ui->campusList;

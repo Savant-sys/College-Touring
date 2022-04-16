@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>login</class>
- <widget class="QDialog" name="login">
+ <class>Login</class>
+ <widget class="QDialog" name="Login">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -57,22 +57,12 @@
     <string>Login</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="passwordEntry">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>113</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="usernameEntry">
    <property name="geometry">
     <rect>
      <x>120</x>
      <y>70</y>
-     <width>113</width>
+     <width>111</width>
      <height>21</height>
     </rect>
    </property>
@@ -88,6 +78,24 @@
    </property>
    <property name="text">
     <string>Username:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="passwordEntry">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>100</y>
+     <width>111</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
    </property>
   </widget>
  </widget>
