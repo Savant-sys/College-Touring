@@ -26,6 +26,8 @@ AdminWindow::AdminWindow(QWidget *parent) :
 //        item->setSizeHint(campusItem->minimumSizeHint());
 //        campusList->setItemWidget(item, campusItem);
     }
+    ui->CollegeList->setCurrentRow(0);
+    on_CollegeList_itemClicked(ui->CollegeList->currentItem());
 
 }
 
@@ -74,14 +76,83 @@ void AdminWindow::on_CollegeList_itemClicked(QListWidgetItem *item)
 
 void AdminWindow::on_Add_clicked()
 {
-
+    int collegeNum = ui->CollegeList->currentRow();
+    if(this->campuses.at(collegeNum).getMenu().size() >= 7)
+    {
+        qWarning() << "Already 7 items, can not exceed max";
+        return;
+    }
     QString name = ui->NewName->text();
     QString price = ui->NewPrice->text();
+    if(name == "" || price == "" || price == " " || name == " ")
+    {
+        qWarning() << "empty field";
+        return;
+    }
+    int decimal = 0;
+    if(price.contains('.'))
+    {
+    for(int i = 0; i < price.size(); i++)
+    {
+        if(price[i].isDigit() == false)
+        {
+            decimal++;
+        }
+        if(price[i].isSpace() || price[i].isLetter() || price[i].isSymbol() || price.isEmpty())
+        {
+            qWarning() << "incorrect entry in price field";
+            return;
+        }
+    }
+    if(decimal > 1)
+    {
+        qWarning() << "incorrect entry in price field (noDigit)";
+        return;
+    }
+    }
+    else
+    {
+        qWarning() << "no Decimal";
+        return;
+    }
+//    if(price[0].isLetter() || price[0].isSymbol())
+//    {
+//        qWarning() << "price can not be text";
+//        return;
+//    }
+//    if(name[0].isNumber() || name[0].isSymbol())
+//    {
+//        qWarning() << "Name can not be number";
+//        return;
+//    }
+    int Space = 0;
+    for(int i = 0; i < name.size(); i++)
+    {
+        if(name[i].isLetter() == false)
+        {
+            if(name[i].isSpace() == false)
+            {
+                qWarning() << "incorrect entry";
+                return;
+            }
+            Space++;
+        }
+//        if(name[i].isDigit() || name.isEmpty() || name[i].isSymbol() ||name[i].isMark())
+//        {
+//            qWarning() << "incorrect entry in name field";
+//            return;
+//        }
+    }
+    if(Space > 1)
+    {
+        qWarning() << "incorrect entry in name field (Spaces)";
+        return;
+    }
 
 //    QTableWidgetItem *souvenirs = new QTableWidgetItem(tr("name"));
 //    souvenirs->setText(name);
 
-    int collegeNum = ui->CollegeList->currentRow();
+
     //int souvenirNum = ui->SouvenirList->currentRow();
 qWarning() << "campuses" << this->campuses.at(collegeNum).getStartCollege() << "campuses" << campuses.at(collegeNum).getMenu().size();
 vector<Souvenir> currSouvenirs = this->campuses.at(collegeNum).getMenu();
@@ -143,7 +214,20 @@ QSqlDatabase::removeDatabase(connectionName);
 
 void AdminWindow::on_Remove_clicked()
 {
+    if(ui->SouvenirList->currentItem() == nullptr)
+    {
+        qWarning() << "No item selected";
+        return;
+//        ui->SouvenirList->setCurrentRow(0);
+//        ui->PriceList->setCurrentRow(0);
+    }
+
     int CollegeNum = ui->CollegeList->currentRow();
+    if(campuses.at(CollegeNum).getMenu().size() < 1)
+    {
+        qWarning() << "No more items in list";
+        return;
+    }
     qWarning() << "campuses" << campuses.at(CollegeNum).getMenu().size();
     vector<Souvenir> currSouvenirs = this->campuses.at(CollegeNum).getMenu();
     //currSouvenirs.at(ui->SouvenirList->currentRow());
@@ -167,11 +251,50 @@ void AdminWindow::on_Remove_clicked()
 
 void AdminWindow::on_Change_clicked()
 {
+    if(ui->SouvenirList->currentItem() == nullptr)
+    {
+        ui->SouvenirList->setCurrentRow(0);
+        ui->PriceList->setCurrentRow(0);
+    }
     ui->PriceList->setCurrentRow(ui->SouvenirList->currentRow());
+
     QString price = ui->NewPrice->text();
     QString souvenirToEdit = ui->SouvenirList->currentItem()->text();
     QString currCollege = ui->CollegeList->currentItem()->text();
     int collegeNum = ui->CollegeList->currentRow();
+
+    if(price == "" || price == " ")
+    {
+        qWarning() << "empty field";
+        return;
+    }
+    int decimal = 0;
+
+        if(price.contains('.'))
+        {
+    for(int i = 0; i < price.size(); i++)
+    {
+        if(price[i].isDigit() == false)
+        {
+            decimal++;
+
+        }
+        if(price[i].isSpace() || price[i].isLetter() || price[i].isSymbol() || price.isEmpty())
+        {
+            qWarning() << "incorrect entry in price field";
+            return;
+        }
+    }
+    if(decimal > 1)
+    {
+        qWarning() << "incorrect entry in price field (noDigit)";
+        return;
+    }
+        }
+        else{
+            qWarning() << "no Decimal";
+            return;
+        }
 
     qWarning() << "campuses" << this->campuses.at(collegeNum).getStartCollege() << "campuses" << campuses.at(collegeNum).getMenu().at(ui->SouvenirList->currentRow()).price;
     vector<Souvenir> currSouvenirs = this->campuses.at(collegeNum).getMenu();
@@ -181,7 +304,7 @@ void AdminWindow::on_Change_clicked()
     //currSouvenirs.push_back(newSouvenir);
     //currSouvenirs.swap()
     currSouvenirs.at(ui->SouvenirList->currentRow()).price = price.toDouble();
-    qWarning() << "price" << currSouvenirs.at(ui->SouvenirList->currentRow()).price;
+    qWarning() << "price" << currSouvenirs.at(ui->SouvenirList->currentRow()).price << "NUM" << collegeNum;
     this->campuses.at(collegeNum).setMenu(currSouvenirs);
     //ui->SouvenirList->addItem(name);
     //ui->PriceList->addItem(price);
@@ -194,5 +317,11 @@ void AdminWindow::on_Change_clicked()
 void AdminWindow::on_PriceList_itemClicked(QListWidgetItem *item)
 {
     ui->SouvenirList->setCurrentRow(ui->PriceList->currentRow());
+}
+
+
+void AdminWindow::on_SouvenirList_itemClicked(QListWidgetItem *item)
+{
+    ui->PriceList->setCurrentRow(ui->SouvenirList->currentRow());
 }
 

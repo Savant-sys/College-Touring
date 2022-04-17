@@ -34,6 +34,8 @@ private slots:
 
     void on_PriceList_itemClicked(QListWidgetItem *item);
 
+    void on_SouvenirList_itemClicked(QListWidgetItem *item);
+
 signals:
     void showMain();
 private:
