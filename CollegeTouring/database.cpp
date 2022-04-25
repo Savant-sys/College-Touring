@@ -351,16 +351,16 @@ void Database::modifySouvenir(Campus campus, vector<Souvenir> menuVector)
         menuItems.push_back(QJsonValue(item));
         qWarning() << "Item in DB" << QJsonValue(item);
     }
-
+    //qWarning() << "Item in DB" << menuItems.end()->toString();
     QString startCampus = campus.getStartCollege();
 
     QSqlQuery query(db);
 
     QJsonDocument menuDoc(menuItems);
-
-    query.prepare("UPDATE Campuses SET Souvenirs = :newmenu WHERE 'Starting College' = :startcampusediting");
-    query.bindValue(":newmenu", menuDoc.toJson());
-    query.bindValue(":startcampusediting", startCampus);
+qWarning() << "startcamp" << startCampus;
+    query.prepare("UPDATE Campuses SET Souvenirs = :souv WHERE 'Starting College' = :start");
+    query.bindValue(":souv", menuDoc.toJson());
+    query.bindValue(":start", startCampus);
 
     if (query.exec()){
         qInfo() << "Inserted";

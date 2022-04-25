@@ -17,7 +17,7 @@ AdminWindow::AdminWindow(QWidget *parent) :
 
     QListWidget *campusList = ui->CollegeList;
 
-    for (int i =0; i < this->campuses.size(); i++)
+    for (int i = 0; i < this->campuses.size(); i++)
     {
         campusList->addItem(campuses.at(i).getStartCollege());
 //        CampusWidget *campusItem = new CampusWidget(campuses[i], this->parentWidget());

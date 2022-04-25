@@ -3,8 +3,8 @@
 
 #include <QDialog>
 //#include <iostream>
-#include "Campus.h"
-#include "Database.h"
+#include "campus.h"
+#include "database.h"
 #include "QListWidgetItem"
 //#include <QListWidget>
 //#include "campusWidget.h"

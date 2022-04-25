@@ -47,6 +47,11 @@ private slots:
 
     void Update();
 
+    void on_UnderSelected_clicked();
+
+    void on_UnderAll_clicked();
+
+    void on_UnderInitial_clicked();
 
 private:
     Ui::MainWindow *ui;

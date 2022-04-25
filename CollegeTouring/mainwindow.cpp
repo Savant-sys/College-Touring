@@ -133,7 +133,7 @@ void MainWindow::Update()
     ui->campusList->clear();
     db.getCampuses(this->campuses);
         qInfo() << "Got all campuses list";
-
+    qWarning() << this->campuses.at(0).getMenu().at(0).name;
     QListWidget *campusList = ui->campusList;
 
     for (int i =0; i < this->campuses.size(); i++)
@@ -147,5 +147,51 @@ void MainWindow::Update()
 
     //ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
 
-
 }
+
+
+void MainWindow::on_UnderSelected_clicked()
+{
+    if(ui->campusList->currentItem() == nullptr)
+    {
+        qWarning() << "No College Selected";
+        return;
+    }
+    //ui->customList->setCurrentRow(ui->campusList->currentRow());
+    QString undergrads = QString::number(this->campuses.at(ui->campusList->currentRow()).getUndergrads());
+    ui->textBrowser->setText(undergrads);
+}
+
+
+void MainWindow::on_UnderAll_clicked()
+{
+    int count = this->campuses.size();
+    QString undergrads = 0;
+    int temp = 0;
+    for(int i = 0; i < count; i++)
+    {
+        qWarning() << this->campuses.at(i).getUndergrads();
+        temp = undergrads.toInt();
+        undergrads = QString::number(this->campuses.at(i).getUndergrads());
+        undergrads = undergrads + QString::number(temp);
+
+    }
+    ui->textBrowser->setText(undergrads);
+}
+
+
+void MainWindow::on_UnderInitial_clicked()
+{
+    QString undergrads = 0;
+    int temp = 0;
+    for(int i = 0; i < 11; i++)
+    {
+        qWarning() << this->campuses.at(i).getUndergrads();
+        temp = undergrads.toInt();
+        undergrads = QString::number(this->campuses.at(i).getUndergrads());
+        undergrads = undergrads + QString::number(temp);
+
+    }
+    ui->textBrowser->setText(undergrads);
+}
+

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1341</width>
-    <height>663</height>
+    <height>710</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -135,6 +135,55 @@
     </widget>
     <widget class="QWidget" name="page_2"/>
    </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>470</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>450</y>
+      <width>201</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="UnderSelected">
+       <property name="text">
+        <string>Undergraduates for selected college</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="UnderAll">
+       <property name="text">
+        <string>Undergraduates for all colleges</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="UnderInitial">
+       <property name="text">
+        <string>Undergraduates for initial colleges</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -142,7 +191,7 @@
      <x>0</x>
      <y>0</y>
      <width>1341</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
