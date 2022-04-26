@@ -244,7 +244,12 @@ void AdminWindow::on_Remove_clicked()
     ui->SouvenirList->currentItem()->setText("");
     ui->PriceList->currentItem()->setHidden(true);
     ui->PriceList->currentItem()->setText("");
-    db.modifySouvenir(campuses.at(CollegeNum), currSouvenirs);
+    if (!db.open())
+    {
+        qDebug() << "problem opening database";
+    }
+    //db.updateSouv(campuses.at(CollegeNum), currSouvenirs);
+    //db.modifySouvenir(campuses.at(CollegeNum), currSouvenirs);
     qWarning() << "campuses" << this->campuses.at(CollegeNum).getMenu().size();
 }
 

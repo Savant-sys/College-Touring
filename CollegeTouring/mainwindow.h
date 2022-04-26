@@ -9,6 +9,7 @@
 #include <QListWidget>
 #include "adminwindow.h"
 #include "campus_widget.h"
+#include "map.h"
 
 
 using namespace std;
@@ -52,6 +53,10 @@ private slots:
     void on_UnderAll_clicked();
 
     void on_UnderInitial_clicked();
+
+    void on_actionCustom_Trip_to_Any_triggered();
+
+    void on_tabWidget_currentChanged(int index);
 
 private:
     Ui::MainWindow *ui;

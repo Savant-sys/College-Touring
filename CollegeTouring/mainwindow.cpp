@@ -195,3 +195,69 @@ void MainWindow::on_UnderInitial_clicked()
     ui->textBrowser->setText(undergrads);
 }
 
+
+void MainWindow::on_actionCustom_Trip_to_Any_triggered()
+{
+    ui->tabWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    db.getCampuses(this->campuses);
+    //switch from vector to map
+    int j =0;
+    vector<QString> endColleges;
+    vector<double> dist;
+    for(int i = 0; i < campuses.size(); i++)
+    {
+        endColleges = campuses[i].getEndCollege();
+        dist = campuses.at(i).getDistances();
+
+        for(j = 0; j < endColleges.size(); j++)
+        {
+            qWarning() << dist.at(j) << " " << endColleges.at(j);
+
+            //qWarning() << dist << "from: " << campuses.at(i).getStartCollege() << "To: " << endColleges;
+        }
+    }
+    Map collegeMap(j);
+    qWarning() << "Switching from vec to map";
+
+    collegeMap.putVectorinHere(this->campuses);
+    qWarning() << "Done putting";
+    if(index == 1) //custom trip
+    {
+        pair<int, double> key;
+        QString add = "";
+        for(int i = 0; i < campuses.size(); i++)
+        {
+             dist = campuses.at(i).getDistances();
+             key.first = i;
+             for(int j = 0; j < dist.size(); j++)
+             {
+                 key.second = dist.at(j);
+                 add = collegeMap.getOrigin(key) + " -> " + collegeMap.getDest(key);
+                 ui->CustomTripList->addItem(add);
+             }
+             /*for(int i = 0; i < 150; i++)
+             {
+                 if(collegeMap.hashTable[i].num != -1)
+                 {
+                  //get from map instead
+
+                     ui->CustomTripList->addItem(collegeMap.getOrigin(key));
+                 //ui->CustomTripList->addItem(this->campuses.at(i).getStartCollege());
+                 }
+             }*/
+        }
+
+
+
+
+
+    }
+    else
+        qWarning() << "Not implemented";
+}
+

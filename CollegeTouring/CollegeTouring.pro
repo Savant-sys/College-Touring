@@ -17,6 +17,7 @@ SOURCES += \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
+    map.cpp \
     trip.cpp
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     list_of_campus.h \
     login.h \
     mainwindow.h \
+    map.h \
     trip.h
 
 FORMS += \

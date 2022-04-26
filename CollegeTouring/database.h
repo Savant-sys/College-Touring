@@ -54,6 +54,9 @@ public:
      * \return Returns true or false of successful/not successful operation
      */
     bool getCampuses(vector<Campus>& campuses);
+
+    bool open();
+
 private:
     QSqlDatabase db; /*!< QTSqlite database object for Campuses*/
     QSqlDatabase dbS; /*!< QTSqlite database object for Souvenirs*/
