@@ -206,7 +206,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 {
     db.getCampuses(this->campuses);
     //switch from vector to map
-    int j =0;
+    int c =0;
     vector<QString> endColleges;
     vector<double> dist;
     for(int i = 0; i < campuses.size(); i++)
@@ -214,20 +214,26 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         endColleges = campuses[i].getEndCollege();
         dist = campuses.at(i).getDistances();
 
-        for(j = 0; j < endColleges.size(); j++)
+        for(int j = 0; j < endColleges.size(); j++)
         {
-            qWarning() << dist.at(j) << " " << endColleges.at(j);
-
+            //qWarning() << dist.at(j) << " " << endColleges.at(j);
+c++;
             //qWarning() << dist << "from: " << campuses.at(i).getStartCollege() << "To: " << endColleges;
         }
     }
-    Map collegeMap(j);
-    qWarning() << "Switching from vec to map";
-
-    collegeMap.putVectorinHere(this->campuses);
-    qWarning() << "Done putting";
     if(index == 1) //custom trip
     {
+        ui->CustomTripList->clear();
+        ui->CustomTripSouvs->clear();
+        ui->CustomTripPrices->clear();
+        ui->pushButton->setEnabled(true);
+        ui->pushButton_2->setEnabled(false);
+        //this->collegeMap;
+        qWarning() << "Switching from vec to map";
+
+        collegeMap.putVectorinHere(this->campuses);
+        qWarning() << "Done putting";
+
         pair<int, double> key;
         QString add = "";
         for(int i = 0; i < campuses.size(); i++)
@@ -237,27 +243,142 @@ void MainWindow::on_tabWidget_currentChanged(int index)
              for(int j = 0; j < dist.size(); j++)
              {
                  key.second = dist.at(j);
-                 add = collegeMap.getOrigin(key) + " -> " + collegeMap.getDest(key);
-                 ui->CustomTripList->addItem(add);
+                 //add = collegeMap.getOrigin(key) + " -> " + collegeMap.getDest(key); //all branches
+                 //ui->CustomTripList->addItem(add);
              }
-             /*for(int i = 0; i < 150; i++)
-             {
-                 if(collegeMap.hashTable[i].num != -1)
-                 {
-                  //get from map instead
-
-                     ui->CustomTripList->addItem(collegeMap.getOrigin(key));
-                 //ui->CustomTripList->addItem(this->campuses.at(i).getStartCollege());
-                 }
-             }*/
+             ui->CustomTripList->addItem(collegeMap.getOrigin(key));
         }
-
-
-
-
 
     }
     else
         qWarning() << "Not implemented";
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    if(ui->CustomTripList->selectedItems().size() != 0)
+    {
+        qWarning() << "Start of Trip Added";
+        QString start = ui->CustomTripList->currentItem()->text();
+       // ui->CustomTripList->currentItem()->setSelected(false);
+        //ui->CustomTripList->removeItemWidget(ui->CustomTripList->currentItem());
+        ui->CustomTripList->currentItem()->setHidden(true);
+        ui->pushButton->setEnabled(false);
+        ui->CustomTripList->setSelectionMode(QAbstractItemView::MultiSelection);
+        ui->pushButton_2->setEnabled(true);
+    }
+}
+
+
+void MainWindow::on_pushButton_2_clicked() //add selected
+{
+    collegeMap.ans.clear();
+    vector<QString> selected;
+    pair<int,double> startKey;
+    if(ui->CustomTripList->selectedItems().size() > 1)
+    {
+        for(int i = 0; i < ui->CustomTripList->selectedItems().size(); i++)
+        {
+            selected.push_back(ui->CustomTripList->selectedItems().at(i)->text());
+        }
+        ui->CustomTripList->clear();
+        for(int g = 0; g < selected.size(); g++)
+        {
+            ui->CustomTripList->addItem(selected.at(g)); //added current trip to customTripList, now recursive search on selected map values
+
+           /* for(int i = 0; i < campuses.size(); i++)
+            {
+                if(selected.at(g) == campuses.at(i).getStartCollege())
+                {
+                            ui->CustomTripSouvs->addItem(campuses.at(i).getMenu());
+                }
+            }*/
+
+        }
+        for(int i = 0; i < campuses.size(); i++)
+        {
+            if(selected.at(0) == campuses.at(i).getStartCollege())
+            {
+                startKey.first = i;
+                startKey.second = campuses.at(i).getDistances().at(0);
+            }
+        }
+
+        collegeMap.selected(selected, selected.size());
+        qWarning() << "Beginning sort on: " << startKey.first << " " << startKey.second;
+        collegeMap.recurSelec(startKey);
+        //qWarning() << collegeMap.ans.at(0).origin << " -> " << collegeMap.ans.at(0).dest;
+        for(int i = 0; i < collegeMap.ans.size(); i++)
+        {
+            qWarning() << collegeMap.ans.at(i).origin << " -> " << collegeMap.ans.at(i).dest;
+        }
+        ui->CustomTripList->setSelectionMode(QAbstractItemView::SingleSelection);
+        ui->pushButton_2->setEnabled(false);
+       // selected
+    }
+    else
+    {
+        qWarning() << "None selected";
+    }
+}
+
+
+void MainWindow::on_CustomTripList_itemClicked(QListWidgetItem *item)
+{
+    if(!ui->pushButton_2->isEnabled())
+    {
+        ui->CustomTripPrices->clear();
+        ui->CustomTripSouvs->clear();
+       QString selected = ui->CustomTripList->currentItem()->text();
+       vector<Souvenir> menu;
+       for(int i = 0; i < campuses.size(); i++)
+       {
+           if(selected == campuses.at(i).getStartCollege())
+           {
+              menu = campuses.at(i).getMenu();
+              for(int j = 0; j < menu.size(); j++)
+              {
+                 ui->CustomTripSouvs->addItem(menu.at(j).name);
+                 ui->CustomTripPrices->addItem(QString::number(menu.at(j).price));
+              }
+           }
+       }
+    }
+}
+
+
+void MainWindow::on_AddToCart_clicked() //not in final state, working on sort
+{
+    if(ui->CustomTripSouvs->selectedItems().size() != 0 && ui->spinBox->text() != "0")
+    {
+        QString name = ui->CustomTripSouvs->currentItem()->text();
+        for(int i = 0; i < ui->Cart->count(); i++)
+        {
+            QString curr = ui->Cart->itemAt(i,1)->text();
+            if(curr.contains(name))
+                return;
+        }
+
+        QString price = ui->CustomTripPrices->currentItem()->text();
+        int quantity = ui->spinBox->text().toInt();
+        QString addTo = name + " $" + price + " Quantity: " + QString::number(quantity);
+        ui->Cart->addItem(addTo);
+    }
+
+}
+
+
+void MainWindow::on_CustomTripPrices_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->CustomTripPrices->currentRow();
+    ui->CustomTripSouvs->setCurrentRow(row);
+}
+
+
+void MainWindow::on_CustomTripSouvs_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->CustomTripSouvs->currentRow();
+    ui->CustomTripPrices->setCurrentRow(row);
 }
 

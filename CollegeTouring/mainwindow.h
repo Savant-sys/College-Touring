@@ -58,6 +58,18 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_CustomTripList_itemClicked(QListWidgetItem *item);
+
+    void on_AddToCart_clicked();
+
+    void on_CustomTripPrices_itemClicked(QListWidgetItem *item);
+
+    void on_CustomTripSouvs_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
 
@@ -66,6 +78,7 @@ private:
     Login* loginPopup;
     AdminWindow* adminWindow;
 
+    Map collegeMap;
     vector<Campus> campuses;
     vector<QString> nameList;
     vector<QString> menuList;

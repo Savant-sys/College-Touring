@@ -9,6 +9,7 @@ void Map::insertHash(pair<int,double> key, QString origin, QString dest)
         {
             hashTable[i].origin = origin;
             hashTable[i].dest = dest;
+            hashTable[i].select = false;
             return;
         }
     }
@@ -22,6 +23,7 @@ void Map::insertHash(pair<int,double> key, QString origin, QString dest)
         hashTable[index].origin = origin;
         hashTable[index].dest = dest;
         hashTable[index].dist = key.second;
+        hashTable[index].select = false;
         return;
     }
     int index2;
@@ -36,6 +38,7 @@ void Map::insertHash(pair<int,double> key, QString origin, QString dest)
             hashTable[newIndex].origin = origin;
             hashTable[newIndex].dest = dest;
             hashTable[newIndex].dist = key.second;
+            hashTable[newIndex].select = false;
             break;
         }
         i++;
@@ -52,6 +55,7 @@ void Map::deleteKey(pair<int,double> key)
         hashTable[i].origin = "";
         hashTable[i].dest = "";
         hashTable[i].dist = -1;
+        hashTable[i].select = false;
         break;
         }
     }
@@ -135,4 +139,125 @@ QString Map::getDest(pair<int,double> key)
         }
     }
     return "None Found";
+}
+
+void Map::selected(vector<QString> selec, int size)
+{
+    s = size;
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        for(int j = 0; j < selec.size(); j++)
+        {
+            if(hashTable[i].origin == selec.at(j))
+            {
+                hashTable[i].select = true;
+                //s++;
+            }
+        }
+    }
+}
+
+void Map::recurSelec(pair<int,double> key)
+{
+
+
+    QString curr = "";
+    double smallest = 99999;
+    int j = 0;
+    pair<int,double> found;
+    HashStruct newAns;
+    QString ansOrigin;
+    QString ansDest;
+    if(ans.size() == 0)
+    {
+        int p = 0;
+        for(int i = 0; i < TABLE_SIZE; i++)
+        {
+            if(hashTable[i].num == key.first && hashTable[i].select == true && hashTable[i].num != -1)
+            {
+
+                if(smallest > hashTable[i].dist)
+                {
+                   smallest = hashTable[i].dist;
+                   curr = hashTable[i].dest;
+                    p = i;
+                   //j++;
+                }
+
+
+            }
+        }
+        ans.push_back(hashTable[p]);
+    }
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        for(int m = 0; m < ans.size(); m++)
+        {
+            ansOrigin = ans.at(m).origin;
+            ansDest = ans.at(m).dest;
+            QString hashDest = hashTable[i].dest;
+        if(hashTable[i].num == key.first && hashTable[i].select == true && hashTable[i].num != -1 && ansOrigin != hashDest && ansDest == hashTable[i].origin && ansDest != hashDest && smallest > hashTable[i].dist)
+        {
+
+                  smallest = hashTable[i].dist;
+                  curr = hashDest;
+                  j = i;
+                 // j = i;
+               }
+            }
+
+
+        }
+   // }
+
+
+    //smallest found, now go through map to find origin of smallest dist.
+
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        for(int m = 0; m < ans.size(); m++)
+        {
+            ansOrigin = ans.at(m).origin;
+            ansDest = ans.at(m).dest;
+            if(hashTable[i].origin == curr && hashTable[i].select == true && ansDest != hashTable[i].dest && hashTable[i].num != -1 && ansOrigin != hashTable[i].dest)
+            {
+                found.first = hashTable[i].num;
+                found.second = hashTable[i].dist;
+               /* newAns.num = j;
+                newAns.dist = found.second;
+                newAns.origin = hashTable[j].origin;
+                newAns.dest = hashTable[j].dest;
+                newAns.select = hashTable[j].select;*/
+                //go to the smallest
+            }
+        }
+    }
+   /* if(ans.size() == 0)
+    {
+        ans.push_back(hashTable[j]); //for start of trip
+        recurSelec(found);
+    }*/
+    //found.first = hashTable[j].num;
+    //found.second = hashTable[j].dist;
+    if(ans.size() >= s)
+    {
+        return;
+    }
+    if(found.first != key.first && ans.size() >= 1)
+    {   // ans.push_back(hashTable[j]);
+    ans.push_back(hashTable[j]); //insert smallest branch into answer
+
+    }
+    bool check = false;
+    for(int m = 0; m < ans.size(); m++)
+    {
+            if(ans.at(m).dest == curr)
+                check = true;
+    }
+    if(check == true)
+    recurSelec(found);
+    else
+    recurSelec(key);
+    smallest = 99999;
+
 }

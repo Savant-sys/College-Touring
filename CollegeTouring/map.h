@@ -20,15 +20,16 @@ struct HashStruct
     QString dest = "";
     int num = -1;
     double dist = 0;
+    bool select = false;
 };
 
 class Map
 {
 public:
-    Map(int size)
+    Map()
 {
     //this->TABLE_SIZE = size;
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < 150; i++)
     {
         hashTable[i].num = -1;
         hashTable[i].origin = "";
@@ -59,11 +60,17 @@ public:
 
     QString getDest(pair<int,double> key);
 
+    void selected(vector<QString> selec, int size);
+
+    void recurSelec(pair<int,double> key);
+
     HashStruct hashTable[TABLE_SIZE];
+
+    vector<HashStruct> ans;
 private:
     //int TABLE_SIZE = 31;
 
-
+    int s = 0; //number of selected items
 
    // int vecSize = 0;
 
