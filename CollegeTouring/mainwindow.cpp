@@ -223,6 +223,15 @@ c++;
     }
     if(index == 1) //custom trip
     {
+        ui->Cart->clear();
+        ui->Cart->setColumnCount(0);
+        ui->Cart->setRowCount(0);
+        ui->Cart->insertColumn(0);
+        ui->Cart->insertColumn(1);
+        ui->Cart->insertColumn(2);
+        ui->Cart->setColumnWidth(0,120);
+        ui->Cart->setColumnWidth(1,50);
+        ui->Cart->setColumnWidth(2, 2);
         ui->CustomTripList->clear();
         ui->CustomTripSouvs->clear();
         ui->CustomTripPrices->clear();
@@ -287,14 +296,6 @@ void MainWindow::on_pushButton_2_clicked() //add selected
         {
             ui->CustomTripList->addItem(selected.at(g)); //added current trip to customTripList, now recursive search on selected map values
 
-           /* for(int i = 0; i < campuses.size(); i++)
-            {
-                if(selected.at(g) == campuses.at(i).getStartCollege())
-                {
-                            ui->CustomTripSouvs->addItem(campuses.at(i).getMenu());
-                }
-            }*/
-
         }
         for(int i = 0; i < campuses.size(); i++)
         {
@@ -308,9 +309,10 @@ void MainWindow::on_pushButton_2_clicked() //add selected
         collegeMap.selected(selected, selected.size());
         qWarning() << "Beginning sort on: " << startKey.first << " " << startKey.second;
         collegeMap.recurSelec(startKey);
-        //qWarning() << collegeMap.ans.at(0).origin << " -> " << collegeMap.ans.at(0).dest;
+        ui->CustomTripList->clear();
         for(int i = 0; i < collegeMap.ans.size(); i++)
         {
+            ui->CustomTripList->addItem(collegeMap.ans.at(i).origin/* + " -> " + collegeMap.ans.at(i).dest + " Dist: " + QString::number(collegeMap.ans.at(i).dist)*/);
             qWarning() << collegeMap.ans.at(i).origin << " -> " << collegeMap.ans.at(i).dest;
         }
         ui->CustomTripList->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -353,17 +355,19 @@ void MainWindow::on_AddToCart_clicked() //not in final state, working on sort
     if(ui->CustomTripSouvs->selectedItems().size() != 0 && ui->spinBox->text() != "0")
     {
         QString name = ui->CustomTripSouvs->currentItem()->text();
-        for(int i = 0; i < ui->Cart->count(); i++)
-        {
-            QString curr = ui->Cart->itemAt(i,1)->text();
-            if(curr.contains(name))
-                return;
-        }
 
         QString price = ui->CustomTripPrices->currentItem()->text();
-        int quantity = ui->spinBox->text().toInt();
-        QString addTo = name + " $" + price + " Quantity: " + QString::number(quantity);
-        ui->Cart->addItem(addTo);
+
+        QString quantity = ui->spinBox->text();
+
+        ui->Cart->insertRow (ui->Cart->rowCount());
+
+        ui->Cart->setItem (ui->Cart->rowCount()-1, 0, new QTableWidgetItem(name));
+
+        ui->Cart->setItem (ui->Cart->rowCount()-1, 1, new QTableWidgetItem(price));
+
+        ui->Cart->setItem (ui->Cart->rowCount()-1, 2, new QTableWidgetItem(quantity));
+
     }
 
 }

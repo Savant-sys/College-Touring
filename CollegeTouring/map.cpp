@@ -157,107 +157,77 @@ void Map::selected(vector<QString> selec, int size)
     }
 }
 
-void Map::recurSelec(pair<int,double> key)
+void Map::recurSelec(pair<int,double> key) //recursion on selected for custom to any (deselects branches)
 {
 
-
-    QString curr = "";
     double smallest = 99999;
     int j = 0;
+    int p = 0;
     pair<int,double> found;
-    HashStruct newAns;
-    QString ansOrigin;
-    QString ansDest;
-    if(ans.size() == 0)
+    double branchDist = 999;
+    bool check = false;
+    for(int i = 0; i < TABLE_SIZE; i++)
     {
-        int p = 0;
-        for(int i = 0; i < TABLE_SIZE; i++)
+        if(hashTable[i].num == key.first && hashTable[i].select == true)
         {
-            if(hashTable[i].num == key.first && hashTable[i].select == true && hashTable[i].num != -1)
+            branchDist = hashTable[i].dist;
+            for(int l = 0; l < TABLE_SIZE; l++)
             {
-
-                if(smallest > hashTable[i].dist)
+                for(int m = 0; m < ans.size(); m++)
                 {
-                   smallest = hashTable[i].dist;
-                   curr = hashTable[i].dest;
-                    p = i;
-                   //j++;
+                    if((hashTable[i].origin == hashTable[l].dest || hashTable[l].dest == ans.at(m).origin) && hashTable[i].dest == hashTable[l].origin )
+                    {
+                        hashTable[l].select = false;
+                    }
+
                 }
-
-
-            }
-        }
-        ans.push_back(hashTable[p]);
-    }
-    for(int i = 0; i < TABLE_SIZE; i++)
-    {
-        for(int m = 0; m < ans.size(); m++)
-        {
-            ansOrigin = ans.at(m).origin;
-            ansDest = ans.at(m).dest;
-            QString hashDest = hashTable[i].dest;
-        if(hashTable[i].num == key.first && hashTable[i].select == true && hashTable[i].num != -1 && ansOrigin != hashDest && ansDest == hashTable[i].origin && ansDest != hashDest && smallest > hashTable[i].dist)
-        {
-
-                  smallest = hashTable[i].dist;
-                  curr = hashDest;
-                  j = i;
-                 // j = i;
-               }
+                if(hashTable[i].dest == hashTable[l].origin && hashTable[l].select == true && branchDist <= smallest)
+                {
+                    smallest = branchDist;
+                    check = true;
+                    j = l;
+                    p = i;
+                    found.first = hashTable[l].num;
+                    hashTable[i].select = false;
+                }
+                else //if(hashTable[l].select == false)
+                {
+                    //p = i;
+                    hashTable[i].select = false;
+                }
             }
 
-
-        }
-   // }
-
-
-    //smallest found, now go through map to find origin of smallest dist.
-
-    for(int i = 0; i < TABLE_SIZE; i++)
-    {
-        for(int m = 0; m < ans.size(); m++)
-        {
-            ansOrigin = ans.at(m).origin;
-            ansDest = ans.at(m).dest;
-            if(hashTable[i].origin == curr && hashTable[i].select == true && ansDest != hashTable[i].dest && hashTable[i].num != -1 && ansOrigin != hashTable[i].dest)
-            {
-                found.first = hashTable[i].num;
-                found.second = hashTable[i].dist;
-               /* newAns.num = j;
-                newAns.dist = found.second;
-                newAns.origin = hashTable[j].origin;
-                newAns.dest = hashTable[j].dest;
-                newAns.select = hashTable[j].select;*/
-                //go to the smallest
-            }
         }
     }
-   /* if(ans.size() == 0)
-    {
-        ans.push_back(hashTable[j]); //for start of trip
-        recurSelec(found);
-    }*/
-    //found.first = hashTable[j].num;
-    //found.second = hashTable[j].dist;
     if(ans.size() >= s)
     {
         return;
     }
-    if(found.first != key.first && ans.size() >= 1)
-    {   // ans.push_back(hashTable[j]);
-    ans.push_back(hashTable[j]); //insert smallest branch into answer
-
-    }
-    bool check = false;
-    for(int m = 0; m < ans.size(); m++)
+    /*if(ans.size() == s-1)
     {
-            if(ans.at(m).dest == curr)
-                check = true;
+        ans.push_back(hashTable[p]);
+        ans.at(ans.size()-1).dest = hashTable[j].origin;
+        ans.at(ans.size()-1).dist = smallest;
+        recurSelec(found);
+    }*/
+    if(ans.size() == 0)
+    {
+        ans.push_back(hashTable[p]);
+        ans.at(ans.size()-1).dest = hashTable[j].origin;
+        ans.at(ans.size()-1).dist = smallest;
+        recurSelec(found);
     }
-    if(check == true)
-    recurSelec(found);
+    else if(check == true)
+    {
+        ans.push_back(hashTable[p]);
+        ans.at(ans.size()-1).dest = hashTable[j].origin;
+        ans.at(ans.size()-1).dist = smallest;
+        recurSelec(found);
+    }
     else
-    recurSelec(key);
-    smallest = 99999;
-
+    {   HashStruct end;
+        end.origin = ans.at(ans.size()-1).dest;
+        ans.push_back(end);
+        return;
+    }
 }
