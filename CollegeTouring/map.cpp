@@ -177,7 +177,7 @@ void Map::recurSelec(pair<int,double> key) //recursion on selected for custom to
                 {
                     if((hashTable[i].origin == hashTable[l].dest || hashTable[l].dest == ans.at(m).origin) && hashTable[i].dest == hashTable[l].origin )
                     {
-                        hashTable[l].select = false;
+                        hashTable[i].select = false;
                     }
 
                 }
@@ -188,13 +188,14 @@ void Map::recurSelec(pair<int,double> key) //recursion on selected for custom to
                     j = l;
                     p = i;
                     found.first = hashTable[l].num;
-                    hashTable[i].select = false;
+                    //hashTable[i].select = false;
                 }
                 else //if(hashTable[l].select == false)
                 {
-                    //p = i;
+                    p = i;
                     hashTable[i].select = false;
                 }
+
             }
 
         }
@@ -203,6 +204,17 @@ void Map::recurSelec(pair<int,double> key) //recursion on selected for custom to
     {
         return;
     }
+    /*if(s == 11 && ans.size() == 10)
+    {
+        double small = 9999;
+        for(int i = 0; i < TABLE_SIZE; i++)
+        {
+            if(ans.at(ans.size()-1).dest == hashTable[i].origin)
+            {
+                small = hashTable[i].dist;
+            }
+        }
+    }*/
     /*if(ans.size() == s-1)
     {
         ans.push_back(hashTable[p]);
