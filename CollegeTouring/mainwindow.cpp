@@ -145,8 +145,6 @@ void MainWindow::Update()
         campusList->setItemWidget(item, campusItem);
     }
 
-    //ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
-
 }
 
 
@@ -157,7 +155,7 @@ void MainWindow::on_UnderSelected_clicked()
         qWarning() << "No College Selected";
         return;
     }
-    //ui->customList->setCurrentRow(ui->campusList->currentRow());
+
     QString undergrads = QString::number(this->campuses.at(ui->campusList->currentRow()).getUndergrads());
     ui->textBrowser->setText(undergrads);
 }
@@ -217,7 +215,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         for(int j = 0; j < endColleges.size(); j++)
         {
             //qWarning() << dist.at(j) << " " << endColleges.at(j);
-c++;
+            c++;
             //qWarning() << dist << "from: " << campuses.at(i).getStartCollege() << "To: " << endColleges;
         }
     }
@@ -237,7 +235,7 @@ c++;
         ui->CustomTripPrices->clear();
         ui->pushButton->setEnabled(true);
         ui->pushButton_2->setEnabled(false);
-        //this->collegeMap;
+
         qWarning() << "Switching from vec to map";
 
         collegeMap.putVectorinHere(this->campuses);
@@ -252,12 +250,14 @@ c++;
              for(int j = 0; j < dist.size(); j++)
              {
                  key.second = dist.at(j);
-                 //add = collegeMap.getOrigin(key) + " -> " + collegeMap.getDest(key); //all branches
-                 //ui->CustomTripList->addItem(add);
              }
              ui->CustomTripList->addItem(collegeMap.getOrigin(key));
         }
 
+    }
+    if(index == 0)
+    {
+        qWarning() << "Display Page";
     }
     else
         qWarning() << "Not implemented";

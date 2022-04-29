@@ -1,16 +1,11 @@
 #ifndef MAP_H
 #define MAP_H
 
-//#include <iostream>
 #include <vector>
 #include <QObject>
-//#include "string.h"
 #include "campus.h"
 
-//using namespace std;
-
 #define TABLE_SIZE 150 //entries plus 1
-//#define TABLE_SIZE2 29
 
 #define PRIME 13
 
@@ -50,8 +45,6 @@ public:
 
     void deleteKey(pair<int,double> key);
 
-    void displayHash(); //not working
-
     void putVectorinHere(vector<Campus> campuses);
 
     int getDist(QString origin, QString dest);
@@ -68,11 +61,8 @@ public:
 
     vector<HashStruct> ans;
 private:
-    //int TABLE_SIZE = 31;
 
     int s = 0; //number of selected items
-
-   // int vecSize = 0;
 
 };
 

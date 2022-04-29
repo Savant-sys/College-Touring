@@ -3,7 +3,7 @@
 //Map::Map()
 void Map::insertHash(pair<int,double> key, QString origin, QString dest)
 {
-    for (int i = 0; i < TABLE_SIZE; i++) ///currently replaces duplicate dist
+    for (int i = 0; i < TABLE_SIZE; i++) ///currently replaces duplicate key
     {
         if (hashTable[i].num == key.first && hashTable[i].dist == key.second)
         {
@@ -61,24 +61,8 @@ void Map::deleteKey(pair<int,double> key)
     }
 }
 
-void Map::displayHash()
-{
-    //QString text = "";
-    for (int i = 0; i < TABLE_SIZE; i++)
-    {
-        if (hashTable[i].num != -1)
-        {
-        //qWarning() << QString::number(i) << " --> " << hashTable[i].num << ". " <<
-        //hashTable[i].origin << " -> " << hashTable->dest;
-        }
-    }
-}
-
 void Map::putVectorinHere(vector<Campus> campuses)
 {
-    //string start = "";
-    //string end = "";
-    //TABLE_SIZE = campuses.size();
     int j =0;
     vector<QString> endColleges;
     vector<double> dist;
@@ -92,17 +76,8 @@ void Map::putVectorinHere(vector<Campus> campuses)
             key.first = i;
             key.second = dist.at(j);
             insertHash(key, campuses.at(i).getStartCollege(), endColleges.at(j));
-
-            //qWarning() << dist << "from: " << campuses.at(i).getStartCollege() << "To: " << endColleges;
         }
     }
-    /*for(int i = 0; i < campuses.size(); i++)
-    {
-        for(int j = 0; j < campuses.at(i).getEndCollege().size(); j++)
-        {
-            insertHash(campuses.at(i).getDistances().at(j), campuses.at(i).getStartCollege(), campuses.at(i).getEndCollege().at(j));
-        }
-    }*/
 }
 
 int Map::getDist(QString origin, QString dest)
@@ -151,7 +126,6 @@ void Map::selected(vector<QString> selec, int size)
             if(hashTable[i].origin == selec.at(j))
             {
                 hashTable[i].select = true;
-                //s++;
             }
         }
     }
@@ -188,9 +162,8 @@ void Map::recurSelec(pair<int,double> key) //recursion on selected for custom to
                     j = l;
                     p = i;
                     found.first = hashTable[l].num;
-                    //hashTable[i].select = false;
                 }
-                else //if(hashTable[l].select == false)
+                else
                 {
                     p = i;
                     hashTable[i].select = false;
@@ -204,24 +177,7 @@ void Map::recurSelec(pair<int,double> key) //recursion on selected for custom to
     {
         return;
     }
-    /*if(s == 11 && ans.size() == 10)
-    {
-        double small = 9999;
-        for(int i = 0; i < TABLE_SIZE; i++)
-        {
-            if(ans.at(ans.size()-1).dest == hashTable[i].origin)
-            {
-                small = hashTable[i].dist;
-            }
-        }
-    }*/
-    /*if(ans.size() == s-1)
-    {
-        ans.push_back(hashTable[p]);
-        ans.at(ans.size()-1).dest = hashTable[j].origin;
-        ans.at(ans.size()-1).dist = smallest;
-        recurSelec(found);
-    }*/
+
     if(ans.size() == 0)
     {
         ans.push_back(hashTable[p]);
