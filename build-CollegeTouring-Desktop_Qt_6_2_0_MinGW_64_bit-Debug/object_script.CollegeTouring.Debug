@@ -1,0 +1,14 @@
+debug/adminwindow.o
+debug/campus.o
+debug/campus_widget.o
+debug/database.o
+debug/list_of_campus.o
+debug/login.o
+debug/main.o
+debug/mainwindow.o
+debug/map.o
+debug/trip.o
+debug/moc_adminwindow.o
+debug/moc_campus_widget.o
+debug/moc_login.o
+debug/moc_mainwindow.o
