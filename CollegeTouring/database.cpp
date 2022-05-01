@@ -61,7 +61,11 @@ vector<Campus> Database::readFile()
 //    {
 //        qInfo() << rows[i] << "\n";
 //    }
-    qInfo() << "TEST FOR READ: " << rows[1];
+//    qInfo() << "TEST FOR READ: " << rows[1];
+//qInfo() << "\nTEST FOR ROWS:\n";
+//    for (int i =0; i < rows.size(); i++){
+////        qInfo() << rows[i] << "\n";
+//    }
 
     if(q_fileS.open(QFile::ReadOnly))
     {
@@ -96,7 +100,7 @@ vector<Campus> Database::readFile()
     word = rows[1][0];
     if (word[1] == '\"')
     {
-        word += ", " + rows[1][1];
+        word += "," + rows[1][1];
         startCollege = word;
 
         extra = 1;
@@ -152,20 +156,26 @@ vector<Campus> Database::readFile()
 //            menu.price = rowsS[i][2].toDouble();
 //            menuVector.push_back(menu);
 
-            if (i == rows.size()-1)
+            if (i == rows.size() - 1)
             {
+
+
                 Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
+
+//                qInfo () << "\n" << endCollege[1];
                 newCampuses.push_back(campus);
             }
          }
          else
          {
+
             Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
+//            qInfo () << "\n" << startCollege;
             newCampuses.push_back(campus);
             word = rows[i][0];
             if (word[0] == '\"')
             {
-                word += ", " + rows[i][1];
+                word += "," + rows[i][1];
                 extra = 1;
                 startCollege = word;
              }
@@ -214,6 +224,12 @@ vector<Campus> Database::readFile()
 //        }
 
 //    }
+    qInfo() << "\nTEST TO PRINT NEW COLLEGES:";
+    for (int i = 0; i < newCampuses.size(); i++){
+        Campus campus(newCampuses[0]);
+        qInfo() << "\n" << campus.getStartCollege() << ", " ;
+    }
+
     return newCampuses;
 }
 
@@ -221,13 +237,19 @@ void Database::addCampuses(vector<Campus> campuses)
 {
     for(int i = 0; i < campuses.size(); i++)
     {
+        QString state = "";
+        int undergrads = 0;
         Campus currCampus = campuses[i];
 
         QString startCampus = currCampus.getStartCollege();
         vector<QString> endCollegeVector = currCampus.getEndCollege();
         vector<double> distancesVector = currCampus.getDistances();
-        QString state = currCampus.getState();
-        int undergrads = currCampus.getUndergrads();
+        if (currCampus.getState() != "")
+            state = currCampus.getState();
+
+        if (to_string(currCampus.getUndergrads()) != "")
+            undergrads = currCampus.getUndergrads();
+
         vector<Souvenir> menuVector = currCampus.getMenu();
 
         QJsonArray endCollege;
@@ -305,8 +327,11 @@ bool Database::getCampuses(vector<Campus>& campuses)
         QJsonArray jsonArrayD = jsonD.array();
         QJsonArray jsonArrayE = jsonE.array();
 
-        for (int i = 0; i < jsonArrayE.size(); i++)
+        for (int i = 0; i < jsonArrayE.size(); i++){
             endCollegeVector.push_back(jsonArrayE.at(i).toString());
+//            qInfo () << "\n" << endCollegeVector[i];
+        }
+//        qInfo() << "\ndone";
 
         for (int i = 0; i < jsonArrayD.size(); i++)
             distancesVector.push_back(jsonArrayD.at(i).toDouble());

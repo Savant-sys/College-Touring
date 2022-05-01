@@ -77,10 +77,6 @@ void MainWindow::addToMenuList(QString name, QString campusName)
         qInfo() << "Cannot add Menu Item without adding Campus to trip!";
 }
 
-void MainWindow::on_openTheList_clicked()
-{
-//    db.readFile();
-}
 
 void MainWindow::on_openCA_clicked()
 {
@@ -579,6 +575,7 @@ void MainWindow::editItem(Campus campus, int index)
 
 void MainWindow::on_pushButton_3_clicked()
 {
+//    db.readFile();
     std::vector<double> distances;
     std::vector<Souvenir> menu;
 

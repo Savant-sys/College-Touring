@@ -38,8 +38,6 @@ public:
 public slots:
     void unlockTab();
 private slots:
-    void on_openTheList_clicked();
-
     void on_openCA_clicked();
 
     void on_adminPop_clicked();
