@@ -57,10 +57,11 @@ vector<Campus> Database::readFile()
     else
         qInfo() << "error open Campuses";
 
-    for(int i = 0; i < rows.size(); i++)
-    {
-        qInfo() << rows[i] << "\n";
-    }
+//    for(int i = 0; i < rows.size(); i++)
+//    {
+//        qInfo() << rows[i] << "\n";
+//    }
+    qInfo() << "TEST FOR READ: " << rows[1];
 
     if(q_fileS.open(QFile::ReadOnly))
     {

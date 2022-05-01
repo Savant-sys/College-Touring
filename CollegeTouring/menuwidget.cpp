@@ -44,7 +44,7 @@ void MenuWidget::on_AddMenuItemClicked(){
 
     if (this->campus.getMenu().size() >= 8){
         QMessageBox popup;
-        popup.critical(0, "Error", "Maximum of 8 items per restaurant.");
+        popup.critical(0, "Error", "Maximum of 8 items per college.");
     } else {
         this->parent->addItem(this->campus, this->campus.getMenu());
     }
@@ -64,7 +64,7 @@ void MenuWidget::on_DeleteMenuItemClicked(){
         this->parent->deleteItem(this->campus, updatedMenu);
     } else {
         QMessageBox popup;
-        popup.critical(0, "Error", "Menu is already empty.");
+        popup.critical(0, "Error", "Souvenir is already empty.");
     }
 }
 
@@ -72,9 +72,17 @@ void MenuWidget::on_EditMenuItemClicked(){
     qInfo() << "Edit item clicked.";
 
     int index = this->menuItems->currentIndex();
+    if (index > -1)
+    {
     Souvenir selected = this->campus.getMenu()[index];
 
     this->parent->editItem(this->campus, index);
 
     qInfo() << "Editing " << selected.name;
+    }
+    else
+    {
+        QMessageBox popup;
+        popup.critical(0, "Error", "Souvenir is empty!");
+    }
 }

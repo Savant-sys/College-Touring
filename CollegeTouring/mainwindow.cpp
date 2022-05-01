@@ -126,7 +126,7 @@ void MainWindow::on_adminPop_clicked()
         else
         {
             QMessageBox popup;
-            popup.critical(0, "Error", "You already logged in");
+            popup.warning(this, "Warning", "You already logged in!");
         }
     }
 
@@ -143,7 +143,7 @@ void MainWindow::Update()
     ui->campusList->clear();
     db.getCampuses(this->campuses);
         qInfo() << "Got all campuses list";
-    qWarning() << this->campuses.at(0).getMenu().at(0).name;
+    //qWarning() << this->campuses.at(0).getMenu().at(0).name;
     QListWidget *campusList = ui->campusList;
 
     for (int i =0; i < this->campuses.size(); i++)
@@ -155,6 +155,8 @@ void MainWindow::Update()
         item->setSizeHint(campusItem->minimumSizeHint());
         campusList->setItemWidget(item, campusItem);
     }
+
+    ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
 }
 
 
@@ -163,6 +165,8 @@ void MainWindow::on_UnderSelected_clicked()
     if(ui->campusList->currentItem() == nullptr)
     {
         qWarning() << "No College Selected";
+        QMessageBox popup;
+        popup.critical(0, "Error", "You must select one of the colleges!");
         return;
     }
 
@@ -415,53 +419,72 @@ void MainWindow::unlockTab()
 }
 
 
-void MainWindow::addItem(Campus campus, vector<Souvenir> newMenu){
-    QString name = ui->itemnameText->toPlainText();
-    double price = std::stod(ui->priceText->text().toStdString());
-
-    Souvenir newItem;
-    newItem.name = name;
-    newItem.price = price;
-
-    std::vector<Souvenir> menu = campus.getMenu();
-    menu.push_back(newItem);
-    this->db.modifySouvenir(campus, menu);
-//    for (int i = 0; i < campuses.size(); i++)
-//    {
-//        if (campus.getStartCollege() == campuses[i].getStartCollege())
-//        {
-//            this->db.modifySouvenir(campus, menu, i);
-//            break;
-//        }
-//    }
-
-    //update campuses
-    this->db.getCampuses(this->campuses);
-
-    //update ui
-    QListWidget *campusList = ui->campusList;
-    campusList->clear();
-
-    //Create a CampusWidget object for each campus and add it to the campusList list widget.
-    for (int i = 0; i < this->campuses.size(); i++)
+void MainWindow::addItem(Campus campus, vector<Souvenir> newMenu)
+{
+    if (ui->itemnameText->toPlainText() != "")
     {
-        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
-        QListWidgetItem *item = new QListWidgetItem(campusList);
-        campusList->addItem(item);
-        item->setSizeHint(campusItem->minimumSizeHint());
-        campusList->setItemWidget(item, campusItem);
+        if (ui->priceText->text().toStdString() != "")
+        {
+            QString name = ui->itemnameText->toPlainText();
+            double price = stod(ui->priceText->text().toStdString());
+
+            Souvenir newItem;
+            newItem.name = name;
+            newItem.price = price;
+
+            std::vector<Souvenir> menu = campus.getMenu();
+            menu.push_back(newItem);
+            this->db.modifySouvenir(campus, menu);
+            //    for (int i = 0; i < campuses.size(); i++)
+            //    {
+            //        if (campus.getStartCollege() == campuses[i].getStartCollege())
+            //        {
+            //            this->db.modifySouvenir(campus, menu, i);
+            //            break;
+            //        }
+            //    }
+
+                //update campuses
+            this->db.getCampuses(this->campuses);
+
+            //update ui
+            QListWidget* campusList = ui->campusList;
+            campusList->clear();
+
+            //Create a CampusWidget object for each campus and add it to the campusList list widget.
+            for (int i = 0; i < this->campuses.size(); i++)
+            {
+                CampusWidget* campusItem = new CampusWidget(campuses[i], this);
+                QListWidgetItem* item = new QListWidgetItem(campusList);
+                campusList->addItem(item);
+                item->setSizeHint(campusItem->minimumSizeHint());
+                campusList->setItemWidget(item, campusItem);
+            }
+
+            //loop through campuses and create a MenuWidget for each one
+            QListWidget* menuList = ui->menuAdminList;
+            menuList->clear();
+
+            for (int i = 0; i < campuses.size(); i++)
+            {
+                MenuWidget* menuItem = new MenuWidget(this->campuses[i], this);
+                QListWidgetItem* item = new QListWidgetItem(menuList);
+                menuList->addItem(item);
+                item->setSizeHint(menuItem->minimumSizeHint());
+                menuList->setItemWidget(item, menuItem);
+            }
+            QMessageBox::information(this, "Success", "Successfully inserted!");
+        }
+        else
+        {
+            QMessageBox popup;
+            popup.critical(0, "Error", "You must enter the price!");
+        }
     }
-
-    //loop through campuses and create a MenuWidget for each one
-    QListWidget *menuList = ui->menuAdminList;
-    menuList->clear();
-
-    for (int i = 0; i < campuses.size(); i++){
-        MenuWidget *menuItem = new MenuWidget(this->campuses[i], this);
-        QListWidgetItem *item = new QListWidgetItem(menuList);
-        menuList->addItem(item);
-        item->setSizeHint(menuItem->minimumSizeHint());
-        menuList->setItemWidget(item, menuItem);
+    else
+    {
+        QMessageBox popup;
+        popup.critical(0, "Error", "You must enter an item name!");
     }
 }
 
@@ -473,8 +496,8 @@ void MainWindow::deleteItem(Campus campus, vector<Souvenir> newMenu){
     this->db.getCampuses(this->campuses);
 
     //update ui
-    vector<Souvenir> test = campuses[0].getMenu();
-    qInfo() << "TESTMENU" << test[0].name;
+//    vector<Souvenir> test = campuses[0].getMenu();
+//    qInfo() << "TESTMENU" << test[0].name;
 
     QListWidget *campusList = ui->campusList;
     campusList->clear();
@@ -502,47 +525,56 @@ void MainWindow::deleteItem(Campus campus, vector<Souvenir> newMenu){
     }
 }
 
-void MainWindow::editItem(Campus campus, int index){
-    vector<Souvenir> newMenu = campus.getMenu();
-    Souvenir editing = campus.getMenu()[index];
-    newMenu.erase(newMenu.begin() + index);
-    double newPrice = std::stod(ui->priceText->text().toStdString());
-    editing.price = newPrice;
+void MainWindow::editItem(Campus campus, int index)
+{
+        if (ui->priceText->text().toStdString() != "")
+        {
+            vector<Souvenir> newMenu = campus.getMenu();
+            Souvenir editing = campus.getMenu()[index];
+            newMenu.erase(newMenu.begin() + index);
+            double newPrice = std::stod(ui->priceText->text().toStdString());
+            editing.price = newPrice;
 
-    newMenu.push_back(editing);
+            newMenu.push_back(editing);
 
-    this->db.modifySouvenir(campus, newMenu);
+            this->db.modifySouvenir(campus, newMenu);
 
-    //update campuses
-    this->db.getCampuses(this->campuses);
+            //update campuses
+            this->db.getCampuses(this->campuses);
 
-    //update ui
+            //update ui
 
-    QListWidget *campusList = ui->campusList;
-    campusList->clear();
+            QListWidget* campusList = ui->campusList;
+            campusList->clear();
 
-    //Create a CampusWidget object for each campus and add it to the campusList list widget.
-    for (int i = 0; i < this->campuses.size(); i++)
-    {
-        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
-        QListWidgetItem *item = new QListWidgetItem(campusList);
-        campusList->addItem(item);
-        item->setSizeHint(campusItem->minimumSizeHint());
-        campusList->setItemWidget(item, campusItem);
-    }
+            //Create a CampusWidget object for each campus and add it to the campusList list widget.
+            for (int i = 0; i < this->campuses.size(); i++)
+            {
+                CampusWidget* campusItem = new CampusWidget(campuses[i], this);
+                QListWidgetItem* item = new QListWidgetItem(campusList);
+                campusList->addItem(item);
+                item->setSizeHint(campusItem->minimumSizeHint());
+                campusList->setItemWidget(item, campusItem);
+            }
 
-    //loop through campuses and create a MenuWidget for each one
-    QListWidget *menuList = ui->menuAdminList;
-    menuList->clear();
+            //loop through campuses and create a MenuWidget for each one
+            QListWidget* menuList = ui->menuAdminList;
+            menuList->clear();
 
-    for (int i = 0; i < campuses.size(); i++){
-        qInfo() << "edit";
-        MenuWidget *menuItem = new MenuWidget(this->campuses[i], this);
-        QListWidgetItem *item = new QListWidgetItem(menuList);
-        menuList->addItem(item);
-        item->setSizeHint(menuItem->minimumSizeHint());
-        menuList->setItemWidget(item, menuItem);
-    }
+            for (int i = 0; i < campuses.size(); i++)
+            {
+                MenuWidget* menuItem = new MenuWidget(this->campuses[i], this);
+                QListWidgetItem* item = new QListWidgetItem(menuList);
+                menuList->addItem(item);
+                item->setSizeHint(menuItem->minimumSizeHint());
+                menuList->setItemWidget(item, menuItem);
+            }
+        }
+        else
+        {
+            QMessageBox popup;
+            popup.critical(0, "Error", "You must enter the price!");
+        }
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -559,7 +591,7 @@ void MainWindow::on_pushButton_3_clicked()
     QListWidget *campusList = ui->campusList;
     campusList->clear();
 
-    //Create a RestaurantWidget object for each restaurant and add it to the restaurantList list widget.
+    //Create a CampusWidget object for each campus and add it to the campusList list widget.
     for (int i = 0; i < this->campuses.size(); i++)
     {
         CampusWidget *campusItem = new CampusWidget(campuses[i], this);
