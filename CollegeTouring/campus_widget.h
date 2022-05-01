@@ -42,6 +42,7 @@ private:
     QSpinBox *itemsToAdd; /*!< QSpinBox that lets user pick number of items to add */
     QPushButton *addItemButton; /*!< QPushButton to add a menu item to trip */
 
+    QComboBox *endC;
     //campus that this ui element represents
     Campus campus; /*!< Campus associated with widget */
     MainWindow *parent; /*!< Reference to the main application */

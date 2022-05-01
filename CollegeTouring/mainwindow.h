@@ -40,13 +40,7 @@ public slots:
 private slots:
     void on_openTheList_clicked();
 
-    void on_sortState_clicked();
-
-    void on_sortCollege_clicked();
-
     void on_openCA_clicked();
-
-    void on_sortStateCollege_clicked();
 
     void on_adminPop_clicked();
 
@@ -75,6 +69,8 @@ private slots:
     void on_CustomTripPrices_itemClicked(QListWidgetItem *item);
 
     void on_CustomTripSouvs_itemClicked(QListWidgetItem *item);
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::MainWindow *ui;

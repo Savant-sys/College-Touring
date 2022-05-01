@@ -82,20 +82,6 @@ void MainWindow::on_openTheList_clicked()
 //    db.readFile();
 }
 
-
-
-void MainWindow::on_sortState_clicked()
-{
-
-}
-
-
-void MainWindow::on_sortCollege_clicked()
-{
-
-}
-
-
 void MainWindow::on_openCA_clicked()
 {
     //does not update mainwindow from admin changes yet
@@ -116,12 +102,6 @@ void MainWindow::on_openCA_clicked()
             campusList->setItemWidget(item, campusItem);
         }
     }
-}
-
-
-void MainWindow::on_sortStateCollege_clicked()
-{
-
 }
 
 void MainWindow::addCampus(Campus campus)
@@ -168,13 +148,13 @@ void MainWindow::Update()
 
     for (int i =0; i < this->campuses.size(); i++)
     {
+        //qInfo() << campuses[i].getEndCollege()[1] << "\n";
         CampusWidget *campusItem = new CampusWidget(campuses[i], this);
         QListWidgetItem *item = new QListWidgetItem(campusList);
         campusList->addItem(item);
         item->setSizeHint(campusItem->minimumSizeHint());
         campusList->setItemWidget(item, campusItem);
     }
-
 }
 
 
@@ -564,3 +544,47 @@ void MainWindow::editItem(Campus campus, int index){
         menuList->setItemWidget(item, menuItem);
     }
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    std::vector<double> distances;
+    std::vector<Souvenir> menu;
+
+    vector<Campus> newCampuses = this->db.readFile();
+
+    this->db.addCampuses(newCampuses);
+
+    this->db.getCampuses(this->campuses);
+
+    QListWidget *campusList = ui->campusList;
+    campusList->clear();
+
+    //Create a RestaurantWidget object for each restaurant and add it to the restaurantList list widget.
+    for (int i = 0; i < this->campuses.size(); i++)
+    {
+        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
+        QListWidgetItem *item = new QListWidgetItem(campusList);
+        campusList->addItem(item);
+        item->setSizeHint(campusItem->minimumSizeHint());
+        campusList->setItemWidget(item, campusItem);
+    }
+
+
+    qInfo() << newCampuses[1].getStartCollege();
+//    qInfo() << newCampuses[1].getID();
+
+    distances = newCampuses[1].getDistances();
+//    qInfo() << newCampuses[1].getSaddlebackDistance();
+    menu = newCampuses[1].getMenu();
+
+    for (auto i = distances.begin(); i != distances.end(); i++)
+    {
+        qInfo() << *i;
+    }
+
+    for (auto j = menu.begin(); j != menu.end(); j++)
+    {
+        qInfo() << j->name << " " << j->price;
+    }
+}
+

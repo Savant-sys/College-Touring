@@ -9,17 +9,27 @@ CampusWidget::CampusWidget(Campus campusPassed, MainWindow *parent)
     //Creating all the UI elements dynamically for each campus column in the list widget.
     layout = new QHBoxLayout(this);
     nameLabel = new QLabel(campus.getStartCollege());
+    nameLabel->setFixedWidth(270);
+    endC = new QComboBox();
+    endC->setFixedWidth(230);
     addButton = new QPushButton("Add Campus");
+    addButton->setFixedWidth(90);
     menuItems = new QComboBox();
+    menuItems->setFixedWidth(170);
     itemsToAdd = new QSpinBox();
-    itemsToAdd->setFixedSize(100, 20);
-    itemsToAdd->setMaximum(100);
+    itemsToAdd->setFixedSize(80, 20);
+    itemsToAdd->setMaximum(80);
     addItemButton = new QPushButton("Add menu item(s)");
-
+    addItemButton->setFixedWidth(80);
+    for (int i = 0; i < this->campus.getEndCollege().size(); i++)
+    {
+        endC->addItem(QString(this->campus.getEndCollege()[i]));
+        //qInfo() << campus.getEndCollege()[i] << "\n";
+    }
     //Iterating over the menu to add items to the menu ComboBox
     for (int i = 0; i < this->campus.getMenu().size(); i++)
     {
-        menuItems->addItem(QString(this->campus.getMenu()[i].name + ": " + QString::number(this->campus.getMenu()[i].price)));
+        menuItems->addItem(QString(this->campus.getMenu()[i].name + ": $" + QString::number(this->campus.getMenu()[i].price)));
     }
 
     //Run on_AddMenuItemClicked() method in this class when "Add Items" button has been clicked
@@ -29,6 +39,7 @@ CampusWidget::CampusWidget(Campus campusPassed, MainWindow *parent)
 
     //Adding all input widgets to our QHBoxLayout that groups them all together.
     layout->addWidget(nameLabel);
+    layout->addWidget(endC);
     layout->addWidget(addButton);
     layout->addWidget(menuItems);
     layout->addWidget(itemsToAdd);

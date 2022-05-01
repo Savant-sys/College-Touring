@@ -19,7 +19,7 @@ class Campus
 public:
     //!Constructor
     //! \brief Initializes all campus attributes
-    Campus(QString startCollege, vector<QString> endCollege, vector<double> distances, QString state, int undergrads, vector<Souvenir> menu, int id);
+    Campus(QString startCollege, vector<QString> endCollege, vector<double> distances, QString state, int undergrads, vector<Souvenir> menu);
 
     QString getStartCollege() const
     {
@@ -51,10 +51,6 @@ public:
         return menu;
     }
 
-    int getId() const
-    {
-        return id;
-    }
     void setMenu(vector<Souvenir> Menu)
     {
         this->menu = Menu;
@@ -67,7 +63,6 @@ private:
     QString state;
     int undergrads;
     vector<Souvenir> menu;
-    int id;
 };
 
 #endif // CAMPUS_H

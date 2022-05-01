@@ -14,59 +14,13 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListWidget" name="customList">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>460</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="menuList">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>460</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="sortStateCollege">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>620</y>
-      <width>121</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Sort State + College</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="adminPop">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>620</y>
-      <width>80</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Admin Login</string>
-    </property>
-   </widget>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>1271</width>
-      <height>441</height>
+      <height>631</height>
      </rect>
     </property>
     <widget class="QWidget" name="page">
@@ -76,7 +30,7 @@
         <x>30</x>
         <y>0</y>
         <width>1241</width>
-        <height>441</height>
+        <height>621</height>
        </rect>
       </property>
       <property name="currentIndex">
@@ -91,9 +45,110 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>1231</width>
-          <height>411</height>
+          <width>981</width>
+          <height>401</height>
          </rect>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="customList">
+        <property name="geometry">
+         <rect>
+          <x>720</x>
+          <y>410</y>
+          <width>201</width>
+          <height>141</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="menuList">
+        <property name="geometry">
+         <rect>
+          <x>1000</x>
+          <y>160</y>
+          <width>221</width>
+          <height>401</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>420</y>
+          <width>98</width>
+          <height>139</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QPushButton" name="openCA">
+           <property name="text">
+            <string>Open CA</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>400</y>
+          <width>252</width>
+          <height>165</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QPushButton" name="UnderSelected">
+           <property name="text">
+            <string>Undergraduates for selected college</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="UnderAll">
+           <property name="text">
+            <string>Undergraduates for all colleges</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="UnderInitial">
+           <property name="text">
+            <string>Undergraduates for initial colleges</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QTextBrowser" name="textBrowser">
+        <property name="geometry">
+         <rect>
+          <x>390</x>
+          <y>460</y>
+          <width>101</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="adminPop">
+        <property name="geometry">
+         <rect>
+          <x>530</x>
+          <y>420</y>
+          <width>101</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Admin Login</string>
         </property>
        </widget>
       </widget>
@@ -196,7 +251,7 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>Page</string>
+        <string>Maintenance</string>
        </attribute>
        <widget class="QListWidget" name="menuAdminList">
         <property name="geometry">
@@ -272,95 +327,6 @@
     </widget>
     <widget class="QWidget" name="page_2"/>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>470</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>460</y>
-      <width>201</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="UnderSelected">
-       <property name="text">
-        <string>Undergraduates for selected college</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="UnderAll">
-       <property name="text">
-        <string>Undergraduates for all colleges</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="UnderInitial">
-       <property name="text">
-        <string>Undergraduates for initial colleges</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>500</y>
-      <width>82</width>
-      <height>108</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QPushButton" name="openTheList">
-       <property name="text">
-        <string>Open the List</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sortState">
-       <property name="text">
-        <string>Sort State</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sortCollege">
-       <property name="text">
-        <string>Sort College</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="openCA">
-       <property name="text">
-        <string>Open CA</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -368,7 +334,7 @@
      <x>0</x>
      <y>0</y>
      <width>1341</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTrips">

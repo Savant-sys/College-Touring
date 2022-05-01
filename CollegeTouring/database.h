@@ -28,7 +28,7 @@ public:
      * \brief Method to generate vector of campuses and souvenirs from input files (given in project zip)
      * \return Returns vector which is populated with new campuses and souvenirs from input file
      */
-//    vector<Campus> readFile();
+    vector<Campus> readFile();
 
     //! addCampuses
     /*!
