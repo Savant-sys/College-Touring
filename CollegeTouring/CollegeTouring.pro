@@ -9,7 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    admin.cpp \
+    adminwindow.cpp \
     campus.cpp \
     campus_widget.cpp \
     database.cpp \
@@ -17,19 +17,24 @@ SOURCES += \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
+    map.cpp \
+    menuwidget.cpp \
     trip.cpp
 
 HEADERS += \
-    admin.h \
+    adminwindow.h \
     campus.h \
     campus_widget.h \
     database.h \
     list_of_campus.h \
     login.h \
     mainwindow.h \
+    map.h \
+    menuwidget.h \
     trip.h
 
 FORMS += \
+    adminwindow.ui \
     login.ui \
     mainwindow.ui
 

@@ -28,7 +28,7 @@ public:
      * \brief Method to generate vector of campuses and souvenirs from input files (given in project zip)
      * \return Returns vector which is populated with new campuses and souvenirs from input file
      */
-    vector<Campus> readFile();
+//    vector<Campus> readFile();
 
     //! addCampuses
     /*!
@@ -45,7 +45,7 @@ public:
      * \param items - Vector of MenuItems, which represents our updated menu state.
      * \return - Returns boolean of whether operation was successful
      */
-    void modifySouvenir(Campus campus, vector<Souvenir> items);
+    void modifySouvenir(Campus campus, vector<Souvenir> menu);
 
     //! getCampuses
     /*!
@@ -54,6 +54,9 @@ public:
      * \return Returns true or false of successful/not successful operation
      */
     bool getCampuses(vector<Campus>& campuses);
+
+    bool open();
+
 private:
     QSqlDatabase db; /*!< QTSqlite database object for Campuses*/
     QSqlDatabase dbS; /*!< QTSqlite database object for Souvenirs*/

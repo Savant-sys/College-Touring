@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "ui_login.h"
+//#include "adminwindow.h"
 
 namespace Ui{
 class Login;
@@ -31,11 +32,16 @@ public:
 private slots:
     void on_loginButton_clicked();
 
+
+signals:
+    void Admin();
+    void unlockTab();
 private:
     Ui::Login *ui; /*!< UI of admin login screen */
     QString username; /*!< Encrypted username */
     QString password; /*!< Encrypted password */
     bool admin; /*!< Status of authentication */
+    //AdminWindow* adminWindow;
 };
 
 #endif // LOGIN_H

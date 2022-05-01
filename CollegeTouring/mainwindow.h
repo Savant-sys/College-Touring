@@ -7,7 +7,10 @@
 #include "database.h"
 #include "login.h"
 #include <QListWidget>
+#include "adminwindow.h"
 #include "campus_widget.h"
+#include "map.h"
+#include "menuwidget.h"
 
 using namespace std;
 
@@ -28,6 +31,12 @@ public:
     vector<QString> getMenuList() const { return menuList; }
     void addMenuItem(Campus restaurant, Souvenir item);
     void addToMenuList(QString name, QString campusName);
+    void addItem(Campus campus, vector<Souvenir> newMenu);
+    void deleteItem(Campus campus, vector<Souvenir> newMenu);
+    void editItem(Campus campus, int index);
+    Database db;
+public slots:
+    void unlockTab();
 private slots:
     void on_openTheList_clicked();
 
@@ -41,13 +50,42 @@ private slots:
 
     void on_adminPop_clicked();
 
+    void Admin();
+
+    void Update();
+
+    void on_UnderSelected_clicked();
+
+    void on_UnderAll_clicked();
+
+    void on_UnderInitial_clicked();
+
+    void on_actionCustom_Trip_to_Any_triggered();
+
+    void on_tabWidget_currentChanged(int index);
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_CustomTripList_itemClicked(QListWidgetItem *item);
+
+    void on_AddToCart_clicked();
+
+    void on_CustomTripPrices_itemClicked(QListWidgetItem *item);
+
+    void on_CustomTripSouvs_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
 
-    Database db;
+//    Database db;
 
-    Login* loginPopup;
+    bool log;
+    Login* loginpopup;
+    AdminWindow* adminWindow;
 
+    Map collegeMap;
     vector<Campus> campuses;
     vector<QString> nameList;
     vector<QString> menuList;
