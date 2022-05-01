@@ -70,6 +70,10 @@ private slots:
 
     void on_CustomTripSouvs_itemClicked(QListWidgetItem *item);
 
+    void on_actionCustomDijkstra_triggered();
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
 

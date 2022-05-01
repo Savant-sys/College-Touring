@@ -33,6 +33,7 @@ class Ui_MainWindow
 {
 public:
     QAction *actionCustom_Trip_to_Any;
+    QAction *actionCustomDijkstra;
     QWidget *centralwidget;
     QListWidget *customList;
     QListWidget *menuList;
@@ -52,6 +53,12 @@ public:
     QSpinBox *spinBox;
     QTableWidget *Cart;
     QPushButton *AddToCart;
+    QListWidget *SelectedCollegesList;
+    QWidget *tab_3;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_4;
+    QListWidget *CustomDijkstraList;
+    QListWidget *listWidget;
     QWidget *page_2;
     QTextBrowser *textBrowser;
     QWidget *widget;
@@ -76,6 +83,8 @@ public:
         MainWindow->resize(1341, 710);
         actionCustom_Trip_to_Any = new QAction(MainWindow);
         actionCustom_Trip_to_Any->setObjectName(QString::fromUtf8("actionCustom_Trip_to_Any"));
+        actionCustomDijkstra = new QAction(MainWindow);
+        actionCustomDijkstra->setObjectName(QString::fromUtf8("actionCustomDijkstra"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         customList = new QListWidget(centralwidget);
@@ -97,7 +106,7 @@ public:
         page->setObjectName(QString::fromUtf8("page"));
         tabWidget = new QTabWidget(page);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(30, 0, 1241, 441));
+        tabWidget->setGeometry(QRect(20, 0, 1241, 441));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         campusList = new QListWidget(tab);
@@ -127,11 +136,29 @@ public:
         spinBox->setMaximum(10);
         Cart = new QTableWidget(tab_2);
         Cart->setObjectName(QString::fromUtf8("Cart"));
-        Cart->setGeometry(QRect(900, 10, 251, 371));
+        Cart->setGeometry(QRect(900, 10, 231, 371));
         AddToCart = new QPushButton(tab_2);
         AddToCart->setObjectName(QString::fromUtf8("AddToCart"));
         AddToCart->setGeometry(QRect(640, 40, 91, 22));
+        SelectedCollegesList = new QListWidget(tab_2);
+        SelectedCollegesList->setObjectName(QString::fromUtf8("SelectedCollegesList"));
+        SelectedCollegesList->setGeometry(QRect(380, 230, 261, 181));
         tabWidget->addTab(tab_2, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        pushButton_3 = new QPushButton(tab_3);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setGeometry(QRect(10, 10, 91, 22));
+        pushButton_4 = new QPushButton(tab_3);
+        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
+        pushButton_4->setGeometry(QRect(10, 40, 91, 22));
+        CustomDijkstraList = new QListWidget(tab_3);
+        CustomDijkstraList->setObjectName(QString::fromUtf8("CustomDijkstraList"));
+        CustomDijkstraList->setGeometry(QRect(120, 10, 251, 391));
+        listWidget = new QListWidget(tab_3);
+        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        listWidget->setGeometry(QRect(380, 10, 256, 251));
+        tabWidget->addTab(tab_3, QString());
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
@@ -201,6 +228,7 @@ public:
 
         menubar->addAction(menuTrips->menuAction());
         menuTrips->addAction(actionCustom_Trip_to_Any);
+        menuTrips->addAction(actionCustomDijkstra);
 
         retranslateUi(MainWindow);
 
@@ -214,6 +242,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         actionCustom_Trip_to_Any->setText(QCoreApplication::translate("MainWindow", "Custom Trip to Any", nullptr));
+        actionCustomDijkstra->setText(QCoreApplication::translate("MainWindow", "CustomDijkstra", nullptr));
         sortStateCollege->setText(QCoreApplication::translate("MainWindow", "Sort State + College", nullptr));
         adminPop->setText(QCoreApplication::translate("MainWindow", "Admin Login", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "MainTab", nullptr));
@@ -221,6 +250,9 @@ public:
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "AddSelected", nullptr));
         AddToCart->setText(QCoreApplication::translate("MainWindow", "AddSouvenir", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "CustomToAny", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("MainWindow", "Add Start", nullptr));
+        pushButton_4->setText(QCoreApplication::translate("MainWindow", "Find Selected", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainWindow", "CustomDijkstra", nullptr));
         UnderSelected->setText(QCoreApplication::translate("MainWindow", "Undergraduates for selected college", nullptr));
         UnderAll->setText(QCoreApplication::translate("MainWindow", "Undergraduates for all colleges", nullptr));
         UnderInitial->setText(QCoreApplication::translate("MainWindow", "Undergraduates for initial colleges", nullptr));

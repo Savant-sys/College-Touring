@@ -73,7 +73,7 @@
      <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>0</y>
         <width>1241</width>
         <height>441</height>
@@ -175,7 +175,7 @@
          <rect>
           <x>900</x>
           <y>10</y>
-          <width>251</width>
+          <width>231</width>
           <height>371</height>
          </rect>
         </property>
@@ -191,6 +191,67 @@
         </property>
         <property name="text">
          <string>AddSouvenir</string>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="SelectedCollegesList">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>230</y>
+          <width>261</width>
+          <height>181</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>CustomDijkstra</string>
+       </attribute>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add Start</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Find Selected</string>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="CustomDijkstraList">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>10</y>
+          <width>251</width>
+          <height>391</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="listWidget">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>10</y>
+          <width>256</width>
+          <height>251</height>
+         </rect>
         </property>
        </widget>
       </widget>
@@ -302,6 +363,7 @@
      <string>Trips</string>
     </property>
     <addaction name="actionCustom_Trip_to_Any"/>
+    <addaction name="actionCustomDijkstra"/>
    </widget>
    <addaction name="menuTrips"/>
   </widget>
@@ -309,6 +371,11 @@
   <action name="actionCustom_Trip_to_Any">
    <property name="text">
     <string>Custom Trip to Any</string>
+   </property>
+  </action>
+  <action name="actionCustomDijkstra">
+   <property name="text">
+    <string>CustomDijkstra</string>
    </property>
   </action>
  </widget>

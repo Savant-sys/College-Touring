@@ -233,6 +233,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         ui->CustomTripList->clear();
         ui->CustomTripSouvs->clear();
         ui->CustomTripPrices->clear();
+        ui->SelectedCollegesList->clear();
         ui->pushButton->setEnabled(true);
         ui->pushButton_2->setEnabled(false);
 
@@ -259,8 +260,27 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     {
         qWarning() << "Display Page";
     }
-    else
-        qWarning() << "Not implemented";
+    if(index == 2)
+    {
+        qWarning() << "Switching from vec to map";
+
+        collegeMap.putVectorinHere(this->campuses);
+        qWarning() << "Done putting";
+        pair<int, double> key;
+        QString add = "";
+        for(int i = 0; i < campuses.size(); i++)
+        {
+             dist = campuses.at(i).getDistances();
+             key.first = i;
+             for(int j = 0; j < dist.size(); j++)
+             {
+                 key.second = dist.at(j);
+             }
+             ui->CustomDijkstraList->addItem(collegeMap.getOrigin(key));
+        }
+    }
+    //else
+        //qWarning() << "Not implemented";
 }
 
 
@@ -272,6 +292,7 @@ void MainWindow::on_pushButton_clicked()
         QString start = ui->CustomTripList->currentItem()->text();
        // ui->CustomTripList->currentItem()->setSelected(false);
         //ui->CustomTripList->removeItemWidget(ui->CustomTripList->currentItem());
+        ui->SelectedCollegesList->addItem(start);
         ui->CustomTripList->currentItem()->setHidden(true);
         ui->pushButton->setEnabled(false);
         ui->CustomTripList->setSelectionMode(QAbstractItemView::MultiSelection);
@@ -289,6 +310,8 @@ void MainWindow::on_pushButton_2_clicked() //add selected
     {
         for(int i = 0; i < ui->CustomTripList->selectedItems().size(); i++)
         {
+            if(i != 0)
+                ui->SelectedCollegesList->addItem(ui->CustomTripList->selectedItems().at(i)->text());
             selected.push_back(ui->CustomTripList->selectedItems().at(i)->text());
         }
         ui->CustomTripList->clear();
@@ -384,5 +407,40 @@ void MainWindow::on_CustomTripSouvs_itemClicked(QListWidgetItem *item)
 {
     int row = ui->CustomTripSouvs->currentRow();
     ui->CustomTripPrices->setCurrentRow(row);
+}
+
+
+void MainWindow::on_actionCustomDijkstra_triggered()
+{
+    ui->tabWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_3_clicked() //customDijkstra add start
+{
+
+    pair<int,double> startKey;
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        if(ui->CustomDijkstraList->currentItem()->text() == collegeMap.hashTable[i].origin)
+        {
+            startKey.first = collegeMap.hashTable[i].num;
+            startKey.second = 0;
+        }
+    }
+    qWarning() << "starting Dijkstra";
+    collegeMap.ans.clear();
+    collegeMap.initPathDist(campuses.size());
+    collegeMap.dijkstra(startKey);
+    collegeMap.pathsInAns(collegeMap.coll);
+    qWarning() << "Dijkstra complete";
+    for(int i = 0; i < collegeMap.pathDists.size(); i++)
+    {
+        ui->listWidget->addItem(QString::number(collegeMap.pathDists.at(i).first) + "  " + QString::number(collegeMap.pathDists.at(i).second));
+    }
+    for(int i = 0; i < collegeMap.ans.size(); i++)
+    {
+        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num);
+    }
 }
 

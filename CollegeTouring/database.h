@@ -55,7 +55,6 @@ public:
      */
     bool getCampuses(vector<Campus>& campuses);
 
-    bool open();
 
 private:
     QSqlDatabase db; /*!< QTSqlite database object for Campuses*/

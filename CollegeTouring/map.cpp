@@ -199,3 +199,118 @@ void Map::recurSelec(pair<int,double> key) //recursion on selected for custom to
         return;
     }
 }
+
+void Map::dijkstra(pair<int, double> key)
+{
+    bool one = false;
+    double smallest = 999999;
+    int edge = 0;
+    int curr = 0;
+    int saveI = 0;
+    for(int j = 0; j < pathDists.size(); j++)
+    {
+        if(pathDists.at(j).second != INFINITY)
+        {
+            one = true;
+        }
+    }
+    if(one == false)
+    {
+       for(int j = 0; j < pathDists.size(); j++)
+       {
+           if(pathDists.at(j).first == key.first)
+               pathDists.at(j).second = 0;
+       }
+    }
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        if(hashTable[i].num == key.first && hashTable[i].visited == false) //Now at the branches of key college
+        {
+                saveI = i;
+                bool check = false;
+                for(int j = 0; j < pathDists.size(); j++)
+                {
+
+                    if(pathDists.at(j).first == hashTable[i].num)
+                    {
+                        curr = j;
+
+                    }
+                }
+                for(int f = 0; f < TABLE_SIZE; f++) //go through list of colleges again to find end key
+                {
+                   if(hashTable[i].dest == hashTable[f].origin) //now at i's dest
+                   {
+                       if(hashTable[f].visited == false)
+                           check = true;
+                       for(int j = 0; j < pathDists.size(); j++)
+                       {
+                           edge = j;
+                           if(pathDists.at(edge).first == hashTable[f].num && check == true)//for each branch of key, find corresponding pathDist
+                           {
+                               if(pathDists.at(edge).second > (hashTable[i].dist + pathDists.at(curr).second))
+                               {
+                                   pathDists.at(edge).second = pathDists.at(curr).second + hashTable[i].dist;
+                                   if(hashTable[f].num == j)
+                                   {
+                                       parent.at(j) = hashTable[i].num;
+                                   }
+                                   //update pathDists.second to total distance from start
+                               }
+                           }
+                       }
+
+                    }
+                   }
+
+        }
+    }
+    hashTable[saveI].visited = true;
+    //find smallest pathDist from startvertex to set as current
+    curr = 0;
+    bool found = false;
+    for(int i = 0; i < pathDists.size(); i++)
+    {
+        if(pathDists.at(i).second < smallest)
+        {
+            bool found = true;
+            curr = i;
+            smallest = pathDists.at(i).second;
+        }
+    }
+    if(found == true)
+    {
+        coll = hashTable[curr].num;
+        dijkstra(pathDists.at(curr));
+    }
+    else
+        return;//pathsInAns(curr);
+}
+
+void Map::initPathDist(int size) // for dijkstra
+{
+    pair<int, double> OOnly;
+    int par = -1;
+    OOnly.first = -1;
+    OOnly.second = INFINITY;
+
+               for(int i = 0; i < size; i++)
+               {
+                par = i;
+                parent.push_back(par);
+                OOnly.first = i;
+                OOnly.second = INFINITY;
+                pathDists.push_back(OOnly); //vertex and inf
+               }
+
+}
+
+void Map::pathsInAns(int j)
+{
+    if(parent.at(j) == -1)
+        return;
+    pathsInAns(parent.at(j));
+    HashStruct CollNum;
+    CollNum.num = parent.at(j);
+    ans.push_back(CollNum);
+}
