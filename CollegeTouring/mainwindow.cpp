@@ -576,6 +576,7 @@ void MainWindow::editItem(Campus campus, int index)
 void MainWindow::on_pushButton_3_clicked()
 {
 //    db.readFile();
+    vector <QString> endCollege;
     std::vector<double> distances;
     std::vector<Souvenir> menu;
 
@@ -599,21 +600,27 @@ void MainWindow::on_pushButton_3_clicked()
     }
 
 
-    qInfo() << newCampuses[1].getStartCollege();
+//    qInfo() << newCampuses[1].getStartCollege();
 //    qInfo() << newCampuses[1].getID();
 
-    distances = newCampuses[1].getDistances();
+//    distances = newCampuses[1].getDistances();
 //    qInfo() << newCampuses[1].getSaddlebackDistance();
-    menu = newCampuses[1].getMenu();
+//    menu = newCampuses[1].getMenu();
 
-    for (auto i = distances.begin(); i != distances.end(); i++)
-    {
-        qInfo() << *i;
-    }
+//    for (auto i = distances.begin(); i != distances.end(); i++)
+//    {
+//        qInfo() << *i;
+//    }
 
-    for (auto j = menu.begin(); j != menu.end(); j++)
-    {
-        qInfo() << j->name << " " << j->price;
-    }
+//    for (auto j = menu.begin(); j != menu.end(); j++)
+//    {
+//        qInfo() << j->name << " " << j->price;
+//    }
+}
+
+
+void MainWindow::on_openAll_clicked()
+{
+    Update();
 }
 

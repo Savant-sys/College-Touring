@@ -103,8 +103,8 @@ vector<Campus> Database::readFile()
 
     for (int i = 1; i < rows.size(); i++)
     {
-        for (int k = 0; k < rows[i].size(); k++)
-        {
+//        for (int k = 0; k < rows[i].size(); k++)
+//        {
             startCollege = rows[i][0];
             endCollege.push_back(rows[i][1]);
             distances.push_back(rows[i][2].toDouble());
@@ -114,175 +114,52 @@ vector<Campus> Database::readFile()
             }
             if (rows[i][4] != "")
             {
-                undergrads = rows[i][5].toInt();
+                undergrads = rows[i][4].toInt();
             }
             if (i + 1 == rows.size())
             {
-                //start = rows[i][0];
+                qInfo() << "\n   END COLLEGE SIZE1: " << endCollege.size() <<"\n";
                 Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
                 newCampuses.push_back(campus);
+//                for (int k = 0; k < endCollege.size(); k++)
+//                    qInfo () << "\n" << endCollege[k].split("\"");
                 endCollege.clear();
                 distances.clear();
                 break;
             }
-        }
-        if(rows[i][0] != start )
+//        }
+        if(rows[i+1][0] != start)
         {
-            start = rows[i][0];
+            qInfo() << "\n   END COLLEGE SIZE2:" << endCollege.size() <<"\n";
+            start = rows[i + 1][0];
             Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
             newCampuses.push_back(campus);
+//            for (int k = 0; k < endCollege.size(); k++)
+//                qInfo () << "\n" << endCollege[k].split("\"");
             endCollege.clear();
             distances.clear();
         }
     }
 
-//    int extra = 0;
-//    word = rows[1][0];
-//    if (word[1] == '\"')
-//    {
-//        word += "," + rows[1][1];
-//        startCollege = word;
-
-//        extra = 1;
-//    }
-//    else
-//        startCollege = rows[1][0];
-//    qDebug() << rows.length();
-//    state = rows[1][3];
-//    undergrads = rows[1][4].toInt();
-
-////    menu.item = rowsS[1][1];
-////    menu.price = rowsS[1][2].toDouble();
-////    menuVector.push_back(menu);
-
-//    for (int i = 1 + extra; i < rows.size(); i++)
-//    {
-//        extra = 0;
-////        for (int k = 0; k < rowsS.size(); k++)
-////        {
-////            if (startCollege == rowsS[k][0])
-////            {
-////                for (int j = 0; j < rowsS.size(); j++)
-////                {
-////                    if (rowsS[j][0] == "")
-////                    {
-////                        menu.item = rowsS[j][1];
-////                        menu.price = rowsS[j][2].toDouble();
-////                        menuVector.push_back(menu);
-////                        break;
-////                    }
-////                }
-////                break;
-////            }
-////        }
-//        if (startCollege == rows[i][0] || startCollege == rows[i][0]+ ", " + rows[i][1])
+//    qInfo() << "\nTEST TO PRINT NEW COLLEGES:" << newCampuses.size();
+//    for (int i = 0; i < newCampuses.size(); i++){
+//        Campus campus(newCampuses[i]);
+//        qInfo() << "\n" << campus.getStartCollege() << ", " << campus.getState() << ", " << campus.getUndergrads();
+//        qInfo() << "\nTEST NUMBER OF MENU: " << campus.getMenu().size() << "\n";
+//        for (int k = 0; k < campus.getMenu().size(); k++)
 //        {
+//            vector<Souvenir> s = campus.getMenu();
+//            qInfo() << "\n" << s[k].name;
 
-
-//            word = rows[i][1];
-//            if (word[0] == '\"')
-//            {
-//                word += ", " + rows[i][2];
-//                extra = 1;
-//                endCollege.push_back(word);
-//            }
-//            else
-//                endCollege.push_back(rows[i][1]);
-
-//            stringToDouble = rows[i][2+extra].toDouble();
-//            distances.push_back(stringToDouble);
-
-////            menu.item = rowsS[i][1];
-////            menu.price = rowsS[i][2].toDouble();
-////            menuVector.push_back(menu);
-
-//            if (i == rows.size() - 1)
-//            {
-
-
-//                Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
-
-////                qInfo () << "\n" << endCollege[1];
-//                newCampuses.push_back(campus);
-//            }
-//         }
-//         else
-//         {
-
-//            Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
-////            qInfo () << "\n" << startCollege;
-//            newCampuses.push_back(campus);
-//            word = rows[i][0];
-//            if (word[0] == '\"')
-//            {
-//                word += "," + rows[i][1];
-//                extra = 1;
-//                startCollege = word;
-//             }
-//             else
-//                startCollege = rows[i][0];
-//             state = rows[i][3+extra];
-//             undergrads = rows[i][4+extra].toInt();
-
-//             word = rows[i][1];
-//             if (word[0] == '\"')
-//             {
-//                word += ", " + rows[i][2];
-//                extra = 1;
-//                endCollege.push_back(word);
-//             }
-//             else
-//                endCollege.push_back(rows[i][1]);
-
-//              stringToDouble = rows[i][2+extra].toDouble();
-//              distances.push_back(stringToDouble);
-
-////              menu.item = rowsS[i][1];
-////              menu.price = rowsS[i][2].toDouble();
-////              menuVector.push_back(menu);
 //        }
+//        qInfo () << "\nTEST NUMBER OF END COLLEGE: ";// << campus.getEndCollege().size();
+////        for (int j = 0; campus.getEndCollege().size(); j++)
+////        {
+////            vector<QString> q = campus.getEndCollege();
+////            //qInfo() << q.size();
+////            //qInfo () << "\n" << q[j];
+////        }
 //    }
-
-////    for (int i = 0; i < rowsS.size(); i++)
-////    {
-////        if (rowsS[i][0] == "")
-////        {
-////            menu.item = rowsS[i][1];
-////            menu.price = rowsS[i][2].toDouble();
-////            menuVector.push_back(menu);
-////            break;
-////        }
-////    }
-
-////    for (int i = 0; i < newCampuses.size(); i++)
-////    {
-////        vector<Souvenir> menuList = newCampuses[i].getMenu();
-////        for (int j = 0; j < menuList.size(); j++)
-////        {
-////            Souvenir test = menuList[j];
-////            qInfo() << test.item << " - $" << test.price << "\n";
-////        }
-
-////    }
-    qInfo() << "\nTEST TO PRINT NEW COLLEGES:";
-    for (int i = 0; i < newCampuses.size(); i++){
-        Campus campus(newCampuses[i]);
-        qInfo() << "\n" << campus.getStartCollege() << ", " << campus.getState() << ", " << campus.getUndergrads();
-        qInfo() << "\nTEST NUMBER OF MENU: " << campus.getMenu().size() << "\n";
-        for (int k = 0; k < campus.getMenu().size(); k++)
-        {
-            vector<Souvenir> s = campus.getMenu();
-            qInfo() << "\n" << s[k].name;
-
-        }
-        qInfo () << "\nTEST NUMBER OF END COLLEGE: " << campus.getEndCollege().size();
-        //for (int j = 0; campus.getEndCollege().size() - 2; j++)
-        //{
-            vector<QString> q = campus.getEndCollege();
-
-            qInfo () << "\nSIZE:" << q.size();
-        //}
-    }
 
     return newCampuses;
 }
@@ -291,18 +168,14 @@ void Database::addCampuses(vector<Campus> campuses)
 {
     for(int i = 0; i < campuses.size(); i++)
     {
-        QString state = "";
-        int undergrads = 0;
         Campus currCampus = campuses[i];
 
         QString startCampus = currCampus.getStartCollege();
         vector<QString> endCollegeVector = currCampus.getEndCollege();
         vector<double> distancesVector = currCampus.getDistances();
-        if (currCampus.getState() != "")
-            state = currCampus.getState();
 
-        if (to_string(currCampus.getUndergrads()) != "")
-            undergrads = currCampus.getUndergrads();
+        QString state = currCampus.getState();
+        int undergrads = currCampus.getUndergrads();
 
         vector<Souvenir> menuVector = currCampus.getMenu();
 
@@ -327,14 +200,17 @@ void Database::addCampuses(vector<Campus> campuses)
 
         QSqlQuery query;
 
-        qInfo() << "\nDb open? " << this->db.open();
-        qInfo() << "Menu 1: " << distances.at(1);
+//        qInfo() << "\nDb open? " << this->db.open();
+//        qInfo() << "Menu 1: " << distances.at(1);
 
         QJsonDocument endCollegeDoc(endCollege);
         QJsonDocument distancesDoc(distances);
         QJsonDocument menusDoc(menu);
+        qInfo() << "START CAMPUS: " << startCampus;
+        qInfo () << "STATE: " << state;
+        qInfo () << "UNDERGRADS: " << undergrads;
 
-        query.prepare("INSERT INTO CollegeTouring (Starting_College, Ending_College, Distance_Between, State, Number_of_undergrads, Souvenirs" "VALUES(:Starting_College, :Ending_College, :Distance_Between, :State, :Number_of_undergrads, :Souvenirs)");
+        query.prepare("INSERT INTO campuses (Starting_College, Ending_College, Distance_Between, State, Number_of_undergrads, Souvenirs" "VALUES(:Starting_College, :Ending_College, :Distance_Between, :State, :Number_of_undergrads, :Souvenirs)");
         query.bindValue(":Starting_College", startCampus);
         query.bindValue(":Ending_College", endCollegeDoc.toJson());
         query.bindValue(":Distance_Between", distancesDoc.toJson());
@@ -342,12 +218,14 @@ void Database::addCampuses(vector<Campus> campuses)
         query.bindValue(":Number_of_undergrads", undergrads);
         query.bindValue(":Souvenirs", menusDoc.toJson());
 
-        qInfo() << query.boundValues().size();
+        //qInfo() << query.boundValues().size();
         if (query.exec())
-            qInfo() << "Inserted";
+            qInfo() << "\nInserted";
         else
-            qInfo() << "Error, " << query.lastError();
+            qInfo() << "\nError, " << query.lastError() << "\n";
+
     }
+
 }
 
 bool Database::getCampuses(vector<Campus>& campuses)

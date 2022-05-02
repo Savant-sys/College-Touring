@@ -87,6 +87,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="openAll">
+           <property name="text">
+            <string>Open all</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="layoutWidget">
