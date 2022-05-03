@@ -299,7 +299,7 @@ bool Database::getCampuses(vector<Campus>& campuses)
         QString menu = query.value(5).toString();
 
         QJsonDocument jsonD = QJsonDocument::fromJson(distances.toUtf8());
-        QJsonDocument jsonE = QJsonDocument::fromJson(distances.toUtf8());
+        QJsonDocument jsonE = QJsonDocument::fromJson(endCollege.toUtf8());
 
         QJsonArray jsonArrayD = jsonD.array();
         QJsonArray jsonArrayE = jsonE.array();
@@ -351,14 +351,13 @@ void Database::modifySouvenir(Campus campus, vector<Souvenir> menuVector)
         menuItems.push_back(QJsonValue(item));
         qWarning() << "Item in DB" << QJsonValue(item);
     }
-    //qWarning() << "Item in DB" << menuItems.end()->toString();
     QString startCampus = campus.getStartCollege();
 
     QSqlQuery query(db);
 
     QJsonDocument menuDoc(menuItems);
 qWarning() << "startcamp" << startCampus;
-    query.prepare("UPDATE Campuses SET Souvenirs = :souv WHERE 'Starting College' = :start");
+    query.prepare("UPDATE Campuses SET Souvenirs = :souv WHERE 'Starting_College' = :start");
     query.bindValue(":souv", menuDoc.toJson());
     query.bindValue(":start", startCampus);
 

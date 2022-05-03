@@ -237,7 +237,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         ui->pushButton->setEnabled(true);
         ui->pushButton_2->setEnabled(false);
 
-        qWarning() << "Switching from vec to map";
+        /*qWarning() << "Switching from vec to map";
 
         collegeMap.putVectorinHere(this->campuses);
         qWarning() << "Done putting";
@@ -253,7 +253,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                  key.second = dist.at(j);
              }
              ui->CustomTripList->addItem(collegeMap.getOrigin(key));
-        }
+        }*/
 
     }
     if(index == 0)
@@ -262,7 +262,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
     }
     if(index == 2)
     {
-        qWarning() << "Switching from vec to map";
+        ui->CustomDijkstraList->clear();
+        ui->listWidget->clear();
+       /* qWarning() << "Switching from vec to map";
 
         collegeMap.putVectorinHere(this->campuses);
         qWarning() << "Done putting";
@@ -277,7 +279,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                  key.second = dist.at(j);
              }
              ui->CustomDijkstraList->addItem(collegeMap.getOrigin(key));
-        }
+        }*/
     }
     //else
         //qWarning() << "Not implemented";
@@ -432,15 +434,87 @@ void MainWindow::on_pushButton_3_clicked() //customDijkstra add start
     collegeMap.ans.clear();
     collegeMap.initPathDist(campuses.size());
     collegeMap.dijkstra(startKey);
-    collegeMap.pathsInAns(collegeMap.coll);
+    collegeMap.ans.clear();
+    qWarning() << "Coll: " << collegeMap.coll;
+    //for(int i = 0; i < collegeMap.coll; i++)
+        //qWarning() << QString::number(collegeMap.parent.at(i));
+    for(int i = 0; i < collegeMap.parent.size(); i++)/*campuses.size()*/
+    {
+        collegeMap.pathsInAns(i);
+        if(collegeMap.ans.size() > i)
+        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) << " " << QString::number(collegeMap.ans.at(i).dist);
+    }
     qWarning() << "Dijkstra complete";
     for(int i = 0; i < collegeMap.pathDists.size(); i++)
     {
         ui->listWidget->addItem(QString::number(collegeMap.pathDists.at(i).first) + "  " + QString::number(collegeMap.pathDists.at(i).second));
     }
-    for(int i = 0; i < collegeMap.ans.size(); i++)
+//    for(int i = 0; i < collegeMap.ans.size(); i++)
+//    {
+//        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) << " " << QString::number(collegeMap.ans.at(i).dist);
+//    }
+}
+
+
+void MainWindow::on_CustomConvert_clicked()
+{
+    db.getCampuses(this->campuses);
+    //switch from vector to map
+    int c =0;
+    vector<QString> endColleges;
+    vector<double> dist;
+    for(int i = 0; i < campuses.size(); i++)
     {
-        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num);
+        endColleges = campuses[i].getEndCollege();
+        dist = campuses.at(i).getDistances();
     }
+    qWarning() << "Switching from vec to map";
+
+            collegeMap.putVectorinHere(this->campuses);
+            qWarning() << "Done putting";
+
+            pair<int, double> key;
+            QString add = "";
+            for(int i = 0; i < campuses.size(); i++)
+            {
+                 dist = campuses.at(i).getDistances();
+                 key.first = i;
+                 for(int j = 0; j < dist.size(); j++)
+                 {
+                     key.second = dist.at(j);
+                 }
+                 ui->CustomTripList->addItem(collegeMap.getOrigin(key));
+            }
+}
+
+
+void MainWindow::on_CustomConvert_2_clicked()
+{
+    db.getCampuses(this->campuses);
+    //switch from vector to map
+    int c =0;
+    vector<QString> endColleges;
+    vector<double> dist;
+    for(int i = 0; i < campuses.size(); i++)
+    {
+        endColleges = campuses[i].getEndCollege();
+        dist = campuses.at(i).getDistances();
+    }
+    qWarning() << "Switching from vec to map";
+
+            collegeMap.putVectorinHere(this->campuses);
+            qWarning() << "Done putting";
+            pair<int, double> key;
+            QString add = "";
+            for(int i = 0; i < campuses.size(); i++)
+            {
+                 dist = campuses.at(i).getDistances();
+                 key.first = i;
+                 for(int j = 0; j < dist.size(); j++)
+                 {
+                     key.second = dist.at(j);
+                 }
+                 ui->CustomDijkstraList->addItem(collegeMap.getOrigin(key));
+            }
 }
 
