@@ -210,7 +210,7 @@ void Database::addCampuses(vector<Campus> campuses)
         qInfo () << "STATE: " << state;
         qInfo () << "UNDERGRADS: " << undergrads;
 
-        query.prepare("INSERT INTO campuses (Starting_College, Ending_College, Distance_Between, State, Number_of_undergrads, Souvenirs" "VALUES(:Starting_College, :Ending_College, :Distance_Between, :State, :Number_of_undergrads, :Souvenirs)");
+        query.prepare("INSERT INTO campuses (Starting_College, Ending_College, Distance_Between, State, Number_of_undergrads, Souvenirs)" "VALUES(:Starting_College, :Ending_College, :Distance_Between, :State, :Number_of_undergrads, :Souvenirs)");
         query.bindValue(":Starting_College", startCampus);
         query.bindValue(":Ending_College", endCollegeDoc.toJson());
         query.bindValue(":Distance_Between", distancesDoc.toJson());

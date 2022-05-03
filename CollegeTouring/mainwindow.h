@@ -27,10 +27,8 @@ public:
     ~MainWindow();
 
     void addCampus(Campus campus);
-    void addToList(QString name);
     vector<QString> getMenuList() const { return menuList; }
     void addMenuItem(Campus restaurant, Souvenir item);
-    void addToMenuList(QString name, QString campusName);
     void addItem(Campus campus, vector<Souvenir> newMenu);
     void deleteItem(Campus campus, vector<Souvenir> newMenu);
     void editItem(Campus campus, int index);

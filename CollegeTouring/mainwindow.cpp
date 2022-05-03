@@ -37,19 +37,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addToList(QString name)
-{
-    QListWidget* customList = ui->customList;
-
-    if(std::find(nameList.begin(), nameList.end(), name) == nameList.end())
-    {
-       customList->addItem(name);
-       nameList.push_back(name);
-    }
-    else
-        qInfo() << "Cannot add same Campus to the trip!";
-}
-
 void MainWindow::addMenuItem(Campus campus, Souvenir item){
 
     if(std::find(nameList.begin(), nameList.end(), campus.getStartCollege()) != nameList.end())
@@ -63,20 +50,6 @@ void MainWindow::addMenuItem(Campus campus, Souvenir item){
         popup.critical(0, "Error", "Cannot add menu item before adding campus to trip.");
     }
 }
-
-void MainWindow::addToMenuList(QString name, QString campusName)
-{
-    QListWidget* customList = ui->menuList;
-
-    if(std::find(nameList.begin(), nameList.end(), campusName) != nameList.end())
-    {
-        customList->addItem(name);
-        menuList.push_back(name);
-    }
-    else
-        qInfo() << "Cannot add Menu Item without adding Campus to trip!";
-}
-
 
 void MainWindow::on_openCA_clicked()
 {
