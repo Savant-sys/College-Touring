@@ -51,7 +51,10 @@ public:
         return menu;
     }
 
-    void setMenu(vector<Souvenir> menu);
+    void setMenu(vector<Souvenir> Menu)
+    {
+        this->menu = Menu;
+    }
 
 private:
     QString startCollege;
