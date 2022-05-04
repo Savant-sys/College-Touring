@@ -420,16 +420,8 @@ void MainWindow::on_actionCustomDijkstra_triggered()
 
 void MainWindow::on_pushButton_3_clicked() //customDijkstra add start
 {
-    if(ui->CustomDijkstraList->selectedItems().count() == 0)
-        return;
 
-    ui->listWidget->clear();
-
-    ui->DijkstraCustomPaths->clear();
-    collegeMap.parent.clear();
-    collegeMap.pathDists.clear();
     pair<int,double> startKey;
-    QString text = "";
     for(int i = 0; i < TABLE_SIZE; i++)
     {
         if(ui->CustomDijkstraList->currentItem()->text() == collegeMap.hashTable[i].origin)
@@ -438,7 +430,6 @@ void MainWindow::on_pushButton_3_clicked() //customDijkstra add start
             startKey.second = 0;
         }
     }
-    //ui->CustomDijkstraList->clear();
     qWarning() << "starting Dijkstra";
     collegeMap.ans.clear();
     collegeMap.initPathDist(campuses.size());
@@ -450,20 +441,8 @@ void MainWindow::on_pushButton_3_clicked() //customDijkstra add start
     for(int i = 0; i < collegeMap.parent.size(); i++)/*campuses.size()*/
     {
         collegeMap.pathsInAns(i);
-        if(collegeMap.ans.size() > i && i != startKey.first)
-        {
-            if(i == collegeMap.ans.at(i).dist)
-                text = "path to: " + /*QString::number(i)*/campuses.at(i).getStartCollege() + " from: " + campuses.at(collegeMap.ans.at(i).num).getStartCollege();
-            else
-            text = "path to: " + /*QString::number(i)*/campuses.at(i).getStartCollege() + " from: " + campuses.at(collegeMap.ans.at(i).num).getStartCollege()/*QString::number(collegeMap.ans.at(i).num)*/ + " via: " + campuses.at(collegeMap.ans.at(i).dist).getStartCollege()/*QString::number(collegeMap.ans.at(i).dist)*/;
-           // if(i == collegeMap.ans.at(i).dist)
-                ui->DijkstraCustomPaths->addItem(text);
-            //qWarning() << "paths " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) << " " << QString::number(collegeMap.ans.at(i).dist);
-           // else
-           // {
-           //     text = "path: " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) + " " + QString::number(collegeMap.ans.at(i).dist);
-           // }
-        }
+        if(collegeMap.ans.size() > i)
+        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) << " " << QString::number(collegeMap.ans.at(i).dist);
     }
     qWarning() << "Dijkstra complete";
     for(int i = 0; i < collegeMap.pathDists.size(); i++)
@@ -506,7 +485,6 @@ void MainWindow::on_CustomConvert_clicked()
                  }
                  ui->CustomTripList->addItem(collegeMap.getOrigin(key));
             }
-            ui->CustomConvert->setDisabled(true);
 }
 
 
@@ -538,6 +516,5 @@ void MainWindow::on_CustomConvert_2_clicked()
                  }
                  ui->CustomDijkstraList->addItem(collegeMap.getOrigin(key));
             }
-            ui->CustomConvert_2->setDisabled(true);
 }
 
