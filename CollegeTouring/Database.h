@@ -1,7 +1,7 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include "Campus.h"
+#include "campus.h"
 
 #include <QSqlDatabase>
 #include <QObject>
@@ -45,7 +45,7 @@ public:
      * \param items - Vector of MenuItems, which represents our updated menu state.
      * \return - Returns boolean of whether operation was successful
      */
-    void modifySouvenir(Campus campus, vector<Souvenir> items);
+    void modifySouvenir(Campus campus, vector<Souvenir> menu);
 
     //! getCampuses
     /*!
@@ -54,14 +54,16 @@ public:
      * \return Returns true or false of successful/not successful operation
      */
     bool getCampuses(vector<Campus>& campuses);
-    void vectorConvertToMap(vector<Campus> campuses);
+
+    bool open();
+
 private:
     QSqlDatabase db; /*!< QTSqlite database object for Campuses*/
     QSqlDatabase dbS; /*!< QTSqlite database object for Souvenirs*/
     QString filePath;
-    string infile;
+    QString infile;
     QString filePathS;
-    string infileS;
+    QString infileS;
 };
 
 

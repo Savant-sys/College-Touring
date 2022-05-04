@@ -51,6 +51,8 @@ public:
         return menu;
     }
 
+    void setMenu(vector<Souvenir> menu);
+
 private:
     QString startCollege;
     vector<QString> endCollege;
