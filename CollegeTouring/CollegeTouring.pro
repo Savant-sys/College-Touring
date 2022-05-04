@@ -18,6 +18,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     map.cpp \
+    menuwidget.cpp \
     trip.cpp
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
     login.h \
     mainwindow.h \
     map.h \
+    menuwidget.h \
     trip.h
 
 FORMS += \
