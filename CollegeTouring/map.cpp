@@ -382,12 +382,15 @@ void Map::pathsInAns(int j)
         return;
 
     HashStruct CollNum;
+    //bool yes = false;
     CollNum.num = parent.at(j);
     CollNum.origin = "";
     CollNum.dest = "";
     CollNum.dist = j;
-    ans.push_back(CollNum);
+
     pathsInAns(parent.at(j));
+
+    ans.push_back(CollNum);
 
 
 }
