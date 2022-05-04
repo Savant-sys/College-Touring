@@ -89,17 +89,11 @@ vector<Campus> Database::readFile()
     QString start = rows[1][0];
     vector<QString> endCollege;
     vector<double> distances;
-    double stringToDouble;
     QString state;
     int undergrads;
-    QString word;
 
     Souvenir menu;
     vector<Souvenir> menuVector;
-    menu.name = "test";
-    menu.price = 0;
-
-    menuVector.push_back(menu);
 
     for (int i = 1; i < rows.size(); i++)
     {
@@ -118,11 +112,33 @@ vector<Campus> Database::readFile()
             }
             if (i + 1 == rows.size())
             {
-                qInfo() << "\n   END COLLEGE SIZE1: " << endCollege.size() <<"\n";
+                for (int j = 0; j < rowsS.size(); j++)
+                {
+                    if (startCollege == rowsS[j][0])
+                    {
+                        for (int k = j + 1; k < rowsS.size(); k++)
+                        {
+                            if (rowsS[k][0] == "")
+                            {
+                                menu.name = rowsS[k][1];
+                                QVector<QStringList> sp;
+                                QRegularExpression separatorm("[$| ]");
+                                sp.push_back(rowsS[k][2].split(separatorm));
+                                menu.price = sp[0][1].toDouble();
+    //                            qInfo() << "TEST MENU PRICE: " /*<< menu.price << " - " */<< sp[0] << "\n";
+                                sp.clear();
+    //                              menu.price = rowsS[k][1];
+                                menuVector.push_back(menu);
+                            }
+                            else break;
+                        }
+                    }
+                }
                 Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
                 newCampuses.push_back(campus);
 //                for (int k = 0; k < endCollege.size(); k++)
 //                    qInfo () << "\n" << endCollege[k].split("\"");
+                menuVector.clear();
                 endCollege.clear();
                 distances.clear();
                 break;
@@ -130,12 +146,35 @@ vector<Campus> Database::readFile()
 //        }
         if(rows[i+1][0] != start)
         {
-            qInfo() << "\n   END COLLEGE SIZE2:" << endCollege.size() <<"\n";
+            for (int j = 0; j < rowsS.size(); j++)
+            {
+                if (startCollege == rowsS[j][0])
+                {
+                    for (int k = j + 1; k < rowsS.size(); k++)
+                    {
+                        if (rowsS[k][0] == "")
+                        {
+                            menu.name = rowsS[k][1];
+                            QVector<QStringList> sp;
+                            QRegularExpression separatorm("[$| ]");
+                            sp.push_back(rowsS[k][2].split(separatorm));
+                            menu.price = sp[0][1].toDouble();
+//                            qInfo() << "TEST MENU PRICE: " /*<< menu.price << " - " */<< sp[0] << "\n";
+                            sp.clear();
+//                              menu.price = rowsS[k][1];
+                            menuVector.push_back(menu);
+                        }
+                        else
+                            break;
+                    }
+                }
+            }
             start = rows[i + 1][0];
             Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
             newCampuses.push_back(campus);
 //            for (int k = 0; k < endCollege.size(); k++)
 //                qInfo () << "\n" << endCollege[k].split("\"");
+            menuVector.clear();
             endCollege.clear();
             distances.clear();
         }

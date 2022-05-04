@@ -572,7 +572,17 @@ void MainWindow::on_pushButton_3_clicked()
         campusList->setItemWidget(item, campusItem);
     }
 
+    QListWidget *menuList = ui->menuAdminList;
+    menuList->clear();
 
+    for (int i = 0; i < campuses.size(); i++)
+    {
+        MenuWidget *menuItem = new MenuWidget(this->campuses[i], this);
+        QListWidgetItem *item = new QListWidgetItem(menuList);
+        menuList->addItem(item);
+        item->setSizeHint(menuItem->minimumSizeHint());
+        menuList->setItemWidget(item, menuItem);
+    }
 //    qInfo() << newCampuses[1].getStartCollege();
 //    qInfo() << newCampuses[1].getID();
 
