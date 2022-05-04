@@ -16,6 +16,7 @@ struct HashStruct
     int num = -1;
     double dist = 0;
     bool select = false;
+    bool visited = false;
 };
 
 class Map
@@ -57,12 +58,27 @@ public:
 
     void recurSelec(pair<int,double> key);
 
+    void dijkstra(pair<int,double> key);
+
+    void BFS(pair<int,double> key);
+
+    void initPathDist(int size);
+
+    void pathsInAns(int j);
+
     HashStruct hashTable[TABLE_SIZE];
 
     vector<HashStruct> ans;
+
+    vector<pair<int,double>> pathDists;
+
+    vector<int> parent;
+    int coll = 0; //number of colleges in map (used in dijkstra setup)
 private:
 
+
     int s = 0; //number of selected items
+
 
 };
 
