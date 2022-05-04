@@ -35,6 +35,7 @@ void AdminWindow::on_pushButton_4_clicked()
 {
     hide();
     emit showMain();
+    emit updateMain(campuses);
 }
 
 

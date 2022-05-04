@@ -32,10 +32,9 @@ public:
 private slots:
     void on_loginButton_clicked();
 
-
 signals:
     void Admin();
-    void unlockTab();
+
 private:
     Ui::Login *ui; /*!< UI of admin login screen */
     QString username; /*!< Encrypted username */
