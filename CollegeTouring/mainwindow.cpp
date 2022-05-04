@@ -607,3 +607,129 @@ void MainWindow::on_openAll_clicked()
     Update();
 }
 
+
+void MainWindow::on_sortStateEnd_clicked()
+{
+    ui->campusList->clear();
+    db.getCampuses(this->campuses);
+        qInfo() << "Got all campuses list";
+    qWarning() << this->campuses.at(0).getMenu().at(0).name;
+    QListWidget *campusList = ui->campusList;
+
+    vector<Campus> sort = campuses;
+
+        int j = 0;
+        bool swap = true;
+
+
+        while (swap)
+        {
+            swap = false;
+            j++;
+            for (int l = 0; l < sort.size() - j; l++)
+            {
+                qInfo () << "sorted state\n";
+                if (sort[l].getState() > sort[l + 1].getState())
+                {
+                    Campus temp(sort[l]);
+                    sort[l] = sort[l + 1];
+                    sort[l + 1] = temp;
+                    swap = true;
+                }
+            }
+        }
+
+        while (swap)
+        {
+            swap = false;
+            j++;
+            for (int l = 0; l < sort.size() - j; l++)
+            {
+                qInfo () << "sorted start\n";
+                if (sort[l].getStartCollege() > sort[l + 1].getStartCollege())
+                {
+                    Campus temp(sort[l]);
+                    sort[l] = sort[l + 1];
+                    sort[l + 1] = temp;
+                    swap = true;
+                }
+            }
+        }
+
+
+
+    for (int i =0; i < sort.size(); i++)
+    {
+
+            CampusWidget *campusItem = new CampusWidget(sort[i], this);
+            QListWidgetItem *item = new QListWidgetItem(campusList);
+            campusList->addItem(item);
+            item->setSizeHint(campusItem->minimumSizeHint());
+            campusList->setItemWidget(item, campusItem);
+
+    }
+}
+
+
+void MainWindow::on_sortStateStart_clicked()
+{
+    ui->campusList->clear();
+    db.getCampuses(this->campuses);
+        qInfo() << "Got all campuses list";
+    qWarning() << this->campuses.at(0).getMenu().at(0).name;
+    QListWidget *campusList = ui->campusList;
+
+    vector<Campus> sort = campuses;
+
+        int j = 0;
+        bool swap = true;
+
+
+        while (swap)
+        {
+            swap = false;
+            j++;
+            for (int l = 0; l < sort.size() - j; l++)
+            {
+                qInfo () << "sorted state\n";
+                if (sort[l].getState() > sort[l + 1].getState())
+                {
+                    Campus temp(sort[l]);
+                    sort[l] = sort[l + 1];
+                    sort[l + 1] = temp;
+                    swap = true;
+                }
+            }
+        }
+
+        while (swap)
+        {
+            swap = false;
+            j++;
+            for (int l = 0; l < sort.size() - j; l++)
+            {
+                qInfo () << "sorted start\n";
+                if (sort[l].getEndCollege() > sort[l + 1].getEndCollege())
+                {
+                    Campus temp(sort[l]);
+                    sort[l] = sort[l + 1];
+                    sort[l + 1] = temp;
+                    swap = true;
+                }
+            }
+        }
+
+
+
+    for (int i =0; i < sort.size(); i++)
+    {
+
+            CampusWidget *campusItem = new CampusWidget(sort[i], this);
+            QListWidgetItem *item = new QListWidgetItem(campusList);
+            campusList->addItem(item);
+            item->setSizeHint(campusItem->minimumSizeHint());
+            campusList->setItemWidget(item, campusItem);
+
+    }
+}
+

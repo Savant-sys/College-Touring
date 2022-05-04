@@ -70,6 +70,10 @@ private slots:
 
     void on_openAll_clicked();
 
+    void on_sortStateEnd_clicked();
+
+    void on_sortStateStart_clicked();
+
 private:
     Ui::MainWindow *ui;
 
