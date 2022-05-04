@@ -10,7 +10,7 @@
 #include "adminwindow.h"
 #include "campus_widget.h"
 #include "map.h"
-
+#include "menuwidget.h"
 
 using namespace std;
 
@@ -27,20 +27,16 @@ public:
     ~MainWindow();
 
     void addCampus(Campus campus);
-    void addToList(QString name);
     vector<QString> getMenuList() const { return menuList; }
     void addMenuItem(Campus restaurant, Souvenir item);
-    void addToMenuList(QString name, QString campusName);
+    void addItem(Campus campus, vector<Souvenir> newMenu);
+    void deleteItem(Campus campus, vector<Souvenir> newMenu);
+    void editItem(Campus campus, int index);
+    Database db;
+public slots:
+    void unlockTab();
 private slots:
-    void on_openTheList_clicked();
-
-    void on_sortState_clicked();
-
-    void on_sortCollege_clicked();
-
     void on_openCA_clicked();
-
-    void on_sortStateCollege_clicked();
 
     void on_adminPop_clicked();
 
@@ -70,20 +66,21 @@ private slots:
 
     void on_CustomTripSouvs_itemClicked(QListWidgetItem *item);
 
-    void on_actionCustomDijkstra_triggered();
-
     void on_pushButton_3_clicked();
 
-    void on_CustomConvert_clicked();
+    void on_openAll_clicked();
 
-    void on_CustomConvert_2_clicked();
+    void on_sortStateEnd_clicked();
+
+    void on_sortStateStart_clicked();
 
 private:
     Ui::MainWindow *ui;
 
-    Database db;
+//    Database db;
 
-    Login* loginPopup;
+    bool log;
+    Login* loginpopup;
     AdminWindow* adminWindow;
 
     Map collegeMap;

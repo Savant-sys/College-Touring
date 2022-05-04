@@ -38,8 +38,6 @@ private slots:
 
 signals:
     void showMain();
-
-    void updateMain(vector<Campus> campuses);
 private:
     Ui::AdminWindow *ui;
     Database db;
