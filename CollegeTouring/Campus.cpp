@@ -1,4 +1,4 @@
-#include "Campus.h"
+#include "campus.h"
 
 Campus::Campus(QString startCollege, vector<QString> endCollege, vector<double> distances, QString state, int undergrads, vector<Souvenir> menu)
 {
