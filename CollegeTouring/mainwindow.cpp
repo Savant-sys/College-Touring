@@ -133,7 +133,7 @@ void MainWindow::Update()
     ui->campusList->clear();
     db.getCampuses(this->campuses);
         qInfo() << "Got all campuses list";
-    qWarning() << this->campuses.at(0).getMenu().at(0).name;
+    //qWarning() << this->campuses.at(0).getMenu().at(0).name;
     QListWidget *campusList = ui->campusList;
 
     for (int i =0; i < this->campuses.size(); i++)
