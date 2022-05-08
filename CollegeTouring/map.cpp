@@ -502,3 +502,90 @@ hashTable[saveI].visited = true;
 
         }
 }
+
+void Map::DFS(int q)//start at UCI
+{
+   // int dfsCounter = 0;
+    double firstDistance = 0;
+    double comparedDistance = 0;
+    int timeCompared = 0;
+    int key = 0;
+    qInfo() << "DFS:";
+    //while (dfsCounter != 12)
+   // {
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        hashTable[i].visited == true;
+         if(hashTable[i].num ==  q && hashTable[i].visited == false)
+         {
+            // qInfo() << "DFS:";
+             hashTable[i].visited == true;
+             if(firstDistance = 0)
+             {
+                 firstDistance = hashTable[i].dist;
+             }
+
+             comparedDistance = hashTable[i].dist;
+             if(comparedDistance < firstDistance)
+             {
+                 //comparedDistance = firstDistance;
+                firstDistance = comparedDistance;
+                timeCompared = timeCompared +1;
+             }
+             else
+             {
+                 timeCompared = timeCompared +1;
+             }
+
+           }
+
+         if(timeCompared == 9)
+         {
+             for(int u = 0; u < TABLE_SIZE; u++)
+             {
+                 if(firstDistance = hashTable[u].dist && hashTable[u].num == q)
+                 {
+                    //hashTable[i].visited = true;
+                    qInfo() << hashTable[u].num;
+                    qInfo() << hashTable[u].origin;
+                    qInfo() << hashTable[u].dist;
+                    qInfo() << hashTable[u].dest;
+                    qInfo() << hashTable[u].visited;
+                    qInfo() << " ";
+
+                   /* for(int o = 0; o < TABLE_SIZE; o++)
+                    {
+                        if(hashTable[o].dest == hashTable[i].dest || hashTable[o].dest  == hashTable[i].origin)
+                        {
+                            hashTable[o].visited = true;
+                        }*/
+                    }
+
+                        for(int p = 0; p < TABLE_SIZE; p++)
+                        {
+                            if(hashTable[p].origin == hashTable[u].dest)
+                            {
+                                key = hashTable[p].num;
+                            }
+                        }
+                        //DFS(key);
+                    }
+         }
+     }
+
+
+
+}
+
+void Map::print()
+{
+    for (int i = 0; i < TABLE_SIZE; i++)
+    {
+        qInfo() << hashTable[i].num;
+        qInfo() << hashTable[i].origin;
+        qInfo() << hashTable[i].dist;
+        qInfo() << hashTable[i].dest;
+        qInfo() << hashTable[i].visited;
+        qInfo() << " ";
+    }
+}

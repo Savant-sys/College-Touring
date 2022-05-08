@@ -229,8 +229,11 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 //             }
 //             ui->CustomTripList->addItem(collegeMap.getOrigin(key));
 //        }
+        collegeMap.DFS(6);
 
     }
+
+
     if(index == 0)
     {
         qWarning() << "Display Page";
@@ -643,7 +646,7 @@ void MainWindow::on_sortStateEnd_clicked()
             for (int l = 0; l < sort.size() - j; l++)
             {
                 qInfo () << "sorted start\n";
-                if (sort[l].getStartCollege() > sort[l + 1].getStartCollege())
+                if (sort[l].getEndCollege() > sort[l + 1].getEndCollege())
                 {
                     Campus temp(sort[l]);
                     sort[l] = sort[l + 1];
@@ -699,6 +702,7 @@ void MainWindow::on_sortStateStart_clicked()
             }
         }
 
+        swap = true;
         while (swap)
         {
             swap = false;
@@ -706,7 +710,7 @@ void MainWindow::on_sortStateStart_clicked()
             for (int l = 0; l < sort.size() - j; l++)
             {
                 qInfo () << "sorted start\n";
-                if (sort[l].getEndCollege() > sort[l + 1].getEndCollege())
+                if (sort[l].getStartCollege() > sort[l + 1].getStartCollege())
                 {
                     Campus temp(sort[l]);
                     sort[l] = sort[l + 1];
@@ -715,8 +719,6 @@ void MainWindow::on_sortStateStart_clicked()
                 }
             }
         }
-
-
 
     for (int i =0; i < sort.size(); i++)
     {
@@ -799,7 +801,6 @@ void MainWindow::on_CustomConvert_clicked()
                  ui->CustomTripList->addItem(collegeMap.getOrigin(key));
             }
 }
-
 
 void MainWindow::on_CustomConvert_2_clicked()
 {

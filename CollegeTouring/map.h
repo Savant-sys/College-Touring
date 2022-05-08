@@ -3,9 +3,10 @@
 
 #include <vector>
 #include <QObject>
+#include<QDebug>
 #include "campus.h"
 
-#define TABLE_SIZE 150 //entries plus 1
+#define TABLE_SIZE 300 //entries plus 1
 
 #define PRIME 13
 
@@ -65,6 +66,10 @@ public:
     void pathsInAns(int j);
 
     void BFS(pair<int, double> key);
+
+    void DFS(int q);//Starts at UCI
+
+    void print();
 
     HashStruct hashTable[TABLE_SIZE];
 
