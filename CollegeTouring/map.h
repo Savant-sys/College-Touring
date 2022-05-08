@@ -72,6 +72,10 @@ public:
 
     vector<pair<int,double>> pathDists;
 
+    void DFS(int q);//Starts at UCI
+
+    void print();
+
     vector<int> parent;
     int coll = 0; //number of colleges in map (used in dijkstra setup)
 private:

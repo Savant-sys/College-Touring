@@ -255,6 +255,8 @@ void MainWindow::on_tabWidget_currentChanged(int index)
              ui->CustomTripList->addItem(collegeMap.getOrigin(key));
         }*/
 
+        collegeMap.DFS(6);
+
     }
     if(index == 0)
     {
