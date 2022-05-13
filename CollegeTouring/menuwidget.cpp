@@ -19,7 +19,7 @@ MenuWidget::MenuWidget(Campus campus, MainWindow *parent)
     //Iterating over the menu to add items to the menu ComboBox
     for (int i = 0; i < this->campus.getMenu().size(); i++)
     {
-        menuItems->addItem(QString(this->campus.getMenu()[i].name + ": " + QString::number(this->campus.getMenu()[i].price)));
+        menuItems->addItem(QString(this->campus.getMenu()[i].name + ": $" + QString::number(this->campus.getMenu()[i].price)));
     }
 
     //Run on_AddMenuItemClicked() method in this class when "Add Items" button has been clicked

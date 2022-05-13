@@ -45,7 +45,7 @@ public:
      * \param items - Vector of MenuItems, which represents our updated menu state.
      * \return - Returns boolean of whether operation was successful
      */
-    void modifySouvenir(Campus campus, vector<Souvenir> items);
+    void modifySouvenir(Campus campus, vector<Souvenir> menu);
 
     //! getCampuses
     /*!
@@ -55,6 +55,7 @@ public:
      */
     bool getCampuses(vector<Campus>& campuses);
 
+    bool open();
 
 private:
     QSqlDatabase db; /*!< QTSqlite database object for Campuses*/

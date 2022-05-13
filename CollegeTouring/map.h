@@ -3,9 +3,10 @@
 
 #include <vector>
 #include <QObject>
+#include<QDebug>
 #include "campus.h"
 
-#define TABLE_SIZE 150 //entries plus 1
+#define TABLE_SIZE 300 //entries plus 1
 
 #define PRIME 13
 
@@ -60,21 +61,21 @@ public:
 
     void dijkstra(pair<int,double> key);
 
-    void BFS(pair<int,double> key);
-
     void initPathDist(int size);
 
     void pathsInAns(int j);
+
+    void BFS(pair<int, double> key);
+
+    void DFS(int q);//Starts at UCI
+
+    void print();
 
     HashStruct hashTable[TABLE_SIZE];
 
     vector<HashStruct> ans;
 
     vector<pair<int,double>> pathDists;
-
-    void DFS(int q);//Starts at UCI
-
-    void print();
 
     vector<int> parent;
     int coll = 0; //number of colleges in map (used in dijkstra setup)
