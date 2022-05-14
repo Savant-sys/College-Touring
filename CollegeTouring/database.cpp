@@ -97,6 +97,10 @@ vector<Campus> Database::readFile()
 
     for (int i = 1; i < rows.size(); i++)
     {
+        if (rows[i][0] == "Arizona State University")
+        {
+
+        }
 //        for (int k = 0; k < rows[i].size(); k++)
 //        {
             startCollege = rows[i][0];

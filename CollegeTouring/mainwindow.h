@@ -67,7 +67,7 @@ private slots:
 
     void on_openAll_clicked();
 
-    void on_sortStateEnd_clicked();
+//    void on_sortStateEnd_clicked();
 
     void on_sortStateStart_clicked();
 
@@ -78,6 +78,10 @@ private slots:
     void on_CustomConvert_clicked();
 
     void on_CustomConvert_2_clicked();
+
+    void on_sortStates_clicked();
+
+    void on_sortStart_clicked();
 
 private:
     Ui::MainWindow *ui;
