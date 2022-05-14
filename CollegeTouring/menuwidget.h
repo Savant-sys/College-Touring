@@ -36,6 +36,7 @@ private:
     QPushButton *deleteItemButton; /*!< Button to delete an item */
     QPushButton *editItemButton; /*!< Button to edit an item */
     MainWindow *parent; /*!< Main application reference */
+    QLabel *stateLabel;
 
     Campus campus; /*!< Restaurant associated with the widget */
 

@@ -57,6 +57,8 @@ public:
 
     bool open();
 
+    void updateNewColleges(Campus campus, vector<QString> endColleges, vector<double> distancesVector);
+
 private:
     QSqlDatabase db; /*!< QTSqlite database object for Campuses*/
     QSqlDatabase dbS; /*!< QTSqlite database object for Souvenirs*/

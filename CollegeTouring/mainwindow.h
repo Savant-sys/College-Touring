@@ -31,6 +31,7 @@ public:
     void addItem(Campus campus, vector<Souvenir> newMenu);
     void deleteItem(Campus campus, vector<Souvenir> newMenu);
     void editItem(Campus campus, int index);
+    void updateEndColleges(Campus campus);
     Database db;
 public slots:
     void unlockTab();

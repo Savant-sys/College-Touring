@@ -484,6 +484,13 @@ void MainWindow::addItem(Campus campus, vector<Souvenir> newMenu)
     }
 }
 
+void MainWindow::updateEndColleges(Campus campus)
+{
+    vector <QString> updated = campus.getEndCollege();
+
+
+}
+
 void MainWindow::deleteItem(Campus campus, vector<Souvenir> newMenu){
     //menu is already updated for this function call
     this->db.modifySouvenir(campus, newMenu);
@@ -586,6 +593,30 @@ void MainWindow::on_pushButton_3_clicked()
 
     this->db.addCampuses(newCampuses);
 
+    for (int i = 0; i < campuses.size(); i++)
+    {
+        vector<QString> EC = campuses[i].getEndCollege();
+
+        EC.push_back(newCampuses[2].getEndCollege()[0]);
+        EC.push_back(newCampuses[2].getEndCollege()[1]);
+
+        vector<double> ECD = campuses[i].getDistances();
+
+        for (int k = 0; k < newCampuses.size(); k++)
+        {
+            if (newCampuses[k].getStartCollege() == campuses[i].getStartCollege())
+            {
+                ECD.push_back(newCampuses[k].getDistances()[0]);
+                ECD.push_back(newCampuses[k].getDistances()[1]);
+                break;
+            }
+        }
+        this->db.updateNewColleges(campuses[i], EC, ECD);
+
+        EC.clear();
+        ECD.clear();
+    }
+
     this->db.getCampuses(this->campuses);
 
 
@@ -614,12 +645,16 @@ void MainWindow::on_pushButton_3_clicked()
         menuList->setItemWidget(item, menuItem);
     }
     added = true;
+    QMessageBox::information(this, "Success", "Successfully added new colleges!");
 }
    else
    {
        QMessageBox popup;
        popup.critical(0, "Error", "Cannot add new colleges more than one time!");
    }
+
+
+
 }
 
 
