@@ -608,7 +608,8 @@ void MainWindow::on_pushButton_3_clicked()
             {
                 ECD.push_back(newCampuses[k].getDistances()[0]);
                 ECD.push_back(newCampuses[k].getDistances()[1]);
-                break;
+
+                qInfo() << "\ntest for new distances: " << k << ": " << newCampuses[k].getDistances()[0] << " : " << newCampuses[k].getDistances()[1];
             }
         }
         this->db.updateNewColleges(campuses[i], EC, ECD);

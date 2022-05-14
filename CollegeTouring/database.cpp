@@ -107,17 +107,21 @@ vector<Campus> Database::readFile()
                     endCollege.push_back(rows[s+1][1]);
                     distances.push_back(rows[s][2].toDouble());
                     distances.push_back(rows[s+1][2].toDouble());
+
+
                     state = "";
                     undergrads = 0;
                     menuVector.clear();
+                    qInfo () << startCollege;
+                    for (int k = 0; k < endCollege.size(); k++)
+                        qInfo () << "\ntest for new new distances: " << endCollege[k];
                     Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
                     newCampuses.push_back(campus);
                     s++;
+
+                    endCollege.clear();
+                    distances.clear();
                     }
-//                    for (int i = 0; i < newCampuses.size(); i++)
-//                    {
-//                        qInfo () << "test for new: " << newCampuses[i].getStartCollege() << "\n";
-//                    }
                     break;
                 }
 //        for (int k = 0; k < rows[i].size(); k++)
@@ -381,7 +385,7 @@ bool Database::getCampuses(vector<Campus>& campuses)
             }
         }
 
-        //make our new restaurant
+        //make our new campus
         Campus newCampus(startCollege, endCollegeVector, distancesVector, state, undergrads, menuVector);
         campuses.push_back(newCampus);
     }
