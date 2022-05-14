@@ -90,7 +90,7 @@ private:
 
     bool log;
     Login* loginpopup;
-
+bool added;
     Map collegeMap;
     vector<Campus> campuses;
     vector<QString> nameList;

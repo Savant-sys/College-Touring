@@ -99,8 +99,26 @@ vector<Campus> Database::readFile()
     {
         if (rows[i][0] == "Arizona State University")
         {
-
+            for (int s = i; s < rows.size(); s++)
+            {
+            startCollege = rows[s][0];
+            endCollege.push_back(rows[s][1]);
+            distances.push_back(rows[s][2].toDouble());
+            distances.push_back(rows[s+1][2].toDouble());
+            state = "";
+            undergrads = 0;
+            menuVector.clear();
+            Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
+            newCampuses.push_back(campus);
+            s++;
+            }
+            for (int i = 0; i < newCampuses.size(); i++)
+            {
+                qInfo () << "test for new: " << newCampuses[i].getStartCollege() << "\n";
+            }
+            break;
         }
+        if (rows[i][0] == "")
 //        for (int k = 0; k < rows[i].size(); k++)
 //        {
             startCollege = rows[i][0];
@@ -212,7 +230,6 @@ void Database::addCampuses(vector<Campus> campuses)
     for(int i = 0; i < campuses.size(); i++)
     {
         Campus currCampus = campuses[i];
-
         QString startCampus = currCampus.getStartCollege();
         vector<QString> endCollegeVector = currCampus.getEndCollege();
         vector<double> distancesVector = currCampus.getDistances();
@@ -249,9 +266,9 @@ void Database::addCampuses(vector<Campus> campuses)
         QJsonDocument endCollegeDoc(endCollege);
         QJsonDocument distancesDoc(distances);
         QJsonDocument menusDoc(menu);
-        qInfo() << "START CAMPUS: " << startCampus;
-        qInfo () << "STATE: " << state;
-        qInfo () << "UNDERGRADS: " << undergrads;
+//        qInfo() << "START CAMPUS: " << startCampus;
+//        qInfo () << "STATE: " << state;
+//        qInfo () << "UNDERGRADS: " << undergrads;
 
         query.prepare("INSERT INTO campuses (Starting_College, Ending_College, Distance_Between, State, Number_of_undergrads, Souvenirs)" "VALUES(:Starting_College, :Ending_College, :Distance_Between, :State, :Number_of_undergrads, :Souvenirs)");
         query.bindValue(":Starting_College", startCampus);

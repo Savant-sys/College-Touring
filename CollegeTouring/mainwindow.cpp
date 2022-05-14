@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->loginpopup = nullptr;
     log = false;
+    added = false;
     bool result = false;
     if (result == false)
     {
@@ -574,6 +575,9 @@ void MainWindow::editItem(Campus campus, int index)
 
 void MainWindow::on_pushButton_3_clicked()
 {
+
+   if (added == false)
+   {
     vector <QString> endCollege;
     std::vector<double> distances;
     std::vector<Souvenir> menu;
@@ -581,8 +585,6 @@ void MainWindow::on_pushButton_3_clicked()
     vector<Campus> newCampuses = this->db.readFile();
 
     this->db.addCampuses(newCampuses);
-
-
 
     this->db.getCampuses(this->campuses);
 
@@ -611,6 +613,13 @@ void MainWindow::on_pushButton_3_clicked()
         item->setSizeHint(menuItem->minimumSizeHint());
         menuList->setItemWidget(item, menuItem);
     }
+    added = true;
+}
+   else
+   {
+       QMessageBox popup;
+       popup.critical(0, "Error", "Cannot add new colleges more than one time!");
+   }
 }
 
 
@@ -695,12 +704,12 @@ void MainWindow::on_sortStateStart_clicked()
     update();
     ui->campusList->clear();
     db.getCampuses(this->campuses);
-        qInfo() << "Got all campuses list";
+    qInfo() << "Got all campuses list";
     qWarning() << this->campuses.at(0).getMenu().at(0).name;
     QListWidget *campusList = ui->campusList;
 
     vector<Campus> sort = campuses;
-vector<QString> statesSorted;
+    vector<QString> statesSorted;
         int j = 0;
         bool swap = true;
 
@@ -735,7 +744,7 @@ vector<QString> statesSorted;
             add = true;
             }
 
-            if (sort[i].getState() == sort[i + 1].getState() && i != sort.size())
+            if (i != sort.size() - 1 && sort[i].getState() == sort[i + 1].getState())
             {
                 sortedStateFirst.push_back(sort[i + 1]);
             }
