@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     bool result = false;
     if (result == false)
     {
-      ui->tabWidget->setTabEnabled(3, false);
+      ui->tabWidget->setTabEnabled(4, false);
     }
     Update();
 //    if(db.getCampuses(this->campuses))
@@ -207,15 +207,18 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         ui->Cart->setColumnWidth(0,120);
         ui->Cart->setColumnWidth(1,50);
         ui->Cart->setColumnWidth(2, 2);
-        ui->Cart->setColumnWidth(3,120);
+        ui->Cart->setColumnWidth(3,200);
         ui->SelectedCollegesList->insertColumn(0);
         ui->SelectedCollegesList->insertColumn(1);
+        ui->SelectedCollegesList->setColumnWidth(0, 230);
+        ui->SelectedCollegesList->setColumnWidth(1, 50);
         ui->CustomTripList->clear();
         ui->CustomTripSouvs->clear();
         ui->CustomTripPrices->clear();
         ui->pushButton->setEnabled(true);
         ui->pushButton_2->setEnabled(false);
         ui->CustomConvert->setEnabled(true);
+        ui->CustomTripList->setSelectionMode(QAbstractItemView::SingleSelection);
 
 //        qWarning() << "Switching from vec to map";
 
@@ -256,6 +259,41 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         collegeMap.parent.clear();
         collegeMap.ans.clear();
     }
+    if(index == 3) // Saddleback to all Dijkstra trip
+    {
+        ui->CartSaddleback->clear();
+        ui->SelectedCollegesList_2->clear();
+        ui->CartSaddleback->setColumnCount(0);
+        ui->CartSaddleback->setRowCount(0);
+        ui->CartSaddleback->insertColumn(0);
+        ui->CartSaddleback->insertColumn(1);
+        ui->CartSaddleback->insertColumn(2);
+        ui->CartSaddleback->insertColumn(3);
+        ui->CartSaddleback->setColumnWidth(0,120);
+        ui->CartSaddleback->setColumnWidth(1,50);
+        ui->CartSaddleback->setColumnWidth(2, 2);
+        ui->CartSaddleback->setColumnWidth(3,200);
+        ui->SelectedCollegesList_2->insertColumn(0);
+        ui->SelectedCollegesList_2->insertColumn(1);
+        ui->SelectedCollegesList_2->setColumnWidth(0, 230);
+        ui->SelectedCollegesList_2->setColumnWidth(1, 50);
+        //ui->CustomTripList->clear();
+        ui->SaddlebackTripSouvs->clear();
+        ui->SaddlebackTripPrices->clear();
+        //ui->pushButton_5->setEnabled(true);
+        ui->pushButton_6->setEnabled(false);
+        ui->CustomConvert_3->setEnabled(true);
+        ui->AllSaddlebackList->setSelectionMode(QAbstractItemView::SingleSelection);
+        //ui->pushButton_6->setEnabled(false);
+        ui->AllSaddlebackList->clear();
+        //ui->Sadd->clear();
+        ui->addStateD_2->setEnabled(true);
+        //ui->CustomConvert_3->setEnabled(true);
+        collegeMap.numToPrint.clear();
+        collegeMap.pathDists.clear();
+        collegeMap.parent.clear();
+        collegeMap.ans.clear();
+    }
 }
 
 
@@ -277,6 +315,8 @@ void MainWindow::on_pushButton_clicked() // add start custom recursive
 
 void MainWindow::on_pushButton_2_clicked() //add selected recursive custom trip
 {
+    if(ui->CustomTripList->selectedItems().count() == 0)
+        return;
     for(int i = 0; i < TABLE_SIZE; i++)
     collegeMap.hashTable[i].select = false;
     collegeMap.ans.clear();
@@ -350,7 +390,7 @@ void MainWindow::on_CustomTripList_itemClicked(QListWidgetItem *item)
 }
 
 
-void MainWindow::on_AddToCart_clicked() //not in final state, working on sort
+void MainWindow::on_AddToCart_clicked() //adds current item from current college to cart or updates the quantity
 {
     if(ui->CustomTripSouvs->selectedItems().size() != 0 && ui->spinBox->text() != "0" && ui->CustomTripList->selectedItems().size() != 0)
     {
@@ -426,7 +466,7 @@ void MainWindow::on_CustomTripSouvs_itemClicked(QListWidgetItem *item)
 
 void MainWindow::unlockTab()
 {
-    ui->tabWidget->setTabEnabled(3, true);
+    ui->tabWidget->setTabEnabled(4, true);
     //loop through colleges and create a MenuWidget for each one
     QListWidget *menuList = ui->menuAdminList;
     menuList->clear();
@@ -1000,11 +1040,13 @@ void MainWindow::on_pushButton_4_clicked() //custom recur finish cart
     {
         pair<QString,double> col;
         col.first = ui->Cart->item(i,3)->text();
-        col.second = (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
-        if(colleges.empty())
-            colleges.push_back(col);
+        double number = (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
+        col.second = number;
+        if(!colleges.empty())
+        {
+            //colleges.push_back(col);
 
-        else{
+        //else{
 
 
         for(int j = 0; j < colleges.size(); j++)
@@ -1016,20 +1058,33 @@ void MainWindow::on_pushButton_4_clicked() //custom recur finish cart
             }
 
         }
-        }
+
         if(chk == true)
         {
             double num = colleges.at(ind).second + (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
             colleges.at(ind).second = num;
             colleges.erase(colleges.begin() + ind);
             pair<QString, double> upd;
-            upd.first = colleges.at(ind).first;
+            upd.first = ui->Cart->item(i,3)->text();
             upd.second = num;
            colleges.push_back(upd);
-            col.second = colleges.at(ind).second + (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
+           int savem = 0;
+           if(ui->SelectedCollegesList->rowCount() != 0)
+           {
+           for(int m = 0; m < ui->SelectedCollegesList->rowCount(); m++)
+           {
+               if(ui->SelectedCollegesList->item(m,0)->text() == ui->Cart->item(i,3)->text())
+                   savem = m;
+           }
+            col.second = ui->SelectedCollegesList->item(savem,1)->text().toDouble() + (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
+            ui->SelectedCollegesList->removeRow(savem);
+        }
+        }
         }
         if(chk == false)
-        colleges.push_back(col);
+        {
+            colleges.push_back(col);
+        }
 
         chk = false;
         grandTotal += ui->Cart->item(i,1)->text().toDouble() * ui->Cart->item(i,2)->text().toDouble();
@@ -1038,10 +1093,357 @@ void MainWindow::on_pushButton_4_clicked() //custom recur finish cart
     {
         ui->SelectedCollegesList->insertRow(ui->SelectedCollegesList->rowCount());
         ui->SelectedCollegesList->setItem(ui->SelectedCollegesList->rowCount()-1, 0, new QTableWidgetItem(colleges.at(i).first));
-        ui->SelectedCollegesList->setItem(ui->SelectedCollegesList->rowCount()-1, 1, new QTableWidgetItem(colleges.at(i).second));
+        ui->SelectedCollegesList->setItem(ui->SelectedCollegesList->rowCount()-1, 1, new QTableWidgetItem(QString::number(colleges.at(i).second)));
         //ui->SelectedCollegesList->addItem(colleges.at(i).first);
     }
 
     ui->GrandTotal->setText(QString::number(grandTotal));
+}
+
+
+void MainWindow::on_addStateD_2_clicked()
+{
+    vector<QString> selected;
+    QString start;
+    if(ui->AllSaddlebackList->count() != 0)
+    {
+
+        qWarning() << "Start of Trip Added";
+        int savei = 0;
+        for(int i = 0; i < ui->AllSaddlebackList->count(); i++)
+        {
+            if(ui->AllSaddlebackList->item(i)->text() == "Saddleback College")
+            {
+                start = ui->AllSaddlebackList->item(i)->text();
+                savei = i;
+            }
+        }
+
+       // ui->CustomTripList->currentItem()->setSelected(false);
+        //ui->CustomTripList->removeItemWidget(ui->CustomTripList->currentItem());
+        ui->AllSaddlebackList->item(savei)->setSelected(true);
+        ui->AllSaddlebackList->item(savei)->setHidden(true);
+        //ui->pushButton->setEnabled(false);
+        ui->AllSaddlebackList->setSelectionMode(QAbstractItemView::MultiSelection);
+        ui->pushButton_6->setEnabled(true);
+        ui->addStateD_2->setEnabled(false);
+    }
+//}
+selected.push_back(start);
+
+//void MainWindow::on_pushButton_6_clicked() // all from saddleback
+//{
+    for(int i = 0; i < TABLE_SIZE; i++)
+    collegeMap.hashTable[i].select = false;
+    pair<int,double> startKey;
+
+    ui->AllSaddlebackList->selectAll();
+    if(ui->AllSaddlebackList->selectedItems().size() > 1)
+    {
+        for(int i = 0; i < ui->AllSaddlebackList->selectedItems().size(); i++)
+        {
+            selected.push_back(ui->AllSaddlebackList->selectedItems().at(i)->text());
+        }
+        ui->AllSaddlebackList->clear();
+        for(int g = 0; g < selected.size(); g++)
+        {
+            ui->AllSaddlebackList->addItem(selected.at(g)); //added current trip to TripList, now recursive search on selected map values
+
+        }
+        for(int i = 0; i < campuses.size(); i++)
+        {
+            if(selected.at(0) == campuses.at(i).getStartCollege())
+            {
+                startKey.first = i;
+                startKey.second = campuses.at(i).getDistances().at(0);
+            }
+        }
+
+        collegeMap.selected(selected, selected.size());
+        qWarning() << "Beginning sort on: " << startKey.first << " " << startKey.second;
+//        collegeMap.dijkstra(startKey);
+//        ui->CustomDijkstraList->clear();
+//        for(int i = 0; i < collegeMap.ans.size(); i++)
+//        {
+//            ui->CustomTripList->addItem(collegeMap.ans.at(i).origin/* + " -> " + collegeMap.ans.at(i).dest + " Dist: " + QString::number(collegeMap.ans.at(i).dist)*/);
+//            qWarning() << collegeMap.ans.at(i).origin << " -> " << collegeMap.ans.at(i).dest;
+//        }
+        ui->AllSaddlebackList->setSelectionMode(QAbstractItemView::SingleSelection);
+        ui->pushButton_6->setEnabled(false);
+       // selected
+    }
+    else
+    {
+        qWarning() << "None selected";
+    }
+
+//    if(ui->CustomDijkstraList->currentItem() == NULL)
+//        return;
+//    for(int i = 0; i < TABLE_SIZE; i++)
+//    {
+//        if(ui->CustomDijkstraList->currentItem()->text() == collegeMap.hashTable[i].origin)
+//        {
+//            startKey.first = collegeMap.hashTable[i].num;
+//            startKey.second = 0;
+//        }
+//    }
+    collegeMap.pathDists.clear();
+    qWarning() << "starting Dijkstra";
+    collegeMap.ans.clear();
+    collegeMap.initPathDist(selected);
+    collegeMap.dijkstra(startKey);
+    collegeMap.numToPrint.push_back(collegeMap.pathDists.at(0).first);
+    //ui->listWidget->addItem(QString::number(collegeMap.pathDists.at(0).first));
+    collegeMap.pathDists.erase(collegeMap.pathDists.begin()/* + startKey.first+1*/);
+    collegeMap.ans.clear();
+    qWarning() << "Coll: " << collegeMap.coll << " finding the rest";
+    double smallest = 9999;
+    int pathIndex = 0;
+    for(int i = 0; i < collegeMap.pathDists.size(); i++)
+    {
+        if(smallest > collegeMap.pathDists.at(i).second)
+        {
+            pathIndex = collegeMap.pathDists.at(i).first;
+            smallest = collegeMap.pathDists.at(i).second;
+        }
+        //ui->listWidget->addItem(QString::number(collegeMap.pathDists.at(i).first) + "  " + QString::number(collegeMap.pathDists.at(i).second));
+    }
+    for(int i = 0; i < collegeMap.pathDists.size(); i++)
+    {
+        collegeMap.pathDists.at(i).second = INFINITY;
+    }
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        collegeMap.hashTable[i].visited = false;
+    }
+    collegeMap.dijkstraNext(pathIndex);
+    ui->AllSaddlebackList->clear();
+    bool go = true;
+    for(int i = 0; i < collegeMap.numToPrint.size(); i++)
+    {
+        for(int j = 0; j < TABLE_SIZE; j++)
+        {
+            for(int l = 0; l < ui->AllSaddlebackList->count(); l++)
+            {
+                if(ui->AllSaddlebackList->item(l)->text() == collegeMap.hashTable[j].origin)
+                    go = false;
+            }
+            if(collegeMap.numToPrint.at(i) == collegeMap.hashTable[j].num && go == true)
+            {
+                ui->AllSaddlebackList->addItem(collegeMap.hashTable[j].origin);
+            }
+         go = true;
+        }
+    }
+   /* for(int i = 0; i < collegeMap.parent.size(); i++)*//*campuses.size()*/
+    /*{
+        collegeMap.pathsInAns(i);
+        if(collegeMap.ans.size() > i)
+        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) << " " << QString::number(collegeMap.ans.at(i).dist);
+    }*/
+
+
+    qWarning() << "Dijkstra complete";
+}
+
+
+void MainWindow::on_CustomConvert_3_clicked()
+{
+    db.getCampuses(this->campuses);
+    //switch from vector to map
+    int c =0;
+    vector<QString> endColleges;
+    vector<double> dist;
+    for(int i = 0; i < campuses.size(); i++)
+    {
+        endColleges = campuses[i].getEndCollege();
+        dist = campuses.at(i).getDistances();
+    }
+    qWarning() << "Switching from vec to map";
+
+            collegeMap.putVectorinHere(this->campuses);
+            qWarning() << "Done putting";
+            pair<int, double> key;
+            QString add = "";
+            for(int i = 0; i < campuses.size(); i++)
+            {
+                 dist = campuses.at(i).getDistances();
+                 key.first = i;
+                 for(int j = 0; j < dist.size(); j++)
+                 {
+                     key.second = dist.at(j);
+                 }
+                 ui->AllSaddlebackList->addItem(collegeMap.getOrigin(key));
+            }
+            ui->CustomConvert_3->setEnabled(false);
+}
+
+
+void MainWindow::on_AllSaddlebackList_itemClicked(QListWidgetItem *item)
+{
+    if(!ui->pushButton_6->isEnabled())
+    {
+        ui->SaddlebackTripPrices->clear();
+        ui->SaddlebackTripSouvs->clear();
+       QString selected = ui->AllSaddlebackList->currentItem()->text();
+       vector<Souvenir> menu;
+       for(int i = 0; i < campuses.size(); i++)
+       {
+           if(selected == campuses.at(i).getStartCollege())
+           {
+              menu = campuses.at(i).getMenu();
+              for(int j = 0; j < menu.size(); j++)
+              {
+                 ui->SaddlebackTripSouvs->addItem(menu.at(j).name);
+                 ui->SaddlebackTripPrices->addItem(QString::number(menu.at(j).price));
+              }
+           }
+       }
+    }
+}
+
+
+void MainWindow::on_SaddlebackTripSouvs_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->SaddlebackTripSouvs->currentRow();
+    ui->SaddlebackTripPrices->setCurrentRow(row);
+}
+
+
+void MainWindow::on_SaddlebackTripPrices_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->SaddlebackTripPrices->currentRow();
+    ui->SaddlebackTripSouvs->setCurrentRow(row);
+}
+
+
+void MainWindow::on_AddToCartSA_clicked()
+{
+    if(ui->SaddlebackTripSouvs->selectedItems().size() != 0 && ui->spinBoxSA->text() != "0" && ui->AllSaddlebackList->selectedItems().size() != 0)
+    {
+        QString college = ui->AllSaddlebackList->currentItem()->text();
+
+        QString name = ui->SaddlebackTripSouvs->currentItem()->text();
+
+        QString price = ui->SaddlebackTripPrices->currentItem()->text();
+
+        QString quantity = ui->spinBoxSA->text();
+
+        QString collComp;
+
+        bool check = false;
+        int index = 0;
+        if(ui->CartSaddleback->rowCount() != 0)
+        {
+
+           // QVector<QTableWidgetItem*> cartColl = ui->Cart->findItems(college, Qt::MatchFixedString);
+          // QVector<QTableWidgetItem*> cartItems = ui->Cart->findItems(name, Qt::MatchFixedString);
+           //for(int i = 0; i < cartItems.size(); i++)
+           //{
+               //collComp = cartColl.at(i)->text();
+               for(int n = 0; n < ui->CartSaddleback->rowCount(); n++)
+               {
+                   if(ui->CartSaddleback->item(n,0)->text() == name && college == ui->CartSaddleback->item(n,3)->text())
+                   {
+                       index = n;
+                       check = true;
+                   }
+               }
+           // if(cartItems.at(i)->data(0).toString() == name && college == collComp)
+               if(check == true)
+            {
+                int newquant = quantity.toInt()/* + cartItems.at(i)->data(2).toInt()*/;
+                //cartItems.at(i)->data(2).setValue(newquant);
+
+                ui->CartSaddleback->item(index,2)->setText(QString::number(newquant));
+                //qWarning() << name;
+                //check = true;
+            }
+           //}
+        }
+        if(check == false)
+        {
+            ui->CartSaddleback->insertRow(ui->CartSaddleback->rowCount());
+
+            ui->CartSaddleback->setItem(ui->CartSaddleback->rowCount()-1, 0, new QTableWidgetItem(name));
+
+            ui->CartSaddleback->setItem(ui->CartSaddleback->rowCount()-1, 1, new QTableWidgetItem(price));
+
+            ui->CartSaddleback->setItem(ui->CartSaddleback->rowCount()-1, 2, new QTableWidgetItem(quantity));
+
+            ui->CartSaddleback->setItem(ui->CartSaddleback->rowCount()-1, 3, new QTableWidgetItem(college));
+        }
+    }
+}
+
+
+void MainWindow::on_SaddlbackFinish_clicked()
+{
+    double grandTotal = 0;
+    bool chk = false;
+    int ind = 0;
+    vector<pair<QString,double>> colleges;
+    for(int i = 0; i < ui->CartSaddleback->rowCount(); i++)
+    {
+        pair<QString,double> col;
+        col.first = ui->CartSaddleback->item(i,3)->text();
+        double number = (ui->CartSaddleback->item(i, 1)->text().toDouble() * ui->CartSaddleback->item(i, 2)->text().toDouble());
+        col.second = number;
+        if(!colleges.empty())
+        {
+            //colleges.push_back(col);
+
+        //else{
+
+
+        for(int j = 0; j < colleges.size(); j++)
+        {
+            if(colleges.at(j).first == col.first)
+            {
+                ind = j;
+                chk = true;
+            }
+
+        }
+
+        if(chk == true)
+        {
+            double num = colleges.at(ind).second + (ui->CartSaddleback->item(i, 1)->text().toDouble() * ui->CartSaddleback->item(i, 2)->text().toDouble());
+            colleges.at(ind).second = num;
+            colleges.erase(colleges.begin() + ind);
+            pair<QString, double> upd;
+            upd.first = ui->CartSaddleback->item(i,3)->text();
+            upd.second = num;
+           colleges.push_back(upd);
+           int savem = 0;
+           if(ui->SelectedCollegesList_2->rowCount() != 0)
+           {
+           for(int m = 0; m < ui->SelectedCollegesList_2->rowCount(); m++)
+           {
+               if(ui->SelectedCollegesList_2->item(m,0)->text() == ui->CartSaddleback->item(i,3)->text())
+                   savem = m;
+           }
+            col.second = ui->SelectedCollegesList_2->item(savem,1)->text().toDouble() + (ui->CartSaddleback->item(i, 1)->text().toDouble() * ui->CartSaddleback->item(i, 2)->text().toDouble());
+            ui->SelectedCollegesList_2->removeRow(savem);
+        }
+        }
+        }
+        if(chk == false)
+        {
+            colleges.push_back(col);
+        }
+
+        chk = false;
+        grandTotal += ui->CartSaddleback->item(i,1)->text().toDouble() * ui->CartSaddleback->item(i,2)->text().toDouble();
+    }
+    for(int i = 0; i < colleges.size(); i++)
+    {
+        ui->SelectedCollegesList_2->insertRow(ui->SelectedCollegesList_2->rowCount());
+        ui->SelectedCollegesList_2->setItem(ui->SelectedCollegesList_2->rowCount()-1, 0, new QTableWidgetItem(colleges.at(i).first));
+        ui->SelectedCollegesList_2->setItem(ui->SelectedCollegesList_2->rowCount()-1, 1, new QTableWidgetItem(QString::number(colleges.at(i).second)));
+        //ui->SelectedCollegesList->addItem(colleges.at(i).first);
+    }
+
+    ui->GrandTotalSA->setText(QString::number(grandTotal));
 }
 

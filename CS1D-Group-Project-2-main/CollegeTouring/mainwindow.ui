@@ -34,7 +34,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -162,7 +162,7 @@
          <rect>
           <x>900</x>
           <y>20</y>
-          <width>231</width>
+          <width>301</width>
           <height>371</height>
          </rect>
         </property>
@@ -218,7 +218,7 @@
          <rect>
           <x>380</x>
           <y>240</y>
-          <width>261</width>
+          <width>301</width>
           <height>181</height>
          </rect>
         </property>
@@ -312,10 +312,23 @@
         <property name="geometry">
          <rect>
           <x>990</x>
-          <y>400</y>
+          <y>420</y>
           <width>113</width>
           <height>21</height>
          </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>990</x>
+          <y>400</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Total Cost:</string>
         </property>
        </widget>
       </widget>
@@ -380,6 +393,185 @@
         </property>
         <property name="text">
          <string>ConvertToMap</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>All from Saddleback</string>
+       </attribute>
+       <widget class="QPushButton" name="addStateD_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add Start</string>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="AllSaddlebackList">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>10</y>
+          <width>251</width>
+          <height>391</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>40</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Find Selected</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="CustomConvert_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>70</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>ConvertToMap</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBoxSA">
+        <property name="geometry">
+         <rect>
+          <x>660</x>
+          <y>10</y>
+          <width>42</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <number>10</number>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="AddToCartSA">
+        <property name="geometry">
+         <rect>
+          <x>660</x>
+          <y>40</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>AddSouvenir</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="TotalDistSA">
+        <property name="geometry">
+         <rect>
+          <x>730</x>
+          <y>110</y>
+          <width>113</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="SaddlebackTripPrices">
+        <property name="geometry">
+         <rect>
+          <x>540</x>
+          <y>10</y>
+          <width>111</width>
+          <height>211</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QListWidget" name="SaddlebackTripSouvs">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>10</y>
+          <width>131</width>
+          <height>211</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="CartSaddleback">
+        <property name="geometry">
+         <rect>
+          <x>920</x>
+          <y>10</y>
+          <width>301</width>
+          <height>371</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>730</x>
+          <y>90</y>
+          <width>101</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Total Distance:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>1010</x>
+          <y>390</y>
+          <width>81</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Total Cost:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="SaddlbackFinish">
+        <property name="geometry">
+         <rect>
+          <x>920</x>
+          <y>390</y>
+          <width>80</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Finish</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="SelectedCollegesList_2">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>230</y>
+          <width>301</width>
+          <height>181</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="GrandTotalSA">
+        <property name="geometry">
+         <rect>
+          <x>1010</x>
+          <y>410</y>
+          <width>113</width>
+          <height>21</height>
+         </rect>
         </property>
        </widget>
       </widget>
