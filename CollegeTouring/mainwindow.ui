@@ -120,7 +120,7 @@
          <string>Admin Login</string>
         </property>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>250</x>
@@ -131,22 +131,22 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QPushButton" name="allFromSaddleback">
-           <property name="text">
-            <string>Display all from Saddleback College</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="openAll">
            <property name="text">
             <string>Display Original List</string>
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="allFromSaddleback">
+           <property name="text">
+            <string>Display all from Saddleback College</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>770</x>
