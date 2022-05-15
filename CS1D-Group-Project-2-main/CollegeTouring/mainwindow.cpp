@@ -995,55 +995,52 @@ void MainWindow::on_pushButton_4_clicked() //custom recur finish cart
     double grandTotal = 0;
     bool chk = false;
     int ind = 0;
-    //QVector<pair<QString,double>> colleges;
+    vector<pair<QString,double>> colleges;
     for(int i = 0; i < ui->Cart->rowCount(); i++)
     {
-        //pair<QString,double> col;
-        //col.first = ui->Cart->item(i,3)->text();
-       // col.second = (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
-        //if(colleges.empty())
-           // colleges.push_back(col);
+        pair<QString,double> col;
+        col.first = ui->Cart->item(i,3)->text();
+        col.second = (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
+        if(colleges.empty())
+            colleges.push_back(col);
 
-        if(ui->SelectedCollegesList->rowCount() != 0)
+        else{
+
+
+        for(int j = 0; j < colleges.size(); j++)
         {
-        for(int j = 0; j < ui->SelectedCollegesList->rowCount(); j++)
-        {
-            if(ui->SelectedCollegesList->item(j, 0)->text() == ui->Cart->item(i,3)->text())
+            if(colleges.at(j).first == col.first)
             {
                 ind = j;
                 chk = true;
             }
 
-        }}
+        }
+        }
         if(chk == true)
         {
-            double num = ui->SelectedCollegesList->item(ind,1)->text().toDouble() + (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
-            ui->SelectedCollegesList->item(ind,1)->setText(QString::number(num));
-            //colleges.at(ind).second = num;
-            //colleges.erase(colleges.begin() + ind-1);
-           // pair<QString, double> upd;
-            //upd.first = colleges.at(ind).first;
-           // upd.second = num;
-           // colleges.push_back(upd);
-           // col.second = colleges.at(ind).second + (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
+            double num = colleges.at(ind).second + (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
+            colleges.at(ind).second = num;
+            colleges.erase(colleges.begin() + ind);
+            pair<QString, double> upd;
+            upd.first = colleges.at(ind).first;
+            upd.second = num;
+           colleges.push_back(upd);
+            col.second = colleges.at(ind).second + (ui->Cart->item(i, 1)->text().toDouble() * ui->Cart->item(i, 2)->text().toDouble());
         }
         if(chk == false)
-        {
-            ui->SelectedCollegesList->insertRow(ui->SelectedCollegesList->rowCount());
-            ui->SelectedCollegesList->item(ui->SelectedCollegesList->rowCount()-1, 0)->setText(ui->SelectedCollegesList->item(ind, 0)->text());
-        }
-        //colleges.push_back(col);
+        colleges.push_back(col);
 
         chk = false;
         grandTotal += ui->Cart->item(i,1)->text().toDouble() * ui->Cart->item(i,2)->text().toDouble();
     }
-    /*for(int i = 0; i < colleges.size(); i++)
+    for(int i = 0; i < colleges.size(); i++)
     {
         ui->SelectedCollegesList->insertRow(ui->SelectedCollegesList->rowCount());
         ui->SelectedCollegesList->setItem(ui->SelectedCollegesList->rowCount()-1, 0, new QTableWidgetItem(colleges.at(i).first));
         ui->SelectedCollegesList->setItem(ui->SelectedCollegesList->rowCount()-1, 1, new QTableWidgetItem(colleges.at(i).second));
         //ui->SelectedCollegesList->addItem(colleges.at(i).first);
-    }*/
+    }
 
     ui->GrandTotal->setText(QString::number(grandTotal));
 }
