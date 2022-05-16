@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <QObject>
-#include<QDebug>
+#include <QDebug>
 #include "campus.h"
 
 #define TABLE_SIZE 300 //entries plus 1
@@ -79,6 +79,7 @@ public:
 
     vector<int> parent;
     int coll = 0; //number of colleges in map (used in dijkstra setup)
+    //int dfsCounter;
 private:
 
 

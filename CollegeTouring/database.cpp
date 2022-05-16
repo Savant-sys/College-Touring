@@ -95,8 +95,35 @@ vector<Campus> Database::readFile()
     Souvenir menu;
     vector<Souvenir> menuVector;
 
+
     for (int i = 1; i < rows.size(); i++)
     {
+        if (rows[i][0] == "Arizona State University")
+                {
+                    for (int s = i; s < rows.size(); s++)
+                    {
+                    startCollege = rows[s][0];
+                    endCollege.push_back(rows[s][1]);
+                    endCollege.push_back(rows[s+1][1]);
+                    distances.push_back(rows[s][2].toDouble());
+                    distances.push_back(rows[s+1][2].toDouble());
+
+
+                    state = "";
+                    undergrads = 0;
+                    menuVector.clear();
+//                    qInfo () << startCollege;
+//                    for (int k = 0; k < endCollege.size(); k++)
+//                        qInfo () << "\ntest for new new distances: " << endCollege[k];
+                    Campus campus(startCollege, endCollege, distances, state, undergrads, menuVector);
+                    newCampuses.push_back(campus);
+                    s++;
+
+                    endCollege.clear();
+                    distances.clear();
+                    }
+                    break;
+                }
 //        for (int k = 0; k < rows[i].size(); k++)
 //        {
             startCollege = rows[i][0];
@@ -200,14 +227,46 @@ vector<Campus> Database::readFile()
 ////        }
 //    }
 
+//    for (int i = 0; i < newCampuses.size();i++)
+//    {
+//        qInfo () <<"\nTEST new campuses: " << newCampuses[i].getStartCollege() << " : " << i;
+//    }
     return newCampuses;
 }
 
 void Database::addCampuses(vector<Campus> campuses)
 {
+
+
     for(int i = 0; i < campuses.size(); i++)
     {
         Campus currCampus = campuses[i];
+//qInfo () << "\nTEST CAMPUSES COUNT FOR NEW: " << campuses[0].getStartCollege();
+        if (i > 1)
+        {
+//            QJsonArray endCollege;
+//            endCollege.push_back(campuses[2].getEndCollege()[0]);
+//            endCollege.push_back(campuses[2].getEndCollege()[1]);
+//            QString id = campuses[i].getStartCollege();
+//            //int id = campus.getId();
+//            //QString idToString = QString::number(id);
+
+//            QSqlQuery query;
+
+//            QJsonDocument endCollegeDoc(endCollege);
+
+//            query.prepare("UPDATE campuses SET Ending_College = :newendcollege WHERE Starting_College = :idediting");
+//            query.bindValue(":newendcollege", endCollegeDoc.toJson());
+//            query.bindValue(":idediting", id);
+
+//            if (query.exec()){
+//                qInfo() << "Inserted";
+//            } else {
+//                qInfo() << "Error, " << query.lastError();
+//            }
+            break;
+
+        }else{
 
         QString startCampus = currCampus.getStartCollege();
         vector<QString> endCollegeVector = currCampus.getEndCollege();
@@ -264,7 +323,7 @@ void Database::addCampuses(vector<Campus> campuses)
             qInfo() << "\nError, " << query.lastError() << "\n";
 
     }
-
+}
 }
 
 bool Database::getCampuses(vector<Campus>& campuses)
@@ -326,11 +385,11 @@ bool Database::getCampuses(vector<Campus>& campuses)
             }
         }
 
-        //make our new restaurant
+        //make our new campus
         Campus newCampus(startCollege, endCollegeVector, distancesVector, state, undergrads, menuVector);
         campuses.push_back(newCampus);
     }
-    qInfo() << "\ntest for getCampuses function\n";
+    //qInfo() << "\ntest for getCampuses function\n";
     return true;
 
 }
@@ -375,4 +434,40 @@ void Database::modifySouvenir(Campus campus, vector<Souvenir> menu)
         }
 }
 
+void Database::updateNewColleges(Campus campus, vector<QString> endCollegeVector, vector<double> distancesVector)
+{
+    QJsonArray endCollege;
 
+    for (int i = 0; i < endCollegeVector.size(); i++)
+    {
+        endCollege.push_back(endCollegeVector[i]);
+    }
+
+    QJsonArray distances;
+
+    for (int i = 0; i < distancesVector.size(); i++)
+    {
+        distances.push_back(distancesVector[i]);
+    }
+
+    QString id = campus.getStartCollege();
+    //int id = campus.getId();
+    //QString idToString = QString::number(id);
+
+    QSqlQuery query;
+
+    QJsonDocument endCollegeDoc(endCollege);
+    QJsonDocument distancesDoc(distances);
+
+    query.prepare("UPDATE campuses SET Ending_College = :newendcollege, Distance_Between = :newdistance WHERE Starting_College = :idediting");
+    query.bindValue(":newendcollege", endCollegeDoc.toJson());
+    query.bindValue(":newdistance", distancesDoc.toJson());
+    query.bindValue(":idediting", id);
+
+    if (query.exec()){
+        qInfo() << "Inserted";
+    } else {
+        qInfo() << "Error, " << query.lastError();
+    }
+
+}

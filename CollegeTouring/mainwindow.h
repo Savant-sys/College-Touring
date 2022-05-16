@@ -10,6 +10,7 @@
 #include "campus_widget.h"
 #include "map.h"
 #include "menuwidget.h"
+#include "allfromsaddleback.h"
 
 using namespace std;
 
@@ -31,9 +32,14 @@ public:
     void addItem(Campus campus, vector<Souvenir> newMenu);
     void deleteItem(Campus campus, vector<Souvenir> newMenu);
     void editItem(Campus campus, int index);
+    void updateEndColleges(Campus campus);
     Database db;
+    vector<Campus> campuses;
+
 public slots:
     void unlockTab();
+    vector<QString> getEndCollegesFromSaddleback() { return campuses[4].getEndCollege(); }
+    vector<double> getDistancesFromSaddleback() { return campuses[4].getDistances(); }
 private slots:
     void on_openCA_clicked();
 
@@ -67,7 +73,7 @@ private slots:
 
     void on_openAll_clicked();
 
-    void on_sortStateEnd_clicked();
+//    void on_sortStateEnd_clicked();
 
     void on_sortStateStart_clicked();
 
@@ -79,6 +85,12 @@ private slots:
 
     void on_CustomConvert_2_clicked();
 
+    void on_sortStates_clicked();
+
+    void on_sortStart_clicked();
+
+    void on_allFromSaddleback_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -86,9 +98,10 @@ private:
 
     bool log;
     Login* loginpopup;
-
+    Allfromsaddleback* saddlebackTablepopup;
+bool added;
     Map collegeMap;
-    vector<Campus> campuses;
+
     vector<QString> nameList;
     vector<QString> menuList;
     std::multimap<int, Souvenir> selectedItems;

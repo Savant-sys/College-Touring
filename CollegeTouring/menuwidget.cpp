@@ -6,6 +6,8 @@ MenuWidget::MenuWidget(Campus campus, MainWindow *parent)
 
     //Creating all the UI elements dynamically for each restaurant column in the list widget.
     layout = new QHBoxLayout(this);
+    stateLabel = new QLabel(campus.getState());
+    stateLabel->setFixedWidth(90);
     nameLabel = new QLabel(campus.getStartCollege());
     nameLabel->setFixedWidth(280);
     addNewItemButton = new QPushButton("Add Item");
@@ -30,6 +32,7 @@ MenuWidget::MenuWidget(Campus campus, MainWindow *parent)
     editItemButton->connect(editItemButton, SIGNAL(clicked()), this, SLOT(on_EditMenuItemClicked()));
 
     //Adding all input widgets to our QHBoxLayout that groups them all together.
+    layout->addWidget(stateLabel);
     layout->addWidget(nameLabel);
     layout->addWidget(menuItems);
     layout->addWidget(addNewItemButton);

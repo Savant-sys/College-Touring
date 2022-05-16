@@ -6,8 +6,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->textBrowser->setText("");
     this->loginpopup = nullptr;
+    this->saddlebackTablepopup = nullptr;
     log = false;
+    added = false;
     bool result = false;
     if (result == false)
     {
@@ -53,23 +57,49 @@ void MainWindow::addMenuItem(Campus campus, Souvenir item){
 
 void MainWindow::on_openCA_clicked()
 {
+    update();
     //does not update mainwindow from admin changes yet
     ui->campusList->clear();
     db.getCampuses(this->campuses);
         qInfo() << "Got all campuses list";
     qWarning() << this->campuses.at(0).getMenu().at(0).name;
     QListWidget *campusList = ui->campusList;
-
+    vector<Campus> sort;
     for (int i =0; i < this->campuses.size(); i++)
     {
         if (campuses[i].getState() == "California")
         {
-            CampusWidget *campusItem = new CampusWidget(campuses[i], this);
-            QListWidgetItem *item = new QListWidgetItem(campusList);
-            campusList->addItem(item);
-            item->setSizeHint(campusItem->minimumSizeHint());
-            campusList->setItemWidget(item, campusItem);
+            sort.push_back(campuses[i]);
         }
+    }
+
+    bool swap = true;
+    int j = 0;
+    while (swap)
+    {
+        swap = false;
+        j++;
+        for (int l = 0; l < sort.size() - j; l++)
+        {
+            qInfo () << "sorted start\n";
+            if (sort[l].getStartCollege() > sort[l + 1].getStartCollege())
+            {
+                Campus temp(sort[l]);
+                sort[l] = sort[l + 1];
+                sort[l + 1] = temp;
+                swap = true;
+            }
+        }
+    }
+
+    for (int i =0; i < sort.size(); i++)
+    {
+
+        CampusWidget *campusItem = new CampusWidget(sort[i], this);
+        QListWidgetItem *item = new QListWidgetItem(campusList);
+        campusList->addItem(item);
+        item->setSizeHint(campusItem->minimumSizeHint());
+        campusList->setItemWidget(item, campusItem);
     }
 }
 
@@ -229,7 +259,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 //             }
 //             ui->CustomTripList->addItem(collegeMap.getOrigin(key));
 //        }
-        collegeMap.DFS(6);
+        //collegeMap.DFS(6);
 
     }
 
@@ -457,6 +487,13 @@ void MainWindow::addItem(Campus campus, vector<Souvenir> newMenu)
     }
 }
 
+void MainWindow::updateEndColleges(Campus campus)
+{
+    vector <QString> updated = campus.getEndCollege();
+
+
+}
+
 void MainWindow::deleteItem(Campus campus, vector<Souvenir> newMenu){
     //menu is already updated for this function call
     this->db.modifySouvenir(campus, newMenu);
@@ -548,7 +585,9 @@ void MainWindow::editItem(Campus campus, int index)
 
 void MainWindow::on_pushButton_3_clicked()
 {
-//    db.readFile();
+
+   if (added == false)
+   {
     vector <QString> endCollege;
     std::vector<double> distances;
     std::vector<Souvenir> menu;
@@ -557,7 +596,33 @@ void MainWindow::on_pushButton_3_clicked()
 
     this->db.addCampuses(newCampuses);
 
+    for (int i = 0; i < campuses.size(); i++)
+    {
+        vector<QString> EC = campuses[i].getEndCollege();
+
+        EC.push_back(newCampuses[2].getEndCollege()[0]);
+        EC.push_back(newCampuses[2].getEndCollege()[1]);
+
+        vector<double> ECD = campuses[i].getDistances();
+
+        for (int k = 0; k < newCampuses.size(); k++)
+        {
+            if (newCampuses[k].getStartCollege() == campuses[i].getStartCollege())
+            {
+                ECD.push_back(newCampuses[k].getDistances()[0]);
+                ECD.push_back(newCampuses[k].getDistances()[1]);
+
+//                qInfo() << "\ntest for new distances: " << k << ": " << newCampuses[k].getDistances()[0] << " : " << newCampuses[k].getDistances()[1];
+            }
+        }
+        this->db.updateNewColleges(campuses[i], EC, ECD);
+
+        EC.clear();
+        ECD.clear();
+    }
+
     this->db.getCampuses(this->campuses);
+
 
     QListWidget *campusList = ui->campusList;
     campusList->clear();
@@ -583,22 +648,17 @@ void MainWindow::on_pushButton_3_clicked()
         item->setSizeHint(menuItem->minimumSizeHint());
         menuList->setItemWidget(item, menuItem);
     }
-//    qInfo() << newCampuses[1].getStartCollege();
-//    qInfo() << newCampuses[1].getID();
+    added = true;
+    QMessageBox::information(this, "Success", "Successfully added new colleges!");
+}
+   else
+   {
+       QMessageBox popup;
+       popup.critical(0, "Error", "Cannot add new colleges more than one time!");
+   }
 
-//    distances = newCampuses[1].getDistances();
-//    qInfo() << newCampuses[1].getSaddlebackDistance();
-//    menu = newCampuses[1].getMenu();
 
-//    for (auto i = distances.begin(); i != distances.end(); i++)
-//    {
-//        qInfo() << *i;
-//    }
 
-//    for (auto j = menu.begin(); j != menu.end(); j++)
-//    {
-//        qInfo() << j->name << " " << j->price;
-//    }
 }
 
 
@@ -608,79 +668,87 @@ void MainWindow::on_openAll_clicked()
 }
 
 
-void MainWindow::on_sortStateEnd_clicked()
-{
-    ui->campusList->clear();
-    db.getCampuses(this->campuses);
-        qInfo() << "Got all campuses list";
-    qWarning() << this->campuses.at(0).getMenu().at(0).name;
-    QListWidget *campusList = ui->campusList;
+//void MainWindow::on_sortStateEnd_clicked()
+//{
+//    update();
+//    ui->campusList->clear();
+//    db.getCampuses(this->campuses);
+//        qInfo() << "Got all campuses list";
+//    qWarning() << this->campuses.at(0).getMenu().at(0).name;
+//    QListWidget *campusList = ui->campusList;
 
-    vector<Campus> sort = campuses;
+//    vector<Campus> sort = campuses;
 
-        int j = 0;
-        bool swap = true;
+//        int j = 0;
+//        bool swap = true;
+
+//        while (swap)
+//        {
+//            swap = false;
+//            j++;
+//            for (int l = 0; l < sort.size() - j; l++)
+//            {
+//                qInfo () << "sorted state\n";
+//                if (sort[l].getState() > sort[l + 1].getState())
+//                {
+//                    Campus temp(sort[l]);
+//                    sort[l] = sort[l + 1];
+//                    sort[l + 1] = temp;
+//                    swap = true;
+//                }
+//            }
+//        }
+
+//        swap = true;
+//        j = 0;
+//        for (int i = 0; i < sort.size(); i++)
+//        {
+//            vector<QString> endCollegesSort = sort[i].getEndCollege();
+//            while(swap)
+//            {
+//                swap = false;
+//                j++;
+//                for (int l = 0; l < endCollegesSort.size() - j; l++)
+//                {
+//                    qInfo () << "sorted start\n";
+//                    if (endCollegesSort[l] > endCollegesSort[l + 1])
+//                    {
+//                        QString temp = endCollegesSort[l];
+//                        endCollegesSort[l] = endCollegesSort[l + 1];
+//                        endCollegesSort[l + 1] = temp;
+//                        swap = true;
+//                    }
+//                }
+//            }
+//            Campus backSort(sort[i].getStartCollege(), endCollegesSort, sort[i].getDistances(), sort[i].getState(), sort[i].getUndergrads(),sort[i].getMenu());
+//            sort[i] = backSort;
+//        }
 
 
-        while (swap)
-        {
-            swap = false;
-            j++;
-            for (int l = 0; l < sort.size() - j; l++)
-            {
-                qInfo () << "sorted state\n";
-                if (sort[l].getState() > sort[l + 1].getState())
-                {
-                    Campus temp(sort[l]);
-                    sort[l] = sort[l + 1];
-                    sort[l + 1] = temp;
-                    swap = true;
-                }
-            }
-        }
+//    for (int i =0; i < sort.size(); i++)
+//    {
 
-        while (swap)
-        {
-            swap = false;
-            j++;
-            for (int l = 0; l < sort.size() - j; l++)
-            {
-                qInfo () << "sorted start\n";
-                if (sort[l].getEndCollege() > sort[l + 1].getEndCollege())
-                {
-                    Campus temp(sort[l]);
-                    sort[l] = sort[l + 1];
-                    sort[l + 1] = temp;
-                    swap = true;
-                }
-            }
-        }
+//            CampusWidget *campusItem = new CampusWidget(sort[i], this);
+//            QListWidgetItem *item = new QListWidgetItem(campusList);
+//            campusList->addItem(item);
+//            item->setSizeHint(campusItem->minimumSizeHint());
+//            campusList->setItemWidget(item, campusItem);
 
-
-
-    for (int i =0; i < sort.size(); i++)
-    {
-
-            CampusWidget *campusItem = new CampusWidget(sort[i], this);
-            QListWidgetItem *item = new QListWidgetItem(campusList);
-            campusList->addItem(item);
-            item->setSizeHint(campusItem->minimumSizeHint());
-            campusList->setItemWidget(item, campusItem);
-
-    }
-}
+//    }
+//}
 
 
 void MainWindow::on_sortStateStart_clicked()
 {
+    update();
     ui->campusList->clear();
     db.getCampuses(this->campuses);
-        qInfo() << "Got all campuses list";
+    qInfo() << "Got all campuses list";
     qWarning() << this->campuses.at(0).getMenu().at(0).name;
     QListWidget *campusList = ui->campusList;
 
     vector<Campus> sort = campuses;
-
+    vector<QString> statesSorted;
         int j = 0;
         bool swap = true;
 
@@ -702,28 +770,57 @@ void MainWindow::on_sortStateStart_clicked()
             }
         }
 
-        swap = true;
-        while (swap)
+        for (int i = 0; i < sort.size(); i++)
+            statesSorted.push_back(sort[i].getState());
+
+        vector<Campus> sortedStateFirst;
+        vector<Campus> newS;
+        bool add = false;
+        for (int i = 0; i < sort.size(); i++)
         {
-            swap = false;
-            j++;
-            for (int l = 0; l < sort.size() - j; l++)
+            if (add == false){
+            sortedStateFirst.push_back(sort[i]);
+            add = true;
+            }
+
+            if (i != sort.size() - 1 && sort[i].getState() == sort[i + 1].getState())
             {
-                qInfo () << "sorted start\n";
-                if (sort[l].getStartCollege() > sort[l + 1].getStartCollege())
+                sortedStateFirst.push_back(sort[i + 1]);
+            }
+            else
+            {
+                swap = true;
+                j = 0;
+                while (swap)
                 {
-                    Campus temp(sort[l]);
-                    sort[l] = sort[l + 1];
-                    sort[l + 1] = temp;
-                    swap = true;
+                    swap = false;
+                    j++;
+                    for (int l = 0; l < sortedStateFirst.size() - j; l++)
+                    {
+                        qInfo () << "sorted start\n";
+                        if (sortedStateFirst[l].getStartCollege() > sortedStateFirst[l + 1].getStartCollege())
+                        {
+                            Campus temp(sortedStateFirst[l]);
+                            sortedStateFirst[l] = sortedStateFirst[l + 1];
+                            sortedStateFirst[l + 1] = temp;
+                            swap = true;
+                        }
+                    }
                 }
+                for(int k = 0; k < sortedStateFirst.size(); k++)
+                {
+                    newS.push_back(sortedStateFirst[k]);
+                }
+                sortedStateFirst.clear();
+                add = false;
             }
         }
 
-    for (int i =0; i < sort.size(); i++)
-    {
 
-            CampusWidget *campusItem = new CampusWidget(sort[i], this);
+
+    for (int i =0; i < newS.size(); i++)
+    {
+            CampusWidget *campusItem = new CampusWidget(newS[i], this);
             QListWidgetItem *item = new QListWidgetItem(campusList);
             campusList->addItem(item);
             item->setSizeHint(campusItem->minimumSizeHint());
@@ -800,6 +897,7 @@ void MainWindow::on_CustomConvert_clicked()
                  }
                  ui->CustomTripList->addItem(collegeMap.getOrigin(key));
             }
+            collegeMap.DFS(6);
 }
 
 void MainWindow::on_CustomConvert_2_clicked()
@@ -830,5 +928,100 @@ void MainWindow::on_CustomConvert_2_clicked()
                  }
                  ui->CustomDijkstraList->addItem(collegeMap.getOrigin(key));
             }
+}
+
+
+void MainWindow::on_sortStates_clicked()
+{
+    update();
+    ui->campusList->clear();
+    db.getCampuses(this->campuses);
+        qInfo() << "Got all campuses list";
+    qWarning() << this->campuses.at(0).getMenu().at(0).name;
+    QListWidget *campusList = ui->campusList;
+
+    vector<Campus> sort = campuses;
+
+        int j = 0;
+        bool swap = true;
+
+
+        while (swap)
+        {
+            swap = false;
+            j++;
+            for (int l = 0; l < sort.size() - j; l++)
+            {
+                qInfo () << "sorted state\n";
+                if (sort[l].getState() > sort[l + 1].getState())
+                {
+                    Campus temp(sort[l]);
+                    sort[l] = sort[l + 1];
+                    sort[l + 1] = temp;
+                    swap = true;
+                }
+            }
+        }
+
+        for (int i =0; i < sort.size(); i++)
+        {
+
+                CampusWidget *campusItem = new CampusWidget(sort[i], this);
+                QListWidgetItem *item = new QListWidgetItem(campusList);
+                campusList->addItem(item);
+                item->setSizeHint(campusItem->minimumSizeHint());
+                campusList->setItemWidget(item, campusItem);
+
+        }
+}
+
+
+void MainWindow::on_sortStart_clicked()
+{
+    update();
+    ui->campusList->clear();
+    db.getCampuses(this->campuses);
+        qInfo() << "Got all campuses list";
+    qWarning() << this->campuses.at(0).getMenu().at(0).name;
+    QListWidget *campusList = ui->campusList;
+
+    vector<Campus> sort = campuses;
+
+        int j = 0;
+        bool swap = true;
+    while (swap)
+    {
+        swap = false;
+        j++;
+        for (int l = 0; l < sort.size() - j; l++)
+        {
+            qInfo () << "sorted start\n";
+            if (sort[l].getStartCollege() > sort[l + 1].getStartCollege())
+            {
+                Campus temp(sort[l]);
+                sort[l] = sort[l + 1];
+                sort[l + 1] = temp;
+                swap = true;
+            }
+        }
+    }
+
+for (int i =0; i < sort.size(); i++)
+{
+
+        CampusWidget *campusItem = new CampusWidget(sort[i], this);
+        QListWidgetItem *item = new QListWidgetItem(campusList);
+        campusList->addItem(item);
+        item->setSizeHint(campusItem->minimumSizeHint());
+        campusList->setItemWidget(item, campusItem);
+
+}
+}
+
+
+void MainWindow::on_allFromSaddleback_clicked()
+{
+    this->saddlebackTablepopup = new Allfromsaddleback(this);
+    saddlebackTablepopup->show();
 }
 

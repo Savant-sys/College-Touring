@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include "ui_login.h"
-//#include "adminwindow.h"
 
 namespace Ui{
 class Login;
@@ -41,7 +40,6 @@ private:
     QString username; /*!< Encrypted username */
     QString password; /*!< Encrypted password */
     bool admin; /*!< Status of authentication */
-    //AdminWindow* adminWindow;
 };
 
 #endif // LOGIN_H

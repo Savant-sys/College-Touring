@@ -18,7 +18,7 @@ CampusWidget::CampusWidget(Campus campusPassed, MainWindow *parent)
 
     for (int i = 0; i < this->campus.getEndCollege().size(); i++)
     {
-        endC->addItem(QString(this->campus.getEndCollege()[i]));
+        endC->addItem(QString(this->campus.getEndCollege()[i] + " - " + QString::number(this->campus.getDistances()[i]) + " miles"));
         //qInfo() << campus.getEndCollege()[i] << "\n";
     }
     //Iterating over the menu to add items to the menu ComboBox

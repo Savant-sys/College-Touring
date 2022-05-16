@@ -506,22 +506,36 @@ hashTable[saveI].visited = true;
 void Map::DFS(int q)//start at UCI
 {
     //check if hash been viisted
-       // int dfsCounter = 0;
+
         double firstDistance = 0;
         double comparedDistance = 0;
         int timeCompared = 0;
         int key = 0;
 
+        bool check = true;
+
+
         qInfo() << "DFS:";
-        //while (dfsCounter != 12)
-       // {
+       for (int t = 0; t < TABLE_SIZE; t++)
+        {
+
+            if(hashTable[t].visited == false && hashTable[t].num != -1)
+            check = false;
+
+
+
+        }
+
+        if(check != true)
+        {
+
         for(int i = 0; i < TABLE_SIZE; i++)
         {
 
              if(hashTable[i].num ==  q && hashTable[i].visited == false && hashTable[i].num != -1)
              {
                 // qInfo() << "DFS:";
-                 hashTable[i].visited == true;
+                 hashTable[i].visited = true;
 
                  if(firstDistance == 0)
                  {
@@ -532,24 +546,26 @@ void Map::DFS(int q)//start at UCI
                  {
                      //comparedDistance = firstDistance;
                     firstDistance = comparedDistance;
-                    timeCompared = timeCompared + 1;
-                 }
-                 else
-                 {
-                     timeCompared = timeCompared + 1;
+
                  }
 
+
+                /*for(int j = 0; j < TABLE_SIZE; j++)
+                 {
+                    if(hashTable[i].origin == hashTable[j].dest && hashTable[j].num != -1)
+                        hashTable[j].visited = true;
+
+                 }*/
                }
+
 
          }// end I forloop
 
-        if(timeCompared == 10)
-         {
              for(int u = 0; u < TABLE_SIZE; u++)
              {
                  if(firstDistance == hashTable[u].dist && hashTable[u].num == q  && hashTable[u].num != -1)
                  {
-                    //hashTable[i].visited = true;
+
                     qInfo() << hashTable[u].num;
                     qInfo() << hashTable[u].origin;
                     qInfo() << hashTable[u].dist;
@@ -559,30 +575,30 @@ void Map::DFS(int q)//start at UCI
 
 
 
-                   /* for(int o = 0; o < TABLE_SIZE; o++)
+                    for(int o = 0; o < TABLE_SIZE; o++)
                     {
-                        if(hashTable[o].dest == hashTable[i].dest || hashTable[o].dest  == hashTable[i].origin)
+                        if( hashTable[u].origin == hashTable[o].dest  )
                         {
                             hashTable[o].visited = true;
                         }
-                    }*/
+                     }
+
+
+                    for(int p = 0; p < TABLE_SIZE; p++)
+                    {
+                        if(hashTable[p].origin == hashTable[u].dest && hashTable[p].num != -1 && hashTable[u].num != -1)
+                            key = hashTable[p].num;
+
+                    }
 
                   }
-                        for(int p = 0; p < TABLE_SIZE; p++)
-                        {
-                            if(hashTable[p].origin == hashTable[u].dest)
-                            {
-                                key = hashTable[p].num;
-                            }
-                        }
-                        //DFS(key);
+
               }//end U forloop
-        }//end if timeCompared
+
+
+     DFS(key);
+    }//end visit if
 }//end function
-
-
-
-
 
 void Map::print()
 {
