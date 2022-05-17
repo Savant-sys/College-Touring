@@ -6,7 +6,7 @@
 #include <QDebug>
 #include "campus.h"
 
-#define TABLE_SIZE 300 //entries plus 1
+#define TABLE_SIZE 400 //entries plus 1
 
 #define PRIME 13
 

@@ -1354,7 +1354,7 @@ void MainWindow::on_StartMich_clicked() //start Michigan Dijkstra path
 
         for(int i = 0; i < ui->MichSpecificList->count(); i++)
         {
-            if(ui->MichSpecificList->item(i)->text() == "University of  Michigan") //test space or not
+            if(ui->MichSpecificList->item(i)->text() == "University of Michigan") //test space or not
             {
                 start = ui->MichSpecificList->item(i)->text();
                 savei = i;
