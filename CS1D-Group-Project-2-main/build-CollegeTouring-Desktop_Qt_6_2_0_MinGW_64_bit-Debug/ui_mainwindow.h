@@ -116,6 +116,10 @@ public:
     QPushButton *StartMich;
     QLineEdit *GrandTotalM;
     QListWidget *MichSpecificList;
+    QWidget *tab_5;
+    QTableWidget *MSTLIST;
+    QLineEdit *TotalDistMST;
+    QLabel *label_10;
     QWidget *tab_3;
     QListWidget *menuAdminList;
     QPushButton *pushButton_3;
@@ -402,6 +406,18 @@ public:
         MichSpecificList->setObjectName(QString::fromUtf8("MichSpecificList"));
         MichSpecificList->setGeometry(QRect(130, 30, 251, 391));
         tabWidget->addTab(tab_10, QString());
+        tab_5 = new QWidget();
+        tab_5->setObjectName(QString::fromUtf8("tab_5"));
+        MSTLIST = new QTableWidget(tab_5);
+        MSTLIST->setObjectName(QString::fromUtf8("MSTLIST"));
+        MSTLIST->setGeometry(QRect(60, 20, 251, 391));
+        TotalDistMST = new QLineEdit(tab_5);
+        TotalDistMST->setObjectName(QString::fromUtf8("TotalDistMST"));
+        TotalDistMST->setGeometry(QRect(590, 190, 113, 21));
+        label_10 = new QLabel(tab_5);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setGeometry(QRect(590, 170, 101, 16));
+        tabWidget->addTab(tab_5, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
         menuAdminList = new QListWidget(tab_3);
@@ -443,7 +459,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(4);
+        tabWidget->setCurrentIndex(5);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -494,6 +510,8 @@ public:
         label_6->setText(QCoreApplication::translate("MainWindow", "Total Cost:", nullptr));
         StartMich->setText(QCoreApplication::translate("MainWindow", "Add Start", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_10), QCoreApplication::translate("MainWindow", "Michigan To Specific", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "Total Distance:", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_5), QCoreApplication::translate("MainWindow", "MST", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "Add New Colleges", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Price", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "Item Name", nullptr));

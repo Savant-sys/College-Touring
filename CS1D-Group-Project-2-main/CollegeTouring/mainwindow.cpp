@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     bool result = false;
     if (result == false)
     {
-      ui->tabWidget->setTabEnabled(5, false);
+      ui->tabWidget->setTabEnabled(6, false);
     }
     Update();
 //    if(db.getCampuses(this->campuses))
@@ -364,6 +364,68 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         collegeMap.parent.clear();
         collegeMap.ans.clear();
     }
+
+    if(index == 5)
+    {
+        ui->MSTLIST->clear();
+        ui->TotalDistMST->clear();
+        ui->MSTLIST->insertColumn(0);
+        ui->MSTLIST->insertColumn(1);
+        ui->MSTLIST->insertColumn(2);
+        ui->MSTLIST->setColumnWidth(0,120);
+        ui->MSTLIST->setColumnWidth(1,120);
+
+        collegeMap.numToPrint.clear();
+        collegeMap.pathDists.clear();
+        collegeMap.parent.clear();
+        collegeMap.ans.clear();
+        collegeMap.dist.clear();
+        db.getCampuses(this->campuses);
+        //switch from vector to map
+        int c =0;
+        vector<QString> endColleges;
+        vector<double> dist;
+        for(int i = 0; i < campuses.size(); i++)
+        {
+            endColleges = campuses[i].getEndCollege();
+            dist = campuses.at(i).getDistances();
+        }
+        qWarning() << "Switching from vec to map";
+
+                collegeMap.putVectorinHere(this->campuses);
+                qWarning() << "Done putting";
+                pair<int, double> key;
+                QString add = "";
+                for(int i = 0; i < campuses.size(); i++)
+                {
+                     dist = campuses.at(i).getDistances();
+                     key.first = i;
+                     for(int j = 0; j < dist.size(); j++)
+                     {
+                         key.second = dist.at(j);
+                     }
+                     ui->MSTLIST->insertRow(ui->MSTLIST->rowCount());;
+                     ui->MSTLIST->setItem(ui->MSTLIST->rowCount()-1,0, new QTableWidgetItem(collegeMap.getOrigin(key)));
+                }
+                //ui->CustomConvert_4->setEnabled(false);
+                collegeMap.coll = campuses.size();
+//                for(int j = 0; j < campuses.size(); j++)
+//                {
+//                    for(int m = 0; m < collegeMap.ans.size(); m++)
+//                    {
+
+
+//                    }
+                    collegeMap.MST();
+                    ui->MSTLIST->clear();
+                    for(int i = 0; i < collegeMap.ans.size(); i++)
+                    {
+                        ui->MSTLIST->insertRow(ui->MSTLIST->rowCount());
+                        ui->MSTLIST->setItem(i,0, new QTableWidgetItem(collegeMap.ans[i].origin));
+                    }
+                }
+
+   // }
 }
 
 
@@ -529,7 +591,7 @@ void MainWindow::on_CustomTripSouvs_itemClicked(QListWidgetItem *item)
 
 void MainWindow::unlockTab()
 {
-    ui->tabWidget->setTabEnabled(5, true);
+    ui->tabWidget->setTabEnabled(6, true);
     //loop through colleges and create a MenuWidget for each one
     QListWidget *menuList = ui->menuAdminList;
     menuList->clear();

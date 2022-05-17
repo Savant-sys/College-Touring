@@ -73,6 +73,8 @@ public:
 
     void dijkstraNext(int pathIndex);
 
+    void MST();
+
     HashStruct hashTable[TABLE_SIZE];
 
     vector<HashStruct> ans;

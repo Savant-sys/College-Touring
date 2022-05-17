@@ -664,3 +664,35 @@ void Map::dijkstraNext(int pathIndex)
     else
         return;
 }
+void Map::MST()
+{
+    double dist = 9999;
+    HashStruct branch;
+    for(int i = 0; i < TABLE_SIZE; i++)
+    {
+        bool checked = false;
+        if(!ans.empty())
+        {
+            for(int j = 0; j < ans.size(); j++)
+            {
+                if((ans[j].origin == hashTable[i].origin && ans[j].dest == hashTable[i].dest) || (ans[j].origin == hashTable[i].dest && ans[j].dest == hashTable[i].origin))
+                    checked = true;
+            }
+        }
+        if(hashTable[i].dist <= dist && checked == false && hashTable[i].num != -1)
+        {
+            dist = hashTable[i].dist;
+            branch.dist = hashTable[i].dist;
+            branch.num = hashTable[i].num;
+            branch.origin = hashTable[i].origin;
+            branch.dest = hashTable[i].dest;
+
+        }
+    }
+    ans.push_back(branch);
+    if(coll > 0)
+    {
+        MST();
+        coll--;
+    }
+}
