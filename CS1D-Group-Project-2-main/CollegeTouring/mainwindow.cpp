@@ -250,6 +250,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     if(index == 2) // Custom Dijkstra trip
     {
+        ui->listWidget_2->clear();
         ui->pushButton_5->setEnabled(false);
         ui->CustomDijkstraList->clear();
         ui->listWidget->clear();
@@ -957,6 +958,8 @@ void MainWindow::on_CustomConvert_2_clicked()
 
 void MainWindow::on_pushButton_5_clicked() // Dijkstra add selected and run
 {
+    if(ui->CustomDijkstraList->selectedItems().count() <= 1)
+        return;
     for(int i = 0; i < TABLE_SIZE; i++)
     {
         collegeMap.hashTable[i].select = false;
@@ -1023,11 +1026,16 @@ void MainWindow::on_pushButton_5_clicked() // Dijkstra add selected and run
     collegeMap.pathDists.clear();
     qWarning() << "starting Dijkstra";
     collegeMap.ans.clear();
+    toSelect.clear();
+    for(int i = 0; i < campuses.size(); i++)
+    {
+        toSelect.push_back(campuses.at(i).getStartCollege());
+    }
     collegeMap.initPathDist(toSelect);
     collegeMap.dijkstra(startKey); //dijkstra on start complete, now find path to  next selected;
     int saveNum = 0;
     int endInd = 0;
-    for(int t = 1; t < /*selected.size()*/2; t++)
+    for(int t = 1; t < selected.size(); t++)
     {
         collegeMap.ans.clear();
         for(int j =0; j < TABLE_SIZE; j++)
@@ -1038,7 +1046,7 @@ void MainWindow::on_pushButton_5_clicked() // Dijkstra add selected and run
         }
         }
 
-    for(int i = 0; i < collegeMap.parent.size(); i++)
+    for(int i = 0; i < collegeMap.pathDists.size(); i++)
     {
         if(collegeMap.pathDists.at(i).first == saveNum)
             endInd = i;
@@ -1074,16 +1082,26 @@ void MainWindow::on_pushButton_5_clicked() // Dijkstra add selected and run
             if(ui->listWidget_2->item(p)->text() == toDistplay)
                 checked = true;
         }
-        for(int j = 0; j < toSelect.size(); j++)
+        for(int j = 0; j < campuses.size(); j++)
         {
 
 
 
-            if(toSelect.at(j) == toDistplay && checked == false && collegeMap.ans.at(i).num != 0)
+            if(campuses.at(j).getStartCollege() == toDistplay && checked == false /*&& collegeMap.ans.at(i).num != 0*/)
             {
-                ui->listWidget_2->addItem(toSelect.at(j));
+                ui->listWidget_2->addItem(campuses.at(j).getStartCollege());
             }
         }
+//        for(int j = 0; j < toSelect.size(); j++)
+//        {
+
+
+
+//            if(toSelect.at(j) == toDistplay && checked == false && collegeMap.ans.at(i).num != 0)
+//            {
+//                ui->listWidget_2->addItem(toSelect.at(j));
+//            }
+//        }
 
     }
     collegeMap.ans.clear();
