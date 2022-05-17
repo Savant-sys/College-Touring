@@ -219,13 +219,23 @@ void Map::dijkstra(pair<int, double> key)
     }
     if(one == true)
     {
+        HashStruct first;
        for(int j = 0; j < pathDists.size(); j++)
        {
            if(pathDists.at(j).first == key.first)
+             {
                pathDists.at(j).second = 0; //set start
-       }
-    }
 
+               first.num = key.first;
+
+           }
+
+       }
+       ans.push_back(first);
+    }
+// go through visited branches and update pathDists with smallest for each
+    //for(int p = 0; p < ans.size(); p++)
+    {
     for(int i = 0; i < TABLE_SIZE; i++) //go through map to find current vertex
     {
         if(hashTable[i].num == key.first && hashTable[i].visited == false && hashTable[i].select == true) //Now at the branches of key college
@@ -257,7 +267,7 @@ void Map::dijkstra(pair<int, double> key)
                            {
                                if(pathDists.at(j).second > (hashTable[i].dist + pathDists.at(curr).second))
                                {   edge = j;//parent.at(curr) = hashTable[saveI].num;
-                                   pathDists.at(edge).second = pathDists.at(curr).second + hashTable[i].dist; //only gives dist to saddlback(start)
+                                   pathDists.at(edge).second = pathDists.at(curr).second + hashTable[i].dist; //only gives dist to start
                                    if(parent.at(edge) == -1)
                                    {
                                        parent.at(edge) = curr; //first run gives inital index
@@ -276,7 +286,7 @@ void Map::dijkstra(pair<int, double> key)
                        }
 
                     }
-                   //}
+                   }
                 }
                 if(!ans.empty())
                 {
@@ -285,11 +295,13 @@ void Map::dijkstra(pair<int, double> key)
                      if(ans.at(g).num == curr)
                          sck = false;
                 }
-                }
+                //}
                 if(smallest > pathDists.at(edge).second && smallest != pathDists.at(curr).second && sck == true)
                 smallest = pathDists.at(edge).second;
 hashTable[saveI].visited = true;
+//hashTable[saveI].select = false;
         }
+    }
     }
 //    for(int i = 0; i < TABLE_SIZE; i++)
 //    {
@@ -316,9 +328,12 @@ if(notFirst == false)
     //find smallest pathDist from startvertex to set as current
     curr = 0;
     double small = 9999;
+    if(one == false)
+    {
     HashStruct ansCheck;
     ansCheck.num = hashTable[saveI].num;
     ans.push_back(ansCheck);
+    }
     bool proceed = true;
     for(int i = 0; i < pathDists.size(); i++)
     {
@@ -326,9 +341,8 @@ if(notFirst == false)
         {
              if(ans.at(j).num == i)
                  proceed = false;
-}
+        }
         if(pathDists.at(i).second <= small && pathDists.at(i).first != key.first && pathDists.at(i).second != 0 && proceed == true)
-        //if(pathDists.at(i).second == smallest && pathDists.at(i).first != key.first)
         {
             found = true;
             curr = i;
@@ -629,6 +643,9 @@ void Map::dijkstraNext(int pathIndex)
             smallest = pathDists.at(i).second;
         }
     }
+
+    if(smallest != 9999)
+    dist.push_back(smallest);
     for(int i = 0; i < pathDists.size(); i++)
     {
         pathDists.at(i).second = INFINITY;

@@ -99,6 +99,22 @@ private slots:
 
     void on_SaddlbackFinish_clicked();
 
+    void on_actionAll_from_Saddleback_triggered();
+
+    void on_StartMich_clicked();
+
+    void on_CustomConvert_4_clicked();
+
+    void on_MichTripSouvs_itemClicked(QListWidgetItem *item);
+
+    void on_MichTripPrices_itemClicked(QListWidgetItem *item);
+
+    void on_AddToCartM_clicked();
+
+    void on_MichSpecificList_itemClicked(QListWidgetItem *item);
+
+    void on_MichFinish_clicked();
+
 private:
     Ui::MainWindow *ui;
 

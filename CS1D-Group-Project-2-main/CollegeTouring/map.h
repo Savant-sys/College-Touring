@@ -82,6 +82,8 @@ public:
     vector<int> parent;
 
     vector<int> numToPrint;
+
+    vector<double> dist;
     int coll = 0; //number of colleges in map (used in dijkstra setup)
 private:
 
