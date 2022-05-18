@@ -548,6 +548,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                      ui->MSTLIST->setItem(ui->MSTLIST->rowCount()-1,0, new QTableWidgetItem(collegeMap.getOrigin(key)));
                 }
                 //ui->CustomConvert_4->setEnabled(false);
+                ui->MSTLIST->setRowCount(0);
+               // ui->MSTLIST->setColumnCount(0);
+                ui->MSTLIST->clear();
                 collegeMap.coll = campuses.size();
 //                for(int j = 0; j < campuses.size(); j++)
 //                {
@@ -557,15 +560,35 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 //                    }
                     collegeMap.MST();
-                    Graph g(campuses.size()-1); //maybe -1
+                    Graph g(campuses.size()); //maybe -1
                     for(int i = 0; i < collegeMap.forMST.size(); i++)
-                    g.addEdge(i, collegeMap.forMST[i][0], collegeMap.forMST[i][1]);
+                    g.addEdge(collegeMap.forMST[i][0], collegeMap.forMST[i][1], collegeMap.forMST[i][2]);
                     g.kruskals_mst();
+                     QString begin = "";
+                     QString end = "";
+                     QString distance =  "";
                     for(int i = 0; i < g.ansList.size(); i++)
                     {
-                        qWarning() << QString::number(i) <<" "<< g.ansList[i][0] << " " << g.ansList[i][1];
+                        for(int j = 0; j < campuses.size(); j++)
+                        {
+                            if(g.ansList[i][0] == j)
+                                begin = campuses[j].getStartCollege();
+                            if(g.ansList[i][1] == j)
+                                end = campuses[j].getStartCollege();
+                            if(g.ansList[i][1] == j)
+                                distance = QString::number(g.ansList[i][2]);
+                        }
+                         //QString::number(g.ansList[i][0]);
+                        //QString::number(g.ansList[i][1]);
+                        //QString dist = QString::number(g.ansList[i][2]);
+                        ui->MSTLIST->insertRow(ui->MSTLIST->rowCount());
+                        ui->MSTLIST->setItem(ui->MSTLIST->rowCount()-1,0, new QTableWidgetItem(begin));
+                        ui->MSTLIST->setItem(ui->MSTLIST->rowCount()-1,1, new QTableWidgetItem(end));
+                        ui->MSTLIST->setItem(ui->MSTLIST->rowCount()-1,2, new QTableWidgetItem(distance));
+                        //qWarning() << QString::number(i) <<" "<< g.ansList[i][0] << " " << g.ansList[i][1];
                     }
-                    qWarning() << "total weight" << g.ans;
+                    ui->TotalDistMST->setText(QString::number(g.ans));
+                    //qWarning() << "total weight" << g.ans;
 //                    ui->MSTLIST->setRowCount(0);
 //                    ui->MSTLIST->clear();
 //                    double totDist = 0;
