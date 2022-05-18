@@ -424,11 +424,11 @@ public:
         lineEdit->setReadOnly(true);
         lineEdit_2 = new QLineEdit(tab_5);
         lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(240, 50, 61, 24));
+        lineEdit_2->setGeometry(QRect(270, 50, 61, 24));
         lineEdit_2->setReadOnly(true);
         lineEdit_3 = new QLineEdit(tab_5);
         lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
-        lineEdit_3->setGeometry(QRect(460, 50, 71, 24));
+        lineEdit_3->setGeometry(QRect(520, 50, 71, 24));
         lineEdit_3->setReadOnly(true);
         layoutWidget4 = new QWidget(tab_5);
         layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
@@ -457,7 +457,7 @@ public:
         lineEdit_4->setReadOnly(true);
         lineEdit_5 = new QLineEdit(tab_5);
         lineEdit_5->setObjectName(QString::fromUtf8("lineEdit_5"));
-        lineEdit_5->setGeometry(QRect(110, 370, 113, 24));
+        lineEdit_5->setGeometry(QRect(100, 370, 113, 24));
         lineEdit_5->setReadOnly(true);
         tabWidget->addTab(tab_5, QString());
         tab_3 = new QWidget();
@@ -482,7 +482,7 @@ public:
         label_7->setGeometry(QRect(290, 570, 71, 16));
         tabWidget->addTab(tab_3, QString());
 
-        gridLayout->addWidget(tabWidget, 0, 0, 1, 1);
+        gridLayout->addWidget(tabWidget, 0, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);

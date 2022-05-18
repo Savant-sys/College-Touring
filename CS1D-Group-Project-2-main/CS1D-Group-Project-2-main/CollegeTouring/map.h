@@ -84,10 +84,11 @@ public:
     vector<int> numToPrint;
     vector<double> dist;
     double totalDistanceDFS = 0;
+    int incr = 0;
 
     int coll = 0; //number of colleges in map (used in dijkstra setup)
 private:
-    int incr = 0;
+
 
     int s = 0; //number of selected items
 

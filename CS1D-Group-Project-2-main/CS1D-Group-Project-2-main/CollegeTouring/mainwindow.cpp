@@ -2191,6 +2191,7 @@ void MainWindow::on_pushButton_6_clicked()
     ui->listWidgetOrigin->clear();
     ui->listWidgetDest->clear();
     ui->listWidgetDist->clear();
+
     db.getCampuses(this->campuses);
     //switch from vector to map
     int c =0;
@@ -2232,7 +2233,16 @@ for(int m = 0; m <TABLE_SIZE; m++)
     ui->listWidgetDest->addItem(collegeMap.hashTable2[m].dest);
     }
 }
- qInfo() << collegeMap.totalDistanceDFS;
+   //qInfo() << collegeMap.totalDistanceDFS;
    ui-> lineEdit_5 -> setText(QString::number(collegeMap.totalDistanceDFS));
+
+   for(int m = 0; m <TABLE_SIZE; m++)
+   {
+        collegeMap.hashTable[m].visited = false;
+
+
+   }
+   collegeMap.incr = 0;
+   collegeMap.totalDistanceDFS = 0;
 }
 
