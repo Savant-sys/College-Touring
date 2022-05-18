@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     bool result = false;
     if (result == false)
     {
-      ui->tabWidget->setTabEnabled(6, false);
+      ui->tabWidget->setTabEnabled(7, false);
     }
     Update();
 //    if(db.getCampuses(this->campuses))
@@ -310,6 +310,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     if(index == 2) // Custom Dijkstra trip
     {
+        ui->AddToCartCD->setEnabled(false);
         ui->SelectedCollegesList_4->clear();
         ui->CartCustomD->clear();
         ui->SelectedCollegesList_4->setColumnCount(0);
@@ -568,6 +569,66 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                     ui->TotalDistMST->setText(QString::number(totDist));
                 }
 
+    if(index == 6)
+    {
+        ui->listWidgetOrigin->clear();
+        ui->listWidgetDest->clear();
+        ui->listWidgetDist->clear();
+
+        db.getCampuses(this->campuses);
+        //switch from vector to map
+        int c =0;
+        vector<QString> endColleges;
+        vector<double> dist;
+        for(int i = 0; i < campuses.size(); i++)
+        {
+            endColleges = campuses[i].getEndCollege();
+            dist = campuses.at(i).getDistances();
+        }
+        qWarning() << "Switching from vec to map";
+
+                collegeMap.putVectorinHere(this->campuses);
+                qWarning() << "Done putting";
+                pair<int, double> key;
+                QString add = "";
+                for(int i = 0; i < campuses.size(); i++)
+                {
+                     dist = campuses.at(i).getDistances();
+                     key.first = i;
+                     for(int j = 0; j < dist.size(); j++)
+                     {
+                         key.second = dist.at(j);
+                     }
+
+                }
+        /*for(int u = 0; u < TABLE_SIZE; u++)
+        {
+            ui->listWidgetOrigin->collegeMap.hashTable2[u].origin;
+        }*/
+
+        collegeMap.DFS(6);
+    for(int m = 0; m <TABLE_SIZE; m++)
+    {
+        if(collegeMap.hashTable2[m].num != -1)
+        {
+        ui->listWidgetOrigin->addItem(collegeMap.hashTable2[m].origin);
+        ui->listWidgetDist->addItem(QString::number(collegeMap.hashTable2[m].dist));
+        ui->listWidgetDest->addItem(collegeMap.hashTable2[m].dest);
+        }
+    }
+       //qInfo() << collegeMap.totalDistanceDFS;
+       ui-> lineEdit_5 -> setText(QString::number(collegeMap.totalDistanceDFS));
+
+       for(int m = 0; m <TABLE_SIZE; m++)
+       {
+            collegeMap.hashTable[m].visited = false;
+
+
+       }
+       collegeMap.incr = 0;
+       collegeMap.totalDistanceDFS = 0;
+    }
+
    // }
 }
 
@@ -740,7 +801,7 @@ void MainWindow::on_CustomTripSouvs_itemClicked(QListWidgetItem *item)
 
 void MainWindow::unlockTab()
 {
-    ui->tabWidget->setTabEnabled(6, true);
+    ui->tabWidget->setTabEnabled(7, true);
     //loop through colleges and create a MenuWidget for each one
     QListWidget *menuList = ui->menuAdminList;
     menuList->clear();
@@ -2226,6 +2287,7 @@ void MainWindow::on_pushButton_5_clicked() //CUSTOM ORDER Dijkstra add selected 
 //        }
         ui->CustomDijkstraList->setSelectionMode(QAbstractItemView::SingleSelection);
         ui->pushButton_5->setEnabled(false);
+        ui->AddToCartCD->setEnabled(true);
        // selected
     }
     else
@@ -2578,7 +2640,7 @@ void MainWindow::on_CusomDFinish_clicked()
 
 void MainWindow::on_CustomDijkstraList_itemClicked(QListWidgetItem *item)
 {
-    if(!ui->addStateD->isEnabled())
+    if(!ui->pushButton_5->isEnabled())
     {
         ui->CustomDTripPrices->clear();
         ui->CustomDTripSouvs->clear();
@@ -2598,4 +2660,3 @@ void MainWindow::on_CustomDijkstraList_itemClicked(QListWidgetItem *item)
        }
     }
 }
-

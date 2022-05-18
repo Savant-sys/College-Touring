@@ -77,6 +77,8 @@ public:
 
     HashStruct hashTable[TABLE_SIZE];
 
+    HashStruct hashTable2[TABLE_SIZE];
+
     vector<HashStruct> ans;
 
     vector<pair<int,double>> pathDists;
@@ -84,6 +86,8 @@ public:
     vector<int> parent;
     vector<int> numToPrint;
     vector<double> dist;
+    double totalDistanceDFS = 0;
+    int incr = 0;
 
     int coll = 0; //number of colleges in map (used in dijkstra setup)
 private:

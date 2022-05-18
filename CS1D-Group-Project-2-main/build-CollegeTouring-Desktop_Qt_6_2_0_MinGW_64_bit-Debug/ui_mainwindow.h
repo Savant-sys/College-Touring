@@ -126,6 +126,22 @@ public:
     QLineEdit *TotalDistMST;
     QLabel *label_10;
     QLabel *label_11;
+    QWidget *tab_6;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_6;
+    QLineEdit *lineEdit;
+    QListWidget *listWidgetOrigin;
+    QVBoxLayout *verticalLayout_5;
+    QLineEdit *lineEdit_2;
+    QListWidget *listWidgetDist;
+    QVBoxLayout *verticalLayout_4;
+    QLineEdit *lineEdit_3;
+    QListWidget *listWidgetDest;
+    QWidget *widget1;
+    QHBoxLayout *horizontalLayout_3;
+    QLineEdit *lineEdit_4;
+    QLineEdit *lineEdit_5;
     QWidget *tab_3;
     QListWidget *menuAdminList;
     QPushButton *pushButton_3;
@@ -448,6 +464,81 @@ public:
         label_11->setObjectName(QString::fromUtf8("label_11"));
         label_11->setGeometry(QRect(550, 10, 101, 41));
         tabWidget->addTab(tab_5, QString());
+        tab_6 = new QWidget();
+        tab_6->setObjectName(QString::fromUtf8("tab_6"));
+        widget = new QWidget(tab_6);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(20, 20, 931, 351));
+        horizontalLayout_2 = new QHBoxLayout(widget);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        lineEdit = new QLineEdit(widget);
+        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit->setReadOnly(true);
+
+        verticalLayout_6->addWidget(lineEdit);
+
+        listWidgetOrigin = new QListWidget(widget);
+        listWidgetOrigin->setObjectName(QString::fromUtf8("listWidgetOrigin"));
+
+        verticalLayout_6->addWidget(listWidgetOrigin);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_6);
+
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        lineEdit_2 = new QLineEdit(widget);
+        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
+        lineEdit_2->setReadOnly(true);
+
+        verticalLayout_5->addWidget(lineEdit_2);
+
+        listWidgetDist = new QListWidget(widget);
+        listWidgetDist->setObjectName(QString::fromUtf8("listWidgetDist"));
+
+        verticalLayout_5->addWidget(listWidgetDist);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_5);
+
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        lineEdit_3 = new QLineEdit(widget);
+        lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
+        lineEdit_3->setReadOnly(true);
+
+        verticalLayout_4->addWidget(lineEdit_3);
+
+        listWidgetDest = new QListWidget(widget);
+        listWidgetDest->setObjectName(QString::fromUtf8("listWidgetDest"));
+
+        verticalLayout_4->addWidget(listWidgetDest);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_4);
+
+        widget1 = new QWidget(tab_6);
+        widget1->setObjectName(QString::fromUtf8("widget1"));
+        widget1->setGeometry(QRect(20, 390, 190, 24));
+        horizontalLayout_3 = new QHBoxLayout(widget1);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        lineEdit_4 = new QLineEdit(widget1);
+        lineEdit_4->setObjectName(QString::fromUtf8("lineEdit_4"));
+        lineEdit_4->setReadOnly(true);
+
+        horizontalLayout_3->addWidget(lineEdit_4);
+
+        lineEdit_5 = new QLineEdit(widget1);
+        lineEdit_5->setObjectName(QString::fromUtf8("lineEdit_5"));
+        lineEdit_5->setReadOnly(true);
+
+        horizontalLayout_3->addWidget(lineEdit_5);
+
+        tabWidget->addTab(tab_6, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
         menuAdminList = new QListWidget(tab_3);
@@ -543,6 +634,11 @@ public:
         label_10->setText(QCoreApplication::translate("MainWindow", "Total Distance:", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt;\">MST</span></p></body></html>", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_5), QCoreApplication::translate("MainWindow", "MST", nullptr));
+        lineEdit->setText(QCoreApplication::translate("MainWindow", "Origin:", nullptr));
+        lineEdit_2->setText(QCoreApplication::translate("MainWindow", "Distance:", nullptr));
+        lineEdit_3->setText(QCoreApplication::translate("MainWindow", "Destination:", nullptr));
+        lineEdit_4->setText(QCoreApplication::translate("MainWindow", "Total Distance:", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_6), QCoreApplication::translate("MainWindow", "DFS", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "Add New Colleges", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Price", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "Item Name", nullptr));
