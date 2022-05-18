@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -996,6 +996,115 @@
         </layout>
        </widget>
       </widget>
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>BFS</string>
+       </attribute>
+       <widget class="QWidget" name="layoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>422</x>
+          <y>70</y>
+          <width>305</width>
+          <height>349</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <widget class="QLineEdit" name="lineEdit_6">
+           <property name="text">
+            <string>Distance:</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidgetDist_2"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>129</x>
+          <y>459</y>
+          <width>190</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLineEdit" name="lineEdit_7">
+           <property name="text">
+            <string>Total Distance:</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_8">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>733</x>
+          <y>70</y>
+          <width>306</width>
+          <height>349</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <widget class="QLineEdit" name="lineEdit_9">
+           <property name="text">
+            <string>Destination:</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidgetDest_2"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_5">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>70</y>
+          <width>306</width>
+          <height>349</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_9">
+         <item>
+          <widget class="QLineEdit" name="lineEdit_10">
+           <property name="text">
+            <string>Origin:</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidgetOrigin_2"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
         <string>Maintenance</string>
@@ -1089,6 +1198,11 @@
     </property>
     <addaction name="actionCustom_Trip_to_Any"/>
     <addaction name="actionCustrom_Dijkstra"/>
+    <addaction name="actionAll_from_Saddleback"/>
+    <addaction name="actionMich_to_Specific"/>
+    <addaction name="actionMST"/>
+    <addaction name="actionDFS"/>
+    <addaction name="actionBFS"/>
    </widget>
    <addaction name="menuTrips"/>
   </widget>
@@ -1101,6 +1215,31 @@
   <action name="actionCustrom_Dijkstra">
    <property name="text">
     <string>Custrom Dijkstra</string>
+   </property>
+  </action>
+  <action name="actionAll_from_Saddleback">
+   <property name="text">
+    <string>All from Saddleback</string>
+   </property>
+  </action>
+  <action name="actionMich_to_Specific">
+   <property name="text">
+    <string>Mich to Specific</string>
+   </property>
+  </action>
+  <action name="actionMST">
+   <property name="text">
+    <string>MST</string>
+   </property>
+  </action>
+  <action name="actionDFS">
+   <property name="text">
+    <string>DFS</string>
+   </property>
+  </action>
+  <action name="actionBFS">
+   <property name="text">
+    <string>BFS</string>
    </property>
   </action>
  </widget>

@@ -37,6 +37,11 @@ class Ui_MainWindow
 public:
     QAction *actionCustom_Trip_to_Any;
     QAction *actionCustrom_Dijkstra;
+    QAction *actionAll_from_Saddleback;
+    QAction *actionMich_to_Specific;
+    QAction *actionMST;
+    QAction *actionDFS;
+    QAction *actionBFS;
     QWidget *centralwidget;
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
@@ -142,6 +147,23 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLineEdit *lineEdit_4;
     QLineEdit *lineEdit_5;
+    QWidget *tab_7;
+    QWidget *layoutWidget_2;
+    QVBoxLayout *verticalLayout_7;
+    QLineEdit *lineEdit_6;
+    QListWidget *listWidgetDist_2;
+    QWidget *layoutWidget_3;
+    QHBoxLayout *horizontalLayout_4;
+    QLineEdit *lineEdit_7;
+    QLineEdit *lineEdit_8;
+    QWidget *layoutWidget_4;
+    QVBoxLayout *verticalLayout_8;
+    QLineEdit *lineEdit_9;
+    QListWidget *listWidgetDest_2;
+    QWidget *layoutWidget_5;
+    QVBoxLayout *verticalLayout_9;
+    QLineEdit *lineEdit_10;
+    QListWidget *listWidgetOrigin_2;
     QWidget *tab_3;
     QListWidget *menuAdminList;
     QPushButton *pushButton_3;
@@ -162,6 +184,16 @@ public:
         actionCustom_Trip_to_Any->setObjectName(QString::fromUtf8("actionCustom_Trip_to_Any"));
         actionCustrom_Dijkstra = new QAction(MainWindow);
         actionCustrom_Dijkstra->setObjectName(QString::fromUtf8("actionCustrom_Dijkstra"));
+        actionAll_from_Saddleback = new QAction(MainWindow);
+        actionAll_from_Saddleback->setObjectName(QString::fromUtf8("actionAll_from_Saddleback"));
+        actionMich_to_Specific = new QAction(MainWindow);
+        actionMich_to_Specific->setObjectName(QString::fromUtf8("actionMich_to_Specific"));
+        actionMST = new QAction(MainWindow);
+        actionMST->setObjectName(QString::fromUtf8("actionMST"));
+        actionDFS = new QAction(MainWindow);
+        actionDFS->setObjectName(QString::fromUtf8("actionDFS"));
+        actionBFS = new QAction(MainWindow);
+        actionBFS->setObjectName(QString::fromUtf8("actionBFS"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
@@ -539,6 +571,78 @@ public:
         horizontalLayout_3->addWidget(lineEdit_5);
 
         tabWidget->addTab(tab_6, QString());
+        tab_7 = new QWidget();
+        tab_7->setObjectName(QString::fromUtf8("tab_7"));
+        layoutWidget_2 = new QWidget(tab_7);
+        layoutWidget_2->setObjectName(QString::fromUtf8("layoutWidget_2"));
+        layoutWidget_2->setGeometry(QRect(422, 70, 305, 349));
+        verticalLayout_7 = new QVBoxLayout(layoutWidget_2);
+        verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
+        verticalLayout_7->setContentsMargins(0, 0, 0, 0);
+        lineEdit_6 = new QLineEdit(layoutWidget_2);
+        lineEdit_6->setObjectName(QString::fromUtf8("lineEdit_6"));
+        lineEdit_6->setReadOnly(true);
+
+        verticalLayout_7->addWidget(lineEdit_6);
+
+        listWidgetDist_2 = new QListWidget(layoutWidget_2);
+        listWidgetDist_2->setObjectName(QString::fromUtf8("listWidgetDist_2"));
+
+        verticalLayout_7->addWidget(listWidgetDist_2);
+
+        layoutWidget_3 = new QWidget(tab_7);
+        layoutWidget_3->setObjectName(QString::fromUtf8("layoutWidget_3"));
+        layoutWidget_3->setGeometry(QRect(129, 459, 190, 24));
+        horizontalLayout_4 = new QHBoxLayout(layoutWidget_3);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        lineEdit_7 = new QLineEdit(layoutWidget_3);
+        lineEdit_7->setObjectName(QString::fromUtf8("lineEdit_7"));
+        lineEdit_7->setReadOnly(true);
+
+        horizontalLayout_4->addWidget(lineEdit_7);
+
+        lineEdit_8 = new QLineEdit(layoutWidget_3);
+        lineEdit_8->setObjectName(QString::fromUtf8("lineEdit_8"));
+        lineEdit_8->setReadOnly(true);
+
+        horizontalLayout_4->addWidget(lineEdit_8);
+
+        layoutWidget_4 = new QWidget(tab_7);
+        layoutWidget_4->setObjectName(QString::fromUtf8("layoutWidget_4"));
+        layoutWidget_4->setGeometry(QRect(733, 70, 306, 349));
+        verticalLayout_8 = new QVBoxLayout(layoutWidget_4);
+        verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
+        verticalLayout_8->setContentsMargins(0, 0, 0, 0);
+        lineEdit_9 = new QLineEdit(layoutWidget_4);
+        lineEdit_9->setObjectName(QString::fromUtf8("lineEdit_9"));
+        lineEdit_9->setReadOnly(true);
+
+        verticalLayout_8->addWidget(lineEdit_9);
+
+        listWidgetDest_2 = new QListWidget(layoutWidget_4);
+        listWidgetDest_2->setObjectName(QString::fromUtf8("listWidgetDest_2"));
+
+        verticalLayout_8->addWidget(listWidgetDest_2);
+
+        layoutWidget_5 = new QWidget(tab_7);
+        layoutWidget_5->setObjectName(QString::fromUtf8("layoutWidget_5"));
+        layoutWidget_5->setGeometry(QRect(110, 70, 306, 349));
+        verticalLayout_9 = new QVBoxLayout(layoutWidget_5);
+        verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
+        verticalLayout_9->setContentsMargins(0, 0, 0, 0);
+        lineEdit_10 = new QLineEdit(layoutWidget_5);
+        lineEdit_10->setObjectName(QString::fromUtf8("lineEdit_10"));
+        lineEdit_10->setReadOnly(true);
+
+        verticalLayout_9->addWidget(lineEdit_10);
+
+        listWidgetOrigin_2 = new QListWidget(layoutWidget_5);
+        listWidgetOrigin_2->setObjectName(QString::fromUtf8("listWidgetOrigin_2"));
+
+        verticalLayout_9->addWidget(listWidgetOrigin_2);
+
+        tabWidget->addTab(tab_7, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
         menuAdminList = new QListWidget(tab_3);
@@ -577,10 +681,15 @@ public:
         menubar->addAction(menuTrips->menuAction());
         menuTrips->addAction(actionCustom_Trip_to_Any);
         menuTrips->addAction(actionCustrom_Dijkstra);
+        menuTrips->addAction(actionAll_from_Saddleback);
+        menuTrips->addAction(actionMich_to_Specific);
+        menuTrips->addAction(actionMST);
+        menuTrips->addAction(actionDFS);
+        menuTrips->addAction(actionBFS);
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(7);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -591,6 +700,11 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         actionCustom_Trip_to_Any->setText(QCoreApplication::translate("MainWindow", "Custom Trip to Any", nullptr));
         actionCustrom_Dijkstra->setText(QCoreApplication::translate("MainWindow", "Custrom Dijkstra", nullptr));
+        actionAll_from_Saddleback->setText(QCoreApplication::translate("MainWindow", "All from Saddleback", nullptr));
+        actionMich_to_Specific->setText(QCoreApplication::translate("MainWindow", "Mich to Specific", nullptr));
+        actionMST->setText(QCoreApplication::translate("MainWindow", "MST", nullptr));
+        actionDFS->setText(QCoreApplication::translate("MainWindow", "DFS", nullptr));
+        actionBFS->setText(QCoreApplication::translate("MainWindow", "BFS", nullptr));
         UnderSelected->setText(QCoreApplication::translate("MainWindow", "Undergraduates for selected college", nullptr));
         UnderAll->setText(QCoreApplication::translate("MainWindow", "Undergraduates for all colleges", nullptr));
         UnderInitial->setText(QCoreApplication::translate("MainWindow", "Undergraduates for initial colleges", nullptr));
@@ -639,6 +753,11 @@ public:
         lineEdit_3->setText(QCoreApplication::translate("MainWindow", "Destination:", nullptr));
         lineEdit_4->setText(QCoreApplication::translate("MainWindow", "Total Distance:", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_6), QCoreApplication::translate("MainWindow", "DFS", nullptr));
+        lineEdit_6->setText(QCoreApplication::translate("MainWindow", "Distance:", nullptr));
+        lineEdit_7->setText(QCoreApplication::translate("MainWindow", "Total Distance:", nullptr));
+        lineEdit_9->setText(QCoreApplication::translate("MainWindow", "Destination:", nullptr));
+        lineEdit_10->setText(QCoreApplication::translate("MainWindow", "Origin:", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_7), QCoreApplication::translate("MainWindow", "BFS", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "Add New Colleges", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Price", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "Item Name", nullptr));

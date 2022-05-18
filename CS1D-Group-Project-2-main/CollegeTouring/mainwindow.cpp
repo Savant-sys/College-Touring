@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     bool result = false;
     if (result == false)
     {
-      ui->tabWidget->setTabEnabled(7, false);
+      ui->tabWidget->setTabEnabled(8, false);
     }
     Update();
 //    if(db.getCampuses(this->campuses))
@@ -673,6 +673,59 @@ void MainWindow::on_tabWidget_currentChanged(int index)
        collegeMap.totalDistanceDFS = 0;
     }
 
+    if(index == 7)
+    {
+        collegeMap.ans.clear();
+        collegeMap.dist.clear();
+        collegeMap.pathDists.clear();
+        collegeMap.incr = 0;
+        collegeMap.numToPrint.clear();
+        collegeMap.parent.clear();
+        for(int i = 0; i < TABLE_SIZE; i++)
+        {
+            collegeMap.hashTable[i].select = false;
+            collegeMap.hashTable[i].visited = false;
+        }
+        db.getCampuses(this->campuses);
+        //switch from vector to map
+        int c =0;
+        vector<QString> endColleges;
+        vector<double> dist;
+        for(int i = 0; i < campuses.size(); i++)
+        {
+            endColleges = campuses[i].getEndCollege();
+            dist = campuses.at(i).getDistances();
+        }
+        qWarning() << "Switching from vec to map";
+
+                collegeMap.putVectorinHere(this->campuses);
+                qWarning() << "Done putting";
+                pair<int, double> key;
+                QString add = "";
+                for(int i = 0; i < campuses.size(); i++)
+                {
+                     dist = campuses.at(i).getDistances();
+                     key.first = 0;
+                     for(int j = 0; j < dist.size(); j++)
+                     {
+                         key.second = dist.at(j);
+                     }
+
+                }
+                collegeMap.BFS(key);
+                double totDist = 0;
+                for(int i = 0; i < collegeMap.ans.size()-1; i++)
+                {
+
+                ui->listWidgetOrigin_2->addItem(collegeMap.ans[i].origin);
+                        ui->listWidgetDest_2->addItem(collegeMap.ans[i].dest);
+                        ui->listWidgetDist_2->addItem(QString::number(collegeMap.ans[i].dist));
+                        totDist += collegeMap.ans[i].dist;
+                }
+                ui->lineEdit_8->setText(QString::number(totDist));
+
+    }
+
    // }
 }
 
@@ -845,7 +898,7 @@ void MainWindow::on_CustomTripSouvs_itemClicked(QListWidgetItem *item)
 
 void MainWindow::unlockTab()
 {
-    ui->tabWidget->setTabEnabled(7, true);
+    ui->tabWidget->setTabEnabled(8, true);
     //loop through colleges and create a MenuWidget for each one
     QListWidget *menuList = ui->menuAdminList;
     menuList->clear();
@@ -2713,3 +2766,27 @@ void MainWindow::on_CustomDijkstraList_itemClicked(QListWidgetItem *item)
        }
     }
 }
+
+void MainWindow::on_actionMich_to_Specific_triggered()
+{
+    ui->tabWidget->setCurrentIndex(4);
+}
+
+
+void MainWindow::on_actionMST_triggered()
+{
+    ui->tabWidget->setCurrentIndex(5);
+}
+
+
+void MainWindow::on_actionDFS_triggered()
+{
+    ui->tabWidget->setCurrentIndex(6);
+}
+
+
+void MainWindow::on_actionBFS_triggered()
+{
+    ui->tabWidget->setCurrentIndex(7);
+}
+

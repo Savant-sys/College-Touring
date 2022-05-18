@@ -422,113 +422,155 @@ void Map::pathsInAns(int j)
 
 void Map::BFS(pair<int, double> key)
 {
-    bool found = false;
-    bool one = true;
-    bool sck = true;
-    double smallest = 999999;
-    int edge = 0;
-    int curr = 0;
-    int saveI = 0;
-
-    for(int j = 0; j < pathDists.size(); j++)
+    double smallest = 9999;
+    int saveIndex = 0;
+    bool check = true;
+    for(int i = 0; i < TABLE_SIZE; i++)
     {
-        if(pathDists.at(j).second != INFINITY)
+
+        if(hashTable[i].visited == false)
+        check = false;
+        if(hashTable[i].num == key.first && hashTable[i].dist < smallest && hashTable[i].visited == false && hashTable[i].num != -1)
         {
-            one = false;
+            saveIndex = i;
+            smallest = hashTable[i].dist;
+
+
+//            if(!ans.empty())
+//            {
+//                for(int j = 0; j < ans.size(); j++)
+//                {
+//                    if(ans[j].dist > smallest)
+//                    {
+//                        smallest = ans[j].dist;
+//                        check = false;
+//                    }
+//                }
+//            }
+
         }
     }
-    if(one == true)
+    if(check == false)
     {
-       for(int j = 0; j < pathDists.size(); j++)
-       {
-           if(pathDists.at(j).first == key.first)
-               pathDists.at(j).second = 0; //set start
-       }
+HashStruct edge;
+hashTable[saveIndex].visited = true;
+edge.origin = hashTable[saveIndex].origin;
+edge.dest = hashTable[saveIndex].dest;
+edge.dist = hashTable[saveIndex].dist;
+ans.push_back(edge);
     }
+    if(smallest == 9999)
+        return;
+    pair<int, double> newKey;
+    newKey .first = key.first;
+    BFS(key);
+//    bool found = false;
+//    bool one = true;
+//    bool sck = true;
+//    double smallest = 999999;
+//    int edge = 0;
+//    int curr = 0;
+//    int saveI = 0;
 
-    for(int i = 0; i < TABLE_SIZE; i++) //go through map to find current vertex
-    {
-        if(hashTable[i].num == key.first && hashTable[i].visited == false /*&& hashTable[i].num != */) //Now at the branches of key college
-        {
-                saveI = i; //for hashtable
-                bool check = false;
-                for(int j = 0; j < pathDists.size(); j++) //0-10
-                {
+//    for(int j = 0; j < pathDists.size(); j++)
+//    {
+//        if(pathDists.at(j).second != INFINITY)
+//        {
+//            one = false;
+//        }
+//    }
+//    if(one == true)
+//    {
+//       for(int j = 0; j < pathDists.size(); j++)
+//       {
+//           if(pathDists.at(j).first == key.first)
+//               pathDists.at(j).second = 0; //set start
+//       }
+//    }
 
-                    if(pathDists.at(j).first == hashTable[i].num)
-                    {
-                        curr = j; //index of pathdists where hashtable is at current vertex
+//    for(int i = 0; i < TABLE_SIZE; i++) //go through map to find current vertex
+//    {
+//        if(hashTable[i].num == key.first && hashTable[i].visited == false /*&& hashTable[i].num != */) //Now at the branches of key college
+//        {
+//                saveI = i; //for hashtable
+//                bool check = false;
+//                for(int j = 0; j < pathDists.size(); j++) //0-10
+//                {
 
-                    }
-                }
-                //if(parent.at(curr) == -1)
-                //{
-                for(int f = 0; f < TABLE_SIZE; f++) //go through list of colleges again to find end key
-                {
-                   if(hashTable[i].dest == hashTable[f].origin) //now at i's dest
-                   {
-                       if(hashTable[f].visited == false)
-                           check = true;
-                       //hashTable[f].visited = true;
-                       for(int j = 0; j < pathDists.size(); j++)
-                       {
+//                    if(pathDists.at(j).first == hashTable[i].num)
+//                    {
+//                        curr = j; //index of pathdists where hashtable is at current vertex
 
-                           if(pathDists.at(j).first == hashTable[f].num && check == true)//for each branch of key, find corresponding pathDist
-                           {
-                               if(pathDists.at(j).second > (hashTable[i].dist + pathDists.at(curr).second))
-                               {   edge = j;//parent.at(curr) = hashTable[saveI].num;
-                                   pathDists.at(edge).second = pathDists.at(curr).second + hashTable[i].dist; //only gives dist to saddlback(start)
-                                   if(parent.at(edge) == -1)
-                                   {
-                                       parent.at(edge) = curr; //first run gives inital index
-                                   }
-                                   else
-                                   {/*need ohio edge*/
-                                       parent.at(edge) = curr; //if(hashTable[f].num == j+1)
-                                   }
-//s = hashTable[saveI].num; //save index of current for prev
-                                   //{
+//                    }
+//                }
+//                //if(parent.at(curr) == -1)
+//                //{
+//                for(int f = 0; f < TABLE_SIZE; f++) //go through list of colleges again to find end key
+//                {
+//                   if(hashTable[i].dest == hashTable[f].origin) //now at i's dest
+//                   {
+//                       if(hashTable[f].visited == false)
+//                           check = true;
+//                       //hashTable[f].visited = true;
+//                       for(int j = 0; j < pathDists.size(); j++)
+//                       {
 
-                                   //}
-                                   //update pathDists.second to total distance from start
-                               }
-                           }
-                       }
+//                           if(pathDists.at(j).first == hashTable[f].num && check == true)//for each branch of key, find corresponding pathDist
+//                           {
+//                               if(pathDists.at(j).second > (hashTable[i].dist + pathDists.at(curr).second))
+//                               {   edge = j;//parent.at(curr) = hashTable[saveI].num;
+//                                   pathDists.at(edge).second = pathDists.at(curr).second + hashTable[i].dist; //only gives dist to saddlback(start)
+//                                   if(parent.at(edge) == -1)
+//                                   {
+//                                       parent.at(edge) = curr; //first run gives inital index
+//                                   }
+//                                   else
+//                                   {/*need ohio edge*/
+//                                       parent.at(edge) = curr; //if(hashTable[f].num == j+1)
+//                                   }
+////s = hashTable[saveI].num; //save index of current for prev
+//                                   //{
 
-                    }
-                   //}
-                }
-                if(!ans.empty())
-                {
-                for(int g = 0; g < ans.size(); g++)
-                {
-                     if(ans.at(g).num == curr)
-                         sck = false;
-                }
-                }
-                if(smallest > pathDists.at(edge).second && smallest != pathDists.at(curr).second && sck == true)
-                smallest = pathDists.at(edge).second;
-hashTable[saveI].visited = true;
-        }
-    }
-    bool det = false;
-    for(int i =0; i < parent.size(); i++)
-    {
-        if(parent.at(i) != -1)
-        {
-            det = true;
-        }
-    }
-    vector<bool> visited;
-    visited.resize(saveI,false);
-    list<int> queue;
-    visited[curr] = true;
-    queue.push_back(curr);
-    while(!queue.empty()){
-        curr = queue.front();
-        queue.pop_front();
+//                                   //}
+//                                   //update pathDists.second to total distance from start
+//                               }
+//                           }
+//                       }
 
-        }
+//                    }
+//                   //}
+//                }
+//                if(!ans.empty())
+//                {
+//                for(int g = 0; g < ans.size(); g++)
+//                {
+//                     if(ans.at(g).num == curr)
+//                         sck = false;
+//                }
+//                }
+//                if(smallest > pathDists.at(edge).second && smallest != pathDists.at(curr).second && sck == true)
+//                smallest = pathDists.at(edge).second;
+//hashTable[saveI].visited = true;
+//        }
+//    }
+//    bool det = false;
+//    for(int i =0; i < parent.size(); i++)
+//    {
+//        if(parent.at(i) != -1)
+//        {
+//            det = true;
+//        }
+//    }
+//    vector<bool> visited;
+//    visited.resize(saveI,false);
+//    list<int> queue;
+//    visited[curr] = true;
+//    queue.push_back(curr);
+//    while(!queue.empty()){
+//        curr = queue.front();
+//        queue.pop_front();
+
+//        }
 }
 
 void Map::DFS(int q)//start at UCI

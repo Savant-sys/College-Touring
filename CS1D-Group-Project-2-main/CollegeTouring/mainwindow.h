@@ -130,6 +130,14 @@ private slots:
 
     void on_CustomDijkstraList_itemClicked(QListWidgetItem *item);
 
+    void on_actionMich_to_Specific_triggered();
+
+    void on_actionMST_triggered();
+
+    void on_actionDFS_triggered();
+
+    void on_actionBFS_triggered();
+
 private:
     Ui::MainWindow *ui;
 
