@@ -324,7 +324,7 @@ public:
         spinBox = new QSpinBox(tab_2);
         spinBox->setObjectName(QString::fromUtf8("spinBox"));
         spinBox->setGeometry(QRect(660, 30, 42, 22));
-        spinBox->setMaximum(10);
+        spinBox->setMaximum(100);
         SelectedCollegesList = new QTableWidget(tab_2);
         SelectedCollegesList->setObjectName(QString::fromUtf8("SelectedCollegesList"));
         SelectedCollegesList->setGeometry(QRect(400, 250, 301, 181));
@@ -364,7 +364,7 @@ public:
         spinBoxCD = new QSpinBox(tab_4);
         spinBoxCD->setObjectName(QString::fromUtf8("spinBoxCD"));
         spinBoxCD->setGeometry(QRect(660, 30, 42, 22));
-        spinBoxCD->setMaximum(10);
+        spinBoxCD->setMaximum(100);
         GrandTotalCD = new QLineEdit(tab_4);
         GrandTotalCD->setObjectName(QString::fromUtf8("GrandTotalCD"));
         GrandTotalCD->setGeometry(QRect(1010, 430, 113, 21));
@@ -428,7 +428,7 @@ public:
         spinBoxSA = new QSpinBox(tab_9);
         spinBoxSA->setObjectName(QString::fromUtf8("spinBoxSA"));
         spinBoxSA->setGeometry(QRect(660, 20, 42, 22));
-        spinBoxSA->setMaximum(10);
+        spinBoxSA->setMaximum(100);
         GrandTotalSA = new QLineEdit(tab_9);
         GrandTotalSA->setObjectName(QString::fromUtf8("GrandTotalSA"));
         GrandTotalSA->setGeometry(QRect(1010, 420, 113, 21));
@@ -456,7 +456,7 @@ public:
         spinBoxM = new QSpinBox(tab_10);
         spinBoxM->setObjectName(QString::fromUtf8("spinBoxM"));
         spinBoxM->setGeometry(QRect(660, 30, 42, 22));
-        spinBoxM->setMaximum(10);
+        spinBoxM->setMaximum(100);
         label_5 = new QLabel(tab_10);
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setGeometry(QRect(730, 110, 101, 16));
@@ -670,7 +670,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1272, 25));
+        menubar->setGeometry(QRect(0, 0, 1272, 21));
         menuTrips = new QMenu(menubar);
         menuTrips->setObjectName(QString::fromUtf8("menuTrips"));
         MainWindow->setMenuBar(menubar);
@@ -689,7 +689,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
