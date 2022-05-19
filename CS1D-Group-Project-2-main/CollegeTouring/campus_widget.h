@@ -36,19 +36,14 @@ public:
 
 private:
     QHBoxLayout *layout; /*!< QHBoxLayout object */
-    QLabel *stateLabel;
-    QLabel *nameLabel; /*!< Campus name - QLabel  object */
+    QLabel *stateLabel; /*!< Campus state - QLabel object */
+    QLabel *nameLabel; /*!< Campus name - QLabel object */
     QComboBox *menuItems; /*!< QComboBox of menu items */
 
     QComboBox *endC;
     //campus that this ui element represents
     Campus campus; /*!< Campus associated with widget */
     MainWindow *parent; /*!< Reference to the main application */
-
-private slots:
-    //these call methods in mainwindow.cpp
-
-
 
 };
 

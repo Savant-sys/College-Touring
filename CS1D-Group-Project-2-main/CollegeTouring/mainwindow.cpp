@@ -18,21 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
       ui->tabWidget->setTabEnabled(8, false);
     }
     Update();
-//    if(db.getCampuses(this->campuses))
-//        qInfo() << "Got all campuses list";
 
-//    QListWidget *campusList = ui->campusList;
-
-//    for (int i =0; i < this->campuses.size(); i++)
-//    {
-//        CampusWidget *campusItem = new CampusWidget(campuses[i], this);
-//        QListWidgetItem *item = new QListWidgetItem(campusList);
-//        campusList->addItem(item);
-//        item->setSizeHint(campusItem->minimumSizeHint());
-//        campusList->setItemWidget(item, campusItem);
-//    }
-
-//    //ui->priceText->setValidator(new QDoubleValidator(0, 100, 2, this));
 
 }
 
@@ -220,9 +206,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         for(int j = 0; j < endColleges.size(); j++)
         {
-            //qWarning() << dist.at(j) << " " << endColleges.at(j);
+
             c++;
-            //qWarning() << dist << "from: " << campuses.at(i).getStartCollege() << "To: " << endColleges;
+
         }
     }
     if(index == 1) //custom trip
@@ -251,7 +237,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         ui->CustomTripPrices->clear();
         ui->pushButton->setEnabled(true);
         ui->pushButton_2->setEnabled(false);
-        //ui->CustomConvert->setEnabled(true);
+
         ui->CustomTripList->setSelectionMode(QAbstractItemView::SingleSelection);
 
         db.getCampuses(this->campuses);
@@ -281,24 +267,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                      }
                      ui->CustomTripList->addItem(collegeMap.getOrigin(key));
                 }
-//        qWarning() << "Switching from vec to map";
 
-//        collegeMap.putVectorinHere(this->campuses);
-//        qWarning() << "Done putting";
-
-//        pair<int, double> key;
-//        QString add = "";
-//        for(int i = 0; i < campuses.size(); i++)
-//        {
-//             dist = campuses.at(i).getDistances();
-//             key.first = i;
-//             for(int j = 0; j < dist.size(); j++)
-//             {
-//                 key.second = dist.at(j);
-//             }
-//             ui->CustomTripList->addItem(collegeMap.getOrigin(key));
-//        }
-       // collegeMap.DFS(6);
 
     }
 
@@ -332,9 +301,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
         ui->pushButton_5->setEnabled(false);
         ui->CustomDijkstraList->clear();
-        //ui->listWidget->clear();
+
         ui->addStateD->setEnabled(true);
-       // ui->CustomConvert_2->setEnabled(true);
+
         collegeMap.numToPrint.clear();
         collegeMap.pathDists.clear();
         collegeMap.parent.clear();
@@ -366,7 +335,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                      }
                      ui->CustomDijkstraList->addItem(collegeMap.getOrigin(key));
                 }
-               // ui->CustomConvert_2->setEnabled(false);
+
     }
     if(index == 3) // Saddleback to all Dijkstra trip
     {
@@ -390,18 +359,16 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         ui->SelectedCollegesList_2->insertColumn(1);
         ui->SelectedCollegesList_2->setColumnWidth(0, 230);
         ui->SelectedCollegesList_2->setColumnWidth(1, 50);
-        //ui->CustomTripList->clear();
+
         ui->SaddlebackTripSouvs->clear();
         ui->SaddlebackTripPrices->clear();
-        //ui->pushButton_5->setEnabled(true);
-        //ui->pushButton_6->setEnabled(false);
-        //ui->CustomConvert_3->setEnabled(true);
+
         ui->AllSaddlebackList->setSelectionMode(QAbstractItemView::SingleSelection);
-        //ui->pushButton_6->setEnabled(false);
+
         ui->AllSaddlebackList->clear();
-        //ui->Sadd->clear();
+
         ui->addStateD_2->setEnabled(true);
-        //ui->CustomConvert_3->setEnabled(true);
+
         collegeMap.numToPrint.clear();
         collegeMap.pathDists.clear();
         collegeMap.parent.clear();
@@ -433,7 +400,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                      }
                      ui->AllSaddlebackList->addItem(collegeMap.getOrigin(key));
                 }
-               // ui->CustomConvert_3->setEnabled(false);
+
     }
     if(index == 4) // Michigan to any Dijkstra trip
     {
@@ -457,18 +424,16 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         ui->SelectedCollegesList_3->insertColumn(1);
         ui->SelectedCollegesList_3->setColumnWidth(0, 230);
         ui->SelectedCollegesList_3->setColumnWidth(1, 50);
-        //ui->CustomTripList->clear();
+
         ui->MichTripSouvs->clear();
         ui->MichTripPrices->clear();
-        //ui->pushButton_5->setEnabled(true);
-        //ui->pushButton_7->setEnabled(false);
-       // ui->CustomConvert_4->setEnabled(true);
+
         ui->MichSpecificList->setSelectionMode(QAbstractItemView::SingleSelection);
-        //ui->pushButton_6->setEnabled(false);
+
         ui->MichSpecificList->clear();
-        //ui->Sadd->clear();
+
         ui->StartMich->setEnabled(true);
-        //ui->CustomConvert_3->setEnabled(true);
+
         collegeMap.numToPrint.clear();
         collegeMap.pathDists.clear();
         collegeMap.parent.clear();
@@ -549,16 +514,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                 }
                 //ui->CustomConvert_4->setEnabled(false);
                 ui->MSTLIST->setRowCount(0);
-               // ui->MSTLIST->setColumnCount(0);
+
                 ui->MSTLIST->clear();
                 collegeMap.coll = campuses.size();
-//                for(int j = 0; j < campuses.size(); j++)
-//                {
-//                    for(int m = 0; m < collegeMap.ans.size(); m++)
-//                    {
 
-
-//                    }
                     collegeMap.MST();
                     Graph g(campuses.size()); //maybe -1
                     for(int i = 0; i < collegeMap.forMST.size(); i++)
@@ -578,9 +537,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                             if(g.ansList[i][1] == j)
                                 distance = QString::number(g.ansList[i][2]);
                         }
-                         //QString::number(g.ansList[i][0]);
-                        //QString::number(g.ansList[i][1]);
-                        //QString dist = QString::number(g.ansList[i][2]);
+
                         ui->MSTLIST->insertRow(ui->MSTLIST->rowCount());
                         ui->MSTLIST->setItem(ui->MSTLIST->rowCount()-1,0, new QTableWidgetItem(begin));
                         ui->MSTLIST->setItem(ui->MSTLIST->rowCount()-1,1, new QTableWidgetItem(end));
@@ -588,19 +545,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                         //qWarning() << QString::number(i) <<" "<< g.ansList[i][0] << " " << g.ansList[i][1];
                     }
                     ui->TotalDistMST->setText(QString::number(g.ans));
-                    //qWarning() << "total weight" << g.ans;
-//                    ui->MSTLIST->setRowCount(0);
-//                    ui->MSTLIST->clear();
-//                    double totDist = 0;
-//                    for(int i = 0; i < collegeMap.ans.size(); i++)
-//                    {
-//                        totDist += collegeMap.ans[i].dist;
-//                        ui->MSTLIST->insertRow(ui->MSTLIST->rowCount());
-//                        ui->MSTLIST->setItem(i,0, new QTableWidgetItem(collegeMap.ans[i].origin));
-//                        ui->MSTLIST->setItem(i,1, new QTableWidgetItem(collegeMap.ans[i].dest));
-//                        ui->MSTLIST->setItem(i,2, new QTableWidgetItem(QString::number(collegeMap.ans[i].dist)));
-//                    }
-//                    ui->TotalDistMST->setText(QString::number(totDist));
+
                 }
 
     if(index == 6)
@@ -645,10 +590,7 @@ void MainWindow::on_tabWidget_currentChanged(int index)
                      }
 
                 }
-        /*for(int u = 0; u < TABLE_SIZE; u++)
-        {
-            ui->listWidgetOrigin->collegeMap.hashTable2[u].origin;
-        }*/
+
         collegeMap.coll = campuses.size();
         collegeMap.DFS(6);
     for(int m = 0; m <TABLE_SIZE; m++)
@@ -675,6 +617,9 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     if(index == 7)
     {
+        ui->listWidgetDest_2->clear();
+                ui->listWidgetOrigin_2->clear();
+                ui->listWidgetDist_2->clear();
         collegeMap.ans.clear();
         collegeMap.dist.clear();
         collegeMap.pathDists.clear();
@@ -736,8 +681,7 @@ void MainWindow::on_pushButton_clicked()
     {
         qWarning() << "Start of Trip Added";
         QString start = ui->CustomTripList->currentItem()->text();
-       // ui->CustomTripList->currentItem()->setSelected(false);
-        //ui->CustomTripList->removeItemWidget(ui->CustomTripList->currentItem());
+
         ui->CustomTripList->currentItem()->setHidden(true);
         ui->pushButton->setEnabled(false);
         ui->CustomTripList->setSelectionMode(QAbstractItemView::MultiSelection);
@@ -841,11 +785,7 @@ void MainWindow::on_AddToCart_clicked() //adds current item from current college
         if(ui->Cart->rowCount() != 0)
         {
 
-           // QVector<QTableWidgetItem*> cartColl = ui->Cart->findItems(college, Qt::MatchFixedString);
-          // QVector<QTableWidgetItem*> cartItems = ui->Cart->findItems(name, Qt::MatchFixedString);
-           //for(int i = 0; i < cartItems.size(); i++)
-           //{
-               //collComp = cartColl.at(i)->text();
+
                for(int n = 0; n < ui->Cart->rowCount(); n++)
                {
                    if(ui->Cart->item(n,0)->text() == name && college == ui->Cart->item(n,3)->text())
@@ -854,17 +794,16 @@ void MainWindow::on_AddToCart_clicked() //adds current item from current college
                        check = true;
                    }
                }
-           // if(cartItems.at(i)->data(0).toString() == name && college == collComp)
+
                if(check == true)
             {
-                int newquant = quantity.toInt()/* + cartItems.at(i)->data(2).toInt()*/;
-                //cartItems.at(i)->data(2).setValue(newquant);
+                int newquant = quantity.toInt();
+
 
                 ui->Cart->item(index,2)->setText(QString::number(newquant));
-                //qWarning() << name;
-                //check = true;
+
             }
-           //}
+
         }
         if(check == false)
         {
@@ -931,14 +870,7 @@ void MainWindow::addItem(Campus campus, vector<Souvenir> newMenu)
             std::vector<Souvenir> menu = campus.getMenu();
             menu.push_back(newItem);
             this->db.modifySouvenir(campus, menu);
-            //    for (int i = 0; i < campuses.size(); i++)
-            //    {
-            //        if (campus.getStartCollege() == campuses[i].getStartCollege())
-            //        {
-            //            this->db.modifySouvenir(campus, menu, i);
-            //            break;
-            //        }
-            //    }
+
 
                 //update campuses
             this->db.getCampuses(this->campuses);
@@ -993,8 +925,7 @@ void MainWindow::deleteItem(Campus campus, vector<Souvenir> newMenu){
     this->db.getCampuses(this->campuses);
 
     //update ui
-//    vector<Souvenir> test = campuses[0].getMenu();
-//    qInfo() << "TESTMENU" << test[0].name;
+
 
     QListWidget *campusList = ui->campusList;
     campusList->clear();
@@ -1159,74 +1090,6 @@ void MainWindow::on_openAll_clicked()
 }
 
 
-//void MainWindow::on_sortStateEnd_clicked()
-//{
-//    update();
-//    ui->campusList->clear();
-//    db.getCampuses(this->campuses);
-//        qInfo() << "Got all campuses list";
-//    qWarning() << this->campuses.at(0).getMenu().at(0).name;
-//    QListWidget *campusList = ui->campusList;
-
-//    vector<Campus> sort = campuses;
-
-//        int j = 0;
-//        bool swap = true;
-
-//        while (swap)
-//        {
-//            swap = false;
-//            j++;
-//            for (int l = 0; l < sort.size() - j; l++)
-//            {
-//                qInfo () << "sorted state\n";
-//                if (sort[l].getState() > sort[l + 1].getState())
-//                {
-//                    Campus temp(sort[l]);
-//                    sort[l] = sort[l + 1];
-//                    sort[l + 1] = temp;
-//                    swap = true;
-//                }
-//            }
-//        }
-
-//        swap = true;
-//        j = 0;
-//        for (int i = 0; i < sort.size(); i++)
-//        {
-//            vector<QString> endCollegesSort = sort[i].getEndCollege();
-//            while(swap)
-//            {
-//                swap = false;
-//                j++;
-//                for (int l = 0; l < endCollegesSort.size() - j; l++)
-//                {
-//                    qInfo () << "sorted start\n";
-//                    if (endCollegesSort[l] > endCollegesSort[l + 1])
-//                    {
-//                        QString temp = endCollegesSort[l];
-//                        endCollegesSort[l] = endCollegesSort[l + 1];
-//                        endCollegesSort[l + 1] = temp;
-//                        swap = true;
-//                    }
-//                }
-//            }
-//            Campus backSort(sort[i].getStartCollege(), endCollegesSort, sort[i].getDistances(), sort[i].getState(), sort[i].getUndergrads(),sort[i].getMenu());
-//            sort[i] = backSort;
-//        }
-
-
-//    for (int i =0; i < sort.size(); i++)
-//    {
-
-//            CampusWidget *campusItem = new CampusWidget(sort[i], this);
-//            QListWidgetItem *item = new QListWidgetItem(campusList);
-//            campusList->addItem(item);
-//            item->setSizeHint(campusItem->minimumSizeHint());
-//            campusList->setItemWidget(item, campusItem);
-
-//    }
-//}
 
 
 void MainWindow::on_sortStateStart_clicked()
@@ -1344,68 +1207,6 @@ void MainWindow::on_addStateD_clicked() // add start dijkstra
 
 }
 
-
-//void MainWindow::on_CustomConvert_clicked()
-//{
-//    db.getCampuses(this->campuses);
-//    //switch from vector to map
-//    int c =0;
-//    vector<QString> endColleges;
-//    vector<double> dist;
-//    for(int i = 0; i < campuses.size(); i++)
-//    {
-//        endColleges = campuses[i].getEndCollege();
-//        dist = campuses.at(i).getDistances();
-//    }
-//    qWarning() << "Switching from vec to map";
-
-//            collegeMap.putVectorinHere(this->campuses);
-//            qWarning() << "Done putting";
-
-//            pair<int, double> key;
-//            QString add = "";
-//            for(int i = 0; i < campuses.size(); i++)
-//            {
-//                 dist = campuses.at(i).getDistances();
-//                 key.first = i;
-//                 for(int j = 0; j < dist.size(); j++)
-//                 {
-//                     key.second = dist.at(j);
-//                 }
-//                 ui->CustomTripList->addItem(collegeMap.getOrigin(key));
-//            }
-//}
-
-//void MainWindow::on_CustomConvert_2_clicked()
-//{
-//    db.getCampuses(this->campuses);
-//    //switch from vector to map
-//    int c =0;
-//    vector<QString> endColleges;
-//    vector<double> dist;
-//    for(int i = 0; i < campuses.size(); i++)
-//    {
-//        endColleges = campuses[i].getEndCollege();
-//        dist = campuses.at(i).getDistances();
-//    }
-//    qWarning() << "Switching from vec to map";
-
-//            collegeMap.putVectorinHere(this->campuses);
-//            qWarning() << "Done putting";
-//            pair<int, double> key;
-//            QString add = "";
-//            for(int i = 0; i < campuses.size(); i++)
-//            {
-//                 dist = campuses.at(i).getDistances();
-//                 key.first = i;
-//                 for(int j = 0; j < dist.size(); j++)
-//                 {
-//                     key.second = dist.at(j);
-//                 }
-//                 ui->CustomDijkstraList->addItem(collegeMap.getOrigin(key));
-//            }
-//            ui->CustomConvert_2->setEnabled(false);
-//}
 
 
 
@@ -1615,11 +1416,7 @@ void MainWindow::on_AddToCartM_clicked()
         if(ui->CartMich->rowCount() != 0)
         {
 
-           // QVector<QTableWidgetItem*> cartColl = ui->Cart->findItems(college, Qt::MatchFixedString);
-          // QVector<QTableWidgetItem*> cartItems = ui->Cart->findItems(name, Qt::MatchFixedString);
-           //for(int i = 0; i < cartItems.size(); i++)
-           //{
-               //collComp = cartColl.at(i)->text();
+
                for(int n = 0; n < ui->CartMich->rowCount(); n++)
                {
                    if(ui->CartMich->item(n,0)->text() == name && college == ui->CartMich->item(n,3)->text())
@@ -1635,8 +1432,7 @@ void MainWindow::on_AddToCartM_clicked()
                 //cartItems.at(i)->data(2).setValue(newquant);
 
                 ui->CartMich->item(index,2)->setText(QString::number(newquant));
-                //qWarning() << name;
-                //check = true;
+
             }
            //}
         }
@@ -1668,36 +1464,7 @@ void MainWindow::on_MichTripPrices_itemClicked(QListWidgetItem *item)
         ui->MichTripSouvs->setCurrentRow(row);
 }
 
-//void MainWindow::on_CustomConvert_4_clicked()
-//{
-//    db.getCampuses(this->campuses);
-//    //switch from vector to map
-//    int c =0;
-//    vector<QString> endColleges;
-//    vector<double> dist;
-//    for(int i = 0; i < campuses.size(); i++)
-//    {
-//        endColleges = campuses[i].getEndCollege();
-//        dist = campuses.at(i).getDistances();
-//    }
-//    qWarning() << "Switching from vec to map";
 
-//            collegeMap.putVectorinHere(this->campuses);
-//            qWarning() << "Done putting";
-//            pair<int, double> key;
-//            QString add = "";
-//            for(int i = 0; i < campuses.size(); i++)
-//            {
-//                 dist = campuses.at(i).getDistances();
-//                 key.first = i;
-//                 for(int j = 0; j < dist.size(); j++)
-//                 {
-//                     key.second = dist.at(j);
-//                 }
-//                 ui->MichSpecificList->addItem(collegeMap.getOrigin(key));
-//            }
-//            ui->CustomConvert_4->setEnabled(false);
-//}
 
 void MainWindow::on_StartMich_clicked() //start Michigan Dijkstra path
 {
@@ -1751,12 +1518,7 @@ selected.push_back(start);
 
     //ui->MichSpecificList->clearSelection();
     ui->MichSpecificList->selectAll();
-   // QListWidget* pointer = ui->MichSpecificList;
-   // pointer->selectAll();
-//    for(int n = 0; n < ui->MichSpecificList->count(); n++)
-//    {
-//        ui->MichSpecificList->item(n)->setSelected(true);
-//    }
+
     if(ui->MichSpecificList->selectedItems().count() > 1)
     {
         for(int i = 0; i < ui->MichSpecificList->selectedItems().count(); i++)
@@ -1813,33 +1575,7 @@ selected.push_back(start);
     ui->MichSpecificList->clear();
     bool go = true;
     double totDist = 0;
-    //int inde = 0;
-    //for(int i = 0; i < collegeMap.numToPrint.size(); i++)
-    //{
-//        for(int j = 0; j < TABLE_SIZE; j++)
-//        {
-//            for(int l = 0; l < ui->MichSpecificList->count(); l++)
-//            {
-//                if(ui->MichSpecificList->item(l)->text() == collegeMap.hashTable[j].origin)
-//                    go = false;
-//            }
-//            if(collegeMap.numToPrint.at(i) == collegeMap.hashTable[j].num && go == true)
-//            {
-//                ui->MichSpecificList->addItem(collegeMap.hashTable[j].origin);
-//            }
-//         go = true;
-//        }
-//    }
 
-
-    //{
-        //bool checked = false;
-        //for(int n = 0; n < collegeMap.pathDists.size(); n++)
-       // {
-          //  if(collegeMap.ans.at(i).num == collegeMap.pathDists.at(n).first)
-          //      corrIndex = collegeMap.pathDists.at(n).first;
-       // }
-   // for(int i = 0; i < collegeMap.ans.size(); i++)
         for(int i = collegeMap.ans.size()-1; i >= 0; i--)
     {
         for(int j = 0; j < selected.size(); j++)
@@ -1853,13 +1589,7 @@ selected.push_back(start);
             if(j == collegeMap.ans.at(i).num && checked == false)
             {
                 ui->MichSpecificList->addItem(selected.at(j));
-                //QTableWidgetItem* ansNew = new QTableWidgetItem;
-                //ansNew->setData(0,);
-                //ui->SelectedCollegesList_3->setItem(ui->SelectedCollegesList_3->rowCount()-1, 0, ansNew);
-//                ui->SelectedCollegesList_3->insertRow(ui->SelectedCollegesList_3->rowCount());
-//                QTableWidgetItem* ansNew = new QTableWidgetItem;
-//                ansNew->setData(0,selected.at(j));
-//                ui->SelectedCollegesList_3->setItem(ui->SelectedCollegesList_3->rowCount()-1, 0, ansNew);
+
             }
         }
 
@@ -1893,25 +1623,6 @@ selected.push_back(start);
     }
     ui->TotalDistM->setText(QString::number(totDist));
 
-    /*for(int i = 0; i < collegeMap.ans.size(); i++)
-    {
-        ui->SelectedCollegesList_3->insertRow(ui->SelectedCollegesList_3->rowCount());
-        QTableWidgetItem* ansNew = new QTableWidgetItem;
-        ansNew->setData(0,QString::number(collegeMap.ans.at(i).num));
-        ui->SelectedCollegesList_3->setItem(ui->SelectedCollegesList_3->rowCount()-1, 0, ansNew);
-
-    }
-    ui->SelectedCollegesList_3->insertRow(ui->SelectedCollegesList_3->rowCount());
-    QTableWidgetItem* ansNewEnd = new QTableWidgetItem;
-    ansNewEnd->setData(0,QString::number(endNum));
-    ui->SelectedCollegesList_3->setItem(ui->SelectedCollegesList_3->rowCount()-1, 0, ansNewEnd);*/
-    /*for(int i = 0; i < TABLE_SIZE; i++)
-    {
-        if(collegeMap.hashTable[i].num == ui->SelectedCollegesList_3->item(0,0)->text().toInt() && ui->SelectedCollegesList_3->item(1,0)->text().toInt() == collegeMap.hashTable[i].dist)
-        totDist += collegeMap.dist.at(i);
-    }
-            ui->TotalDistM->setText(QString::number(totDist));
-*/
 
     qWarning() << "Dijkstra complete";
 }
@@ -2004,11 +1715,7 @@ void MainWindow::on_AddToCartSA_clicked()
         if(ui->CartSaddleback->rowCount() != 0)
         {
 
-           // QVector<QTableWidgetItem*> cartColl = ui->Cart->findItems(college, Qt::MatchFixedString);
-          // QVector<QTableWidgetItem*> cartItems = ui->Cart->findItems(name, Qt::MatchFixedString);
-           //for(int i = 0; i < cartItems.size(); i++)
-           //{
-               //collComp = cartColl.at(i)->text();
+
                for(int n = 0; n < ui->CartSaddleback->rowCount(); n++)
                {
                    if(ui->CartSaddleback->item(n,0)->text() == name && college == ui->CartSaddleback->item(n,3)->text())
@@ -2085,36 +1792,7 @@ void MainWindow::on_AllSaddlebackList_itemClicked(QListWidgetItem *item)
     }
 }
 
-//void MainWindow::on_CustomConvert_3_clicked()
-//{
-//    db.getCampuses(this->campuses);
-//    //switch from vector to map
-//    int c =0;
-//    vector<QString> endColleges;
-//    vector<double> dist;
-//    for(int i = 0; i < campuses.size(); i++)
-//    {
-//        endColleges = campuses[i].getEndCollege();
-//        dist = campuses.at(i).getDistances();
-//    }
-//    qWarning() << "Switching from vec to map";
 
-//            collegeMap.putVectorinHere(this->campuses);
-//            qWarning() << "Done putting";
-//            pair<int, double> key;
-//            QString add = "";
-//            for(int i = 0; i < campuses.size(); i++)
-//            {
-//                 dist = campuses.at(i).getDistances();
-//                 key.first = i;
-//                 for(int j = 0; j < dist.size(); j++)
-//                 {
-//                     key.second = dist.at(j);
-//                 }
-//                 ui->AllSaddlebackList->addItem(collegeMap.getOrigin(key));
-//            }
-//            ui->CustomConvert_3->setEnabled(false);
-//}
 
 void MainWindow::on_addStateD_2_clicked() // start Dijkstra Saddleback to all
 {
@@ -2138,8 +1816,7 @@ void MainWindow::on_addStateD_2_clicked() // start Dijkstra Saddleback to all
             }
         }
 
-       // ui->CustomTripList->currentItem()->setSelected(false);
-        //ui->CustomTripList->removeItemWidget(ui->CustomTripList->currentItem());
+
         ui->AllSaddlebackList->item(savei)->setSelected(true);
         ui->AllSaddlebackList->item(savei)->setHidden(true);
         //ui->pushButton->setEnabled(false);
@@ -2180,13 +1857,7 @@ selected.push_back(start);
 
         collegeMap.selected(selected, selected.size());
         qWarning() << "Beginning sort on: " << startKey.first << " " << startKey.second;
-//        collegeMap.dijkstra(startKey);
-//        ui->CustomDijkstraList->clear();
-//        for(int i = 0; i < collegeMap.ans.size(); i++)
-//        {
-//            ui->CustomTripList->addItem(collegeMap.ans.at(i).origin/* + " -> " + collegeMap.ans.at(i).dest + " Dist: " + QString::number(collegeMap.ans.at(i).dist)*/);
-//            qWarning() << collegeMap.ans.at(i).origin << " -> " << collegeMap.ans.at(i).dest;
-//        }
+
         ui->AllSaddlebackList->setSelectionMode(QAbstractItemView::SingleSelection);
         //ui->pushButton_6->setEnabled(false);
        // selected
@@ -2196,16 +1867,7 @@ selected.push_back(start);
         qWarning() << "None selected";
     }
 
-//    if(ui->CustomDijkstraList->currentItem() == NULL)
-//        return;
-//    for(int i = 0; i < TABLE_SIZE; i++)
-//    {
-//        if(ui->CustomDijkstraList->currentItem()->text() == collegeMap.hashTable[i].origin)
-//        {
-//            startKey.first = collegeMap.hashTable[i].num;
-//            startKey.second = 0;
-//        }
-//    }
+
     collegeMap.pathDists.clear();
     qWarning() << "starting Dijkstra";
     collegeMap.ans.clear();
@@ -2263,12 +1925,6 @@ selected.push_back(start);
         totDist += collegeMap.dist.at(i);
     }
             ui->TotalDistSA->setText(QString::number(totDist));
-   /* for(int i = 0; i < collegeMap.parent.size(); i++)*//*campuses.size()*/
-    /*{
-        collegeMap.pathsInAns(i);
-        if(collegeMap.ans.size() > i)
-        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) << " " << QString::number(collegeMap.ans.at(i).dist);
-    }*/
 
 
     qWarning() << "Dijkstra complete";
@@ -2384,13 +2040,7 @@ void MainWindow::on_pushButton_5_clicked() //CUSTOM ORDER Dijkstra add selected 
 
         collegeMap.selected(toSelect, toSelect.size());
         qWarning() << "Beginning sort on: " << startKey.first << " " << startKey.second;
-//        collegeMap.dijkstra(startKey);
-//        ui->CustomDijkstraList->clear();
-//        for(int i = 0; i < collegeMap.ans.size(); i++)
-//        {
-//            ui->CustomTripList->addItem(collegeMap.ans.at(i).origin/* + " -> " + collegeMap.ans.at(i).dest + " Dist: " + QString::number(collegeMap.ans.at(i).dist)*/);
-//            qWarning() << collegeMap.ans.at(i).origin << " -> " << collegeMap.ans.at(i).dest;
-//        }
+
         ui->CustomDijkstraList->setSelectionMode(QAbstractItemView::SingleSelection);
         ui->pushButton_5->setEnabled(false);
         ui->AddToCartCD->setEnabled(true);
@@ -2401,16 +2051,7 @@ void MainWindow::on_pushButton_5_clicked() //CUSTOM ORDER Dijkstra add selected 
         qWarning() << "None selected";
     }
 
-//    if(ui->CustomDijkstraList->currentItem() == NULL)
-//        return;
-//    for(int i = 0; i < TABLE_SIZE; i++)
-//    {
-//        if(ui->CustomDijkstraList->currentItem()->text() == collegeMap.hashTable[i].origin)
-//        {
-//            startKey.first = collegeMap.hashTable[i].num;
-//            startKey.second = 0;
-//        }
-//    }
+
     collegeMap.pathDists.clear();
     qWarning() << "starting Dijkstra";
     collegeMap.ans.clear();
@@ -2481,16 +2122,6 @@ void MainWindow::on_pushButton_5_clicked() //CUSTOM ORDER Dijkstra add selected 
                 ui->CustomDijkstraList->addItem(campuses.at(j).getStartCollege());
             }
         }
-//        for(int j = 0; j < toSelect.size(); j++)
-//        {
-
-
-
-//            if(toSelect.at(j) == toDistplay && checked == false && collegeMap.ans.at(i).num != 0)
-//            {
-//                ui->listWidget_2->addItem(toSelect.at(j));
-//            }
-//        }
 
     }
     collegeMap.ans.clear();
@@ -2513,7 +2144,6 @@ void MainWindow::on_pushButton_5_clicked() //CUSTOM ORDER Dijkstra add selected 
     collegeMap.dijkstra(nextKey);
     } //inclue more
 
-    //vector<int> numbers;
     int index = 0;
     QString last = "";
     double totDist = 0;
@@ -2544,54 +2174,6 @@ void MainWindow::on_pushButton_5_clicked() //CUSTOM ORDER Dijkstra add selected 
 
     ui->TotalDistCD->setText(QString::number(totDist));
 
-//    collegeMap.numToPrint.push_back(collegeMap.pathDists.at(0).first);
-
-//    collegeMap.pathDists.erase(collegeMap.pathDists.begin()/* + startKey.first+1*/);
-//    collegeMap.ans.clear();
-//    qWarning() << "Coll: " << collegeMap.coll << " finding the rest";
-//    double smallest = 9999;
-//    int pathIndex = 0;
-//    for(int i = 0; i < collegeMap.pathDists.size(); i++)
-//    {
-//        if(smallest > collegeMap.pathDists.at(i).second)
-//        {
-//            pathIndex = collegeMap.pathDists.at(i).first;
-//            smallest = collegeMap.pathDists.at(i).second;
-//        }
-
-//    }
-//    for(int i = 0; i < collegeMap.pathDists.size(); i++)
-//    {
-//        collegeMap.pathDists.at(i).second = INFINITY;
-//    }
-//    for(int i = 0; i < TABLE_SIZE; i++)
-//    {
-//        collegeMap.hashTable[i].visited = false;
-//    }
-//    collegeMap.dijkstraNext(pathIndex);
-//    bool go = true;
-//    for(int i = 0; i < collegeMap.numToPrint.size(); i++)
-//    {
-//        for(int j = 0; j < TABLE_SIZE; j++)
-//        {
-//            for(int l = 0; l < ui->listWidget->count(); l++)
-//            {
-//                if(ui->listWidget->item(l)->text() == collegeMap.hashTable[j].origin)
-//                    go = false;
-//            }
-//            if(collegeMap.numToPrint.at(i) == collegeMap.hashTable[j].num && go == true)
-//            {
-//                ui->listWidget->addItem(collegeMap.hashTable[j].origin);
-//            }
-//         go = true;
-//        }
-//    }
-   /* for(int i = 0; i < collegeMap.parent.size(); i++)*//*campuses.size()*/
-    /*{
-        collegeMap.pathsInAns(i);
-        if(collegeMap.ans.size() > i)
-        qWarning() << "num " + QString::number(i) + ": " + QString::number(collegeMap.ans.at(i).num) << " " << QString::number(collegeMap.ans.at(i).dist);
-    }*/
 
 
     qWarning() << "Dijkstra complete";

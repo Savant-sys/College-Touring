@@ -55,17 +55,23 @@ public:
      */
     bool getCampuses(vector<Campus>& campuses);
 
-    bool open();
-
+    //! updateNewColleges
+    /*!
+     * \brief Method to modify a campuses' ending colleges in database
+     * \param campus - Campus object that we're trying to modify.
+     * \param endColleges - Vector of endColleges, which represents our updated endColleges.
+     * \param distancesVector - Vector of distances, which represents our updated distances.
+     * \return - Returns boolean of whether operation was successful
+     */
     void updateNewColleges(Campus campus, vector<QString> endColleges, vector<double> distancesVector);
 
 private:
     QSqlDatabase db; /*!< QTSqlite database object for Campuses*/
     QSqlDatabase dbS; /*!< QTSqlite database object for Souvenirs*/
-    QString filePath;
-    QString infile;
-    QString filePathS;
-    QString infileS;
+    QString filePath; /*!< File path for opening QTSqlite database object*/
+    QString infile; /*!< File path for opening excel and read for new colleges*/
+    QString infileS; /*!< File path for opening excel and read for new souvenirs*/
+
 };
 
 

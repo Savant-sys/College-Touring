@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>7</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -125,7 +125,7 @@
          <rect>
           <x>250</x>
           <y>450</y>
-          <width>241</width>
+          <width>252</width>
           <height>171</height>
          </rect>
         </property>
@@ -151,8 +151,8 @@
          <rect>
           <x>770</x>
           <y>520</y>
-          <width>200</width>
-          <height>25</height>
+          <width>260</width>
+          <height>31</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -300,7 +300,7 @@
          </rect>
         </property>
         <property name="maximum">
-         <number>10</number>
+         <number>100</number>
         </property>
        </widget>
        <widget class="QTableWidget" name="SelectedCollegesList">
@@ -443,7 +443,7 @@
          </rect>
         </property>
         <property name="maximum">
-         <number>10</number>
+         <number>100</number>
         </property>
        </widget>
        <widget class="QLineEdit" name="GrandTotalCD">
@@ -675,7 +675,7 @@
          </rect>
         </property>
         <property name="maximum">
-         <number>10</number>
+         <number>100</number>
         </property>
        </widget>
        <widget class="QLineEdit" name="GrandTotalSA">
@@ -769,7 +769,7 @@
          </rect>
         </property>
         <property name="maximum">
-         <number>10</number>
+         <number>100</number>
         </property>
        </widget>
        <widget class="QLabel" name="label_5">
@@ -903,11 +903,11 @@
        <attribute name="title">
         <string>DFS</string>
        </attribute>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>20</y>
+          <x>140</x>
+          <y>80</y>
           <width>931</width>
           <height>351</height>
          </rect>
@@ -966,13 +966,13 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>390</y>
-          <width>190</width>
-          <height>24</height>
+          <x>150</x>
+          <y>450</y>
+          <width>221</width>
+          <height>30</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -1003,8 +1003,8 @@
        <widget class="QWidget" name="layoutWidget_2">
         <property name="geometry">
          <rect>
-          <x>422</x>
-          <y>70</y>
+          <x>450</x>
+          <y>90</y>
           <width>305</width>
           <height>349</height>
          </rect>
@@ -1030,8 +1030,8 @@
          <rect>
           <x>129</x>
           <y>459</y>
-          <width>190</width>
-          <height>24</height>
+          <width>221</width>
+          <height>30</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1057,8 +1057,8 @@
        <widget class="QWidget" name="layoutWidget_4">
         <property name="geometry">
          <rect>
-          <x>733</x>
-          <y>70</y>
+          <x>761</x>
+          <y>90</y>
           <width>306</width>
           <height>349</height>
          </rect>
@@ -1082,8 +1082,8 @@
        <widget class="QWidget" name="layoutWidget_5">
         <property name="geometry">
          <rect>
-          <x>110</x>
-          <y>70</y>
+          <x>138</x>
+          <y>90</y>
           <width>306</width>
           <height>349</height>
          </rect>

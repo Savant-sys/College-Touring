@@ -274,13 +274,9 @@ void Map::dijkstra(pair<int, double> key)
                                    }
                                    else
                                    {/*need ohio edge*/
-                                       parent.at(edge) = curr; //if(hashTable[f].num == j+1)
+                                       parent.at(edge) = curr;
                                    }
-//s = hashTable[saveI].num; //save index of current for prev
-                                   //{
 
-                                   //}
-                                   //update pathDists.second to total distance from start
                                }
                            }
                        }
@@ -303,11 +299,7 @@ hashTable[saveI].visited = true;
         }
     }
     }
-//    for(int i = 0; i < TABLE_SIZE; i++)
-//    {
-//        if(hashTable[i].visited != true)
-//            end = true;
-//    }
+
 bool notFirst = false;
 for(int i =0; i < parent.size(); i++)
 {
@@ -316,9 +308,7 @@ for(int i =0; i < parent.size(); i++)
         notFirst = true;
     }
 }
-    /*if(notFirst == true)
-    parent.at(curr) = s;//hashTable[saveI].num; //set current parent index to prev
-    else*/
+
 if(notFirst == false)
         parent.at(curr) = -2; //start has no parent
 
@@ -360,15 +350,8 @@ if(notFirst == false)
         dijkstra(pathDists.at(curr));
     }
     else
-        return;//{
-        /*for(int i = 0; i < pathDists.size(); i++)
-        {
-            if(pathDists.at(i).second == 10)
-                curr = i;
-        }
-        dijkstra(pathDists.at(curr));
-    }*/
-        //return;//pathsInAns(curr);
+        return;
+
 }
 
 void Map::initPathDist(vector<QString> sel) // for dijkstra
@@ -436,17 +419,7 @@ void Map::BFS(pair<int, double> key)
             smallest = hashTable[i].dist;
 
 
-//            if(!ans.empty())
-//            {
-//                for(int j = 0; j < ans.size(); j++)
-//                {
-//                    if(ans[j].dist > smallest)
-//                    {
-//                        smallest = ans[j].dist;
-//                        check = false;
-//                    }
-//                }
-//            }
+
 
         }
     }
@@ -464,113 +437,7 @@ ans.push_back(edge);
     pair<int, double> newKey;
     newKey .first = key.first;
     BFS(key);
-//    bool found = false;
-//    bool one = true;
-//    bool sck = true;
-//    double smallest = 999999;
-//    int edge = 0;
-//    int curr = 0;
-//    int saveI = 0;
 
-//    for(int j = 0; j < pathDists.size(); j++)
-//    {
-//        if(pathDists.at(j).second != INFINITY)
-//        {
-//            one = false;
-//        }
-//    }
-//    if(one == true)
-//    {
-//       for(int j = 0; j < pathDists.size(); j++)
-//       {
-//           if(pathDists.at(j).first == key.first)
-//               pathDists.at(j).second = 0; //set start
-//       }
-//    }
-
-//    for(int i = 0; i < TABLE_SIZE; i++) //go through map to find current vertex
-//    {
-//        if(hashTable[i].num == key.first && hashTable[i].visited == false /*&& hashTable[i].num != */) //Now at the branches of key college
-//        {
-//                saveI = i; //for hashtable
-//                bool check = false;
-//                for(int j = 0; j < pathDists.size(); j++) //0-10
-//                {
-
-//                    if(pathDists.at(j).first == hashTable[i].num)
-//                    {
-//                        curr = j; //index of pathdists where hashtable is at current vertex
-
-//                    }
-//                }
-//                //if(parent.at(curr) == -1)
-//                //{
-//                for(int f = 0; f < TABLE_SIZE; f++) //go through list of colleges again to find end key
-//                {
-//                   if(hashTable[i].dest == hashTable[f].origin) //now at i's dest
-//                   {
-//                       if(hashTable[f].visited == false)
-//                           check = true;
-//                       //hashTable[f].visited = true;
-//                       for(int j = 0; j < pathDists.size(); j++)
-//                       {
-
-//                           if(pathDists.at(j).first == hashTable[f].num && check == true)//for each branch of key, find corresponding pathDist
-//                           {
-//                               if(pathDists.at(j).second > (hashTable[i].dist + pathDists.at(curr).second))
-//                               {   edge = j;//parent.at(curr) = hashTable[saveI].num;
-//                                   pathDists.at(edge).second = pathDists.at(curr).second + hashTable[i].dist; //only gives dist to saddlback(start)
-//                                   if(parent.at(edge) == -1)
-//                                   {
-//                                       parent.at(edge) = curr; //first run gives inital index
-//                                   }
-//                                   else
-//                                   {/*need ohio edge*/
-//                                       parent.at(edge) = curr; //if(hashTable[f].num == j+1)
-//                                   }
-////s = hashTable[saveI].num; //save index of current for prev
-//                                   //{
-
-//                                   //}
-//                                   //update pathDists.second to total distance from start
-//                               }
-//                           }
-//                       }
-
-//                    }
-//                   //}
-//                }
-//                if(!ans.empty())
-//                {
-//                for(int g = 0; g < ans.size(); g++)
-//                {
-//                     if(ans.at(g).num == curr)
-//                         sck = false;
-//                }
-//                }
-//                if(smallest > pathDists.at(edge).second && smallest != pathDists.at(curr).second && sck == true)
-//                smallest = pathDists.at(edge).second;
-//hashTable[saveI].visited = true;
-//        }
-//    }
-//    bool det = false;
-//    for(int i =0; i < parent.size(); i++)
-//    {
-//        if(parent.at(i) != -1)
-//        {
-//            det = true;
-//        }
-//    }
-//    vector<bool> visited;
-//    visited.resize(saveI,false);
-//    list<int> queue;
-//    visited[curr] = true;
-//    queue.push_back(curr);
-//    while(!queue.empty()){
-//        curr = queue.front();
-//        queue.pop_front();
-
-//        }
 }
 
 void Map::DFS(int q)//start at UCI
@@ -634,9 +501,6 @@ void Map::DFS(int q)//start at UCI
          {
              if(firstDistance == hashTable[u].dist && hashTable[u].num == q  && hashTable[u].num != -1)
              {
-                    /*listWidgetOrigin -> addItem(hashTable[u].origin);
-                    listWidgetDist -> addItem(hashTable[u].dist);
-                    listWidgetDest -> addItem(hashTable[u].dest);*/
 
 
                         hashTable2[incr].num = hashTable[u].num;
@@ -647,14 +511,7 @@ void Map::DFS(int q)//start at UCI
 
                         totalDistanceDFS = hashTable[u].dist + totalDistanceDFS;
 
-                         /*
-                        qInfo() << hashTable[u].num;
-                        qInfo() << hashTable[u].origin;
-                        qInfo() << hashTable[u].dist;
-                        qInfo() << hashTable[u].dest;
-                        qInfo() << hashTable[u].visited;
-                        qInfo() << " ";
-                        */
+
 
                         for(int o = 0; o < TABLE_SIZE; o++)
                         {
@@ -671,17 +528,7 @@ void Map::DFS(int q)//start at UCI
                         }
                }
           }//end U forloop
-//         bool stop = true;
-//         for (int t = 0; t < TABLE_SIZE; t++)
-//          {
 
-//              if(hashTable[t].visited == false)
-//              stop = false;
-
-
-
-//          }
-//         if(stop == true)
          coll--;
          if(coll == 0)
              return;
@@ -787,11 +634,7 @@ void Map::MST()
     hashTable[index].visited = true;
     if(index != 999)
     {
-//        for(int i = 0; i < TABLE_SIZE; i++)
-//        {
-//            if(hashTable[i].num == hashTable[index].num)
-//
-//        }
+
     }
     if(checked == false)
     {

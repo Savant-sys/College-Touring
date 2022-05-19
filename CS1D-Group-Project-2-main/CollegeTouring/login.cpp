@@ -8,8 +8,8 @@ Login::Login(QWidget *parent) :
     ui->setupUi(this);
     connect(this,SIGNAL(Admin()), parent, SLOT(Admin()));
     connect(this,SIGNAL(unlockTab()), parent, SLOT(unlockTab()));
-    username = "";
-    password = "";
+    username = "admin";
+    password = "pass";
     admin = false;
 }
 

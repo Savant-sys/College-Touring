@@ -30,15 +30,16 @@ public:
 
 private:
     QHBoxLayout *layout; /*!< Layout to hold all ui elements */
-    QLabel *nameLabel; /*!< Restaurant name */
+    QLabel *stateLabel; /*!< Campus state */
+    QLabel *nameLabel; /*!< Campus name */
     QComboBox *menuItems; /*!< Combobox of menu items */
     QPushButton *addNewItemButton; /*!< Button to add a new item */
     QPushButton *deleteItemButton; /*!< Button to delete an item */
     QPushButton *editItemButton; /*!< Button to edit an item */
     MainWindow *parent; /*!< Main application reference */
-    QLabel *stateLabel;
 
-    Campus campus; /*!< Restaurant associated with the widget */
+
+    Campus campus; /*!< Campus associated with the widget */
 
 private slots:
 
