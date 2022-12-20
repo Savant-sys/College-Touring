@@ -1,4 +1,12 @@
 # College Touring
+Provides the information of the colleges and the most efficient routes between colleges as the user can choose where to go and receive the best efficient trip.
+
+# Installation
+Qt Creator must be installed before running this application.
+
+Execute the main.cpp to run the application on Qt Creator.
+
+# Requirements
 The team is to write a software that reads data and stores into an ordered 
 or unordered map (not using the map or unordered map STL or the QT map). The 
 underlying data structure of the map is the choice of the college. The map 
